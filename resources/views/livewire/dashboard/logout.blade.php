@@ -1,0 +1,1 @@
+<button type="button" class="btn btn-danger" wire:click='logout'><i class="fas fa-sign-out me-2"></i>Keluar</button>

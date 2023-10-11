@@ -1,0 +1,287 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 10.23
+-- Dumped by pg_dump version 10.23
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: satker_bnn; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.satker_bnn (
+    id integer NOT NULL,
+    nama_satker character varying(34) NOT NULL,
+    kode_satker character varying(7),
+    id_satker integer NOT NULL,
+    kode_provinsi character varying(6) NOT NULL,
+    kode_wilayah character varying(1) NOT NULL
+);
+
+
+ALTER TABLE public.satker_bnn OWNER TO postgres;
+
+--
+-- Data for Name: satker_bnn; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.satker_bnn VALUES (1, 'BNN', 'BNN1', 1, 'PROV6', 'P');
+INSERT INTO public.satker_bnn VALUES (2, 'SEKRETARIAT UTAMA BNN', 'BNN2', 2, 'PROV6', 'P');
+INSERT INTO public.satker_bnn VALUES (3, 'INSPEKTORAT UTAMA', 'BNN3', 3, 'PROV6', 'P');
+INSERT INTO public.satker_bnn VALUES (4, 'DEPUTI BIDANG PENCEGAHAN BNN', 'BNN4', 4, 'PROV6', 'P');
+INSERT INTO public.satker_bnn VALUES (5, 'DEPUTI BIDANG DAYAMAS BNN', 'BNN5', 5, 'PROV6', 'P');
+INSERT INTO public.satker_bnn VALUES (6, 'DEPUTI BIDANG PEMBERANTASAN BNN', 'BNN6', 6, 'PROV6', 'P');
+INSERT INTO public.satker_bnn VALUES (7, 'DEPUTI BIDANG HUKKER BNN', 'BNN7', 7, 'PROV6', 'P');
+INSERT INTO public.satker_bnn VALUES (8, 'PUSLITDATIN', 'BNN9', 9, 'PROV6', 'P');
+INSERT INTO public.satker_bnn VALUES (9, 'PUSAT LABORATORIUM NARKOTIKA BNN', 'BNN 225', 225, 'PROV9', 'P');
+INSERT INTO public.satker_bnn VALUES (10, 'PUSAT PENGEMBANGAN SDM BNN', 'BNN224', 224, 'PROV9', 'P');
+INSERT INTO public.satker_bnn VALUES (11, 'DEPUTI BIDANG REHABILITASI BNN', 'BNN8', 8, 'PROV6', 'P');
+INSERT INTO public.satker_bnn VALUES (12, 'LOKA REHABILITASI BNN BATAM', 'BNN 15', 15, 'PROV18', 'P');
+INSERT INTO public.satker_bnn VALUES (13, 'LOKA REHABILITASI BNN LAMPUNG', 'BNN16', 16, 'PROV19', 'P');
+INSERT INTO public.satker_bnn VALUES (14, 'LOKA REHABILITASI BNN GALI SERDANG', 'BNN17', 17, 'PROV34', 'P');
+INSERT INTO public.satker_bnn VALUES (15, 'BALAI BESAR REHABILITASI', 'BNN10', 10, 'PROV9', 'P');
+INSERT INTO public.satker_bnn VALUES (16, 'BALAI REHABILITASI TANAH MERAH', 'BNN14', 14, 'PROV15', 'P');
+INSERT INTO public.satker_bnn VALUES (17, 'BALAI REHABILITASI BADDOKA', 'BNN13', 13, 'PROV28', 'P');
+INSERT INTO public.satker_bnn VALUES (18, 'BNNP ACEH', 'BNN224', 224, 'PROV4', 'D');
+INSERT INTO public.satker_bnn VALUES (19, 'BNNK KAB ACEH SELATAN', 'BNN22', 22, 'PROV4', 'D');
+INSERT INTO public.satker_bnn VALUES (20, 'BNNK KAB GAYO LUES', 'BNN23', 23, 'PROV4', 'D');
+INSERT INTO public.satker_bnn VALUES (21, 'BNNK KAB PIDIE JAYA', 'BNN18', 18, 'PROV4', 'D');
+INSERT INTO public.satker_bnn VALUES (22, 'BNNK KOTA SABANG', 'BNN24', 24, 'PROV4', 'D');
+INSERT INTO public.satker_bnn VALUES (23, 'BNNK KOTA LHOKSEUMAWE', 'BNN21', 21, 'PROV4', 'D');
+INSERT INTO public.satker_bnn VALUES (24, 'BNNK KOTA LANGSA', 'BNN20', 20, 'PROV4', 'D');
+INSERT INTO public.satker_bnn VALUES (25, 'BNNK KAB BIREUEUN', 'BNN19', 19, 'PROV4', 'D');
+INSERT INTO public.satker_bnn VALUES (26, 'BNNK KAB ACEH TAMIANG', 'BNN25', 25, 'PROV4', 'D');
+INSERT INTO public.satker_bnn VALUES (27, 'BNNK KAB PIDIE', 'BNN26', 26, 'PROV4', 'D');
+INSERT INTO public.satker_bnn VALUES (28, 'BNNK KOTA BANDA ACEH', 'BNN27', 27, 'PROV4', 'D');
+INSERT INTO public.satker_bnn VALUES (29, 'BNNP SUMATERA UTARA', 'BNN28', 28, 'PROV34', 'D');
+INSERT INTO public.satker_bnn VALUES (30, 'BNNK KAB KARO', 'BNN36', 36, 'PROV34', 'D');
+INSERT INTO public.satker_bnn VALUES (31, 'BNNK KOTA BINJAI', 'BNN37', 37, 'PROV34', 'D');
+INSERT INTO public.satker_bnn VALUES (32, 'BNNK KOTA TANJUNG BALAI', 'BNN38', 38, 'PROV34', 'D');
+INSERT INTO public.satker_bnn VALUES (33, 'BNNK KOTA GUNUNGSITOLI', 'BNN39', 39, 'PROV34', 'D');
+INSERT INTO public.satker_bnn VALUES (34, 'BNNK KAB DELI SERDANG', 'BNN30', 30, 'PROV34', 'D');
+INSERT INTO public.satker_bnn VALUES (35, 'BNNK KOTA PEMATANGSIANTAR', 'BNN35', 35, 'PROV34', 'D');
+INSERT INTO public.satker_bnn VALUES (36, 'BNNK KAB LANGKAT', 'BNN31', 31, 'PROV34', 'D');
+INSERT INTO public.satker_bnn VALUES (37, 'BNNK KAB ASAHAN', 'BNN29', 29, 'PROV34', 'D');
+INSERT INTO public.satker_bnn VALUES (38, 'BNNK KAB MANDAILING NATAL', 'BNN32', 32, 'PROV34', 'D');
+INSERT INTO public.satker_bnn VALUES (39, 'BNNK KAB TAPANULI SELATAN', 'BNN34', 34, 'PROV34', 'D');
+INSERT INTO public.satker_bnn VALUES (40, 'BNNK KAB SERDANG BEDAGAI', 'BNN33', 33, 'PROV34', 'D');
+INSERT INTO public.satker_bnn VALUES (41, 'BNNK KOTA TEBING TINGGI', 'BNN40', 40, 'PROV34', 'D');
+INSERT INTO public.satker_bnn VALUES (42, 'BNNK KAB SIMALUNGUN', 'BNN43', 43, 'PROV34', 'D');
+INSERT INTO public.satker_bnn VALUES (43, 'BNNK KAB LABUHAN BATU UTARA', 'BNN42', 42, 'PROV34', 'D');
+INSERT INTO public.satker_bnn VALUES (44, 'BNNK KAB BATU BARA', 'BNN41', 41, 'PROV34', 'D');
+INSERT INTO public.satker_bnn VALUES (45, 'BNNP SUMATERA BARAT', 'BNN44', 44, 'PROV32', 'D');
+INSERT INTO public.satker_bnn VALUES (46, 'BNNK KOTA SAWAH LUNTO', 'BNN46', 46, 'PROV32', 'D');
+INSERT INTO public.satker_bnn VALUES (47, 'BNNK KOTA PAYAKUMBUH', 'BNN45', 45, 'PROV32', 'D');
+INSERT INTO public.satker_bnn VALUES (48, 'BNNK KAB SOLOK', 'BNN47', 47, 'PROV32', 'D');
+INSERT INTO public.satker_bnn VALUES (49, 'BNNK KAB PASAMAN BARAT', 'BNN48', 48, 'PROV32', 'D');
+INSERT INTO public.satker_bnn VALUES (50, 'BNNP RIAU', 'BNN49', 49, 'PROV26', 'D');
+INSERT INTO public.satker_bnn VALUES (51, 'BNNK KAB KUANTAN SINGINGI', 'BNN51', 51, 'PROV26', 'D');
+INSERT INTO public.satker_bnn VALUES (52, 'BNNK KAB PELALAWAN', 'BNN52', 52, 'PROV26', 'D');
+INSERT INTO public.satker_bnn VALUES (53, 'BNNK KOTA PEKANBARU', 'BNN50', 50, 'PROV26', 'D');
+INSERT INTO public.satker_bnn VALUES (54, 'BNN DUMAI', 'BNN53', 53, 'PROV26', 'D');
+INSERT INTO public.satker_bnn VALUES (55, 'BNNP JAMBI', 'BNN54', 54, 'PROV8', 'D');
+INSERT INTO public.satker_bnn VALUES (56, 'BNNK KAB TANJUNG JABUNG TIMUR', 'BNN57', 57, 'PROV8', 'D');
+INSERT INTO public.satker_bnn VALUES (57, 'BNNK KOTA JAMBI', 'BNN56', 56, 'PROV8', 'D');
+INSERT INTO public.satker_bnn VALUES (58, 'BNNK KAB BATANG HARI', 'BNN55', 55, 'PROV8', 'D');
+INSERT INTO public.satker_bnn VALUES (59, 'BNNP SUMATERA SELATAN', 'BNN61', 61, 'PROV33', 'D');
+INSERT INTO public.satker_bnn VALUES (60, 'BNNK KAB OGAN ILIR', 'BNN66', 66, 'PROV33', 'D');
+INSERT INTO public.satker_bnn VALUES (61, 'BNNK KOTA PAGAR ALAM', 'BNN63', 63, 'PROV33', 'D');
+INSERT INTO public.satker_bnn VALUES (62, 'BNNK KOTA LUBUKLINGGAU', 'BNN64', 64, 'PROV33', 'D');
+INSERT INTO public.satker_bnn VALUES (63, 'BNNK KAB EMPAT LAWANG', 'BNN65', 65, 'PROV33', 'D');
+INSERT INTO public.satker_bnn VALUES (64, 'BNNK KAB PRABUMULIH', 'BNN62', 62, 'PROV33', 'D');
+INSERT INTO public.satker_bnn VALUES (65, 'BNNK KAB MUARA ENIM', 'BNN67', 67, 'PROV33', 'D');
+INSERT INTO public.satker_bnn VALUES (66, 'BNNK KAB MUSI RAWAS', 'BNN68', 68, 'PROV33', 'D');
+INSERT INTO public.satker_bnn VALUES (67, 'BNNK KAB OGAN KOMERING ILIR', 'BNN69', 69, 'PROV33', 'D');
+INSERT INTO public.satker_bnn VALUES (68, 'BNNK KAB OGAN KOMERING ULU TIMUR', 'BNN70', 70, 'PROV33', 'D');
+INSERT INTO public.satker_bnn VALUES (69, 'BNNP BENGKULU', 'BNN56', 56, 'PROV3', 'D');
+INSERT INTO public.satker_bnn VALUES (70, 'BNNK KOTA BENGKULU', 'BNN60', 60, 'PROV3', 'D');
+INSERT INTO public.satker_bnn VALUES (71, 'BNNK KAB BENGKULU SELATAN', 'BNN59', 59, 'PROV3', 'D');
+INSERT INTO public.satker_bnn VALUES (72, 'BNNP LAMPUNG', 'BNN71', 71, 'PROV19', 'D');
+INSERT INTO public.satker_bnn VALUES (73, 'BNNK KAB TANGGAMUS', 'BNN73', 73, 'PROV19', 'D');
+INSERT INTO public.satker_bnn VALUES (74, 'BNNK KAB LAMPUNG SELATAN', 'BNN72', 72, 'PROV19', 'D');
+INSERT INTO public.satker_bnn VALUES (75, 'BNNK KOTA METRO', 'BNN74', 74, 'PROV19', 'D');
+INSERT INTO public.satker_bnn VALUES (76, 'BNNK KAB LAMPUNG TIMUR', 'BNN75', 75, 'PROV19', 'D');
+INSERT INTO public.satker_bnn VALUES (77, 'BNNK KAB WAY KANAN', 'BNN76', 76, 'PROV19', 'D');
+INSERT INTO public.satker_bnn VALUES (78, 'BNNP KAPULAUAN BANGKA BELITUNG', 'BNN81', 81, 'PROV17', 'D');
+INSERT INTO public.satker_bnn VALUES (79, 'BNNK KAB BANGKA', 'BNN84', 84, 'PROV17', 'D');
+INSERT INTO public.satker_bnn VALUES (80, 'BNNK KOTA PANGKAL PINANG', 'BNN83', 83, 'PROV17', 'D');
+INSERT INTO public.satker_bnn VALUES (81, 'BNNK KAB BELITUNG', 'BNN82', 82, 'PROV17', 'D');
+INSERT INTO public.satker_bnn VALUES (82, 'BNNK KAB BANGKA SELATAN', 'BNN 85', 85, 'PROV17', 'D');
+INSERT INTO public.satker_bnn VALUES (83, 'BNNP KEPULAUAN RIAU', 'BNN77', 77, 'PROV18', 'D');
+INSERT INTO public.satker_bnn VALUES (84, 'BNNK KAB KARIMUN', 'BNN79', 79, 'PROV18', 'D');
+INSERT INTO public.satker_bnn VALUES (85, 'BNNK KOTA BATAM', 'BNN80', 80, 'PROV18', 'D');
+INSERT INTO public.satker_bnn VALUES (86, 'BNNK KOTA TANJUNGPINANG', 'BNN 78', 78, 'PROV18', 'D');
+INSERT INTO public.satker_bnn VALUES (87, 'BNNP BANTEN', 'BNN105', 105, 'PROV2', 'D');
+INSERT INTO public.satker_bnn VALUES (88, 'BNNK KOTA TANGERANG SELATAN', 'BNN106', 106, 'PROV2', 'D');
+INSERT INTO public.satker_bnn VALUES (89, 'BNNK KOTA CILEGON', 'BNN107', 107, 'PROV2', 'D');
+INSERT INTO public.satker_bnn VALUES (90, 'BNNK KOTA TANGERANG', 'BNN108', 108, 'PROV2', 'D');
+INSERT INTO public.satker_bnn VALUES (91, 'BNNP DKI JAKARTA', 'BNN86', 86, 'PROV6', 'D');
+INSERT INTO public.satker_bnn VALUES (92, 'BNNK KOTA JAKARTA SELATAN', 'BNN87', 87, 'PROV6', 'D');
+INSERT INTO public.satker_bnn VALUES (93, 'BNNK KOTA JAKARTA UTARA', 'BNN88', 88, 'PROV6', 'D');
+INSERT INTO public.satker_bnn VALUES (94, 'BNNK KOTA JAKARTA TIMUR', 'BNN89', 89, 'PROV6', 'D');
+INSERT INTO public.satker_bnn VALUES (95, 'BNNP JAWA BARAT', 'BNN90', 90, 'PROV9', 'D');
+INSERT INTO public.satker_bnn VALUES (96, 'BNNK KAB BOGOR', 'BNN91', 91, 'PROV9', 'D');
+INSERT INTO public.satker_bnn VALUES (97, 'BNNK KAB CIANJUR', 'BNN92', 92, 'PROV9', 'D');
+INSERT INTO public.satker_bnn VALUES (98, 'BNNK KOTA BANDUNG', 'BNN 98', 98, 'PROV9', 'D');
+INSERT INTO public.satker_bnn VALUES (99, 'BNNK KAB CIREBON', 'BNN100', 100, 'PROV9', 'D');
+INSERT INTO public.satker_bnn VALUES (100, 'BNNK KOTA CIMAHI', 'BNN99', 99, 'PROV9', 'D');
+INSERT INTO public.satker_bnn VALUES (101, 'BNNK KAB SUKABUMI', 'BNN101', 101, 'PROV9', 'D');
+INSERT INTO public.satker_bnn VALUES (102, 'BNNK KAB GARUT', 'BNN94', 94, 'PROV9', 'D');
+INSERT INTO public.satker_bnn VALUES (103, 'BNNK KAB KUNINGAN', 'BNN96', 96, 'PROV9', 'D');
+INSERT INTO public.satker_bnn VALUES (104, 'BNNK KAB CIAMIS', 'BNN93', 93, 'PROV9', 'D');
+INSERT INTO public.satker_bnn VALUES (105, 'BNNK KOTA DEPOK', 'BNN97', 97, 'PROV9', 'D');
+INSERT INTO public.satker_bnn VALUES (106, 'BNNK KAB KARAWANG', 'BNN95', 95, 'PROV9', 'D');
+INSERT INTO public.satker_bnn VALUES (107, 'BNNK KAB BANDUNG BARAT', 'BNN103', 103, 'PROV9', 'D');
+INSERT INTO public.satker_bnn VALUES (108, 'BNNK KOTA TASIK MALAYA', 'BNN102', 102, 'PROV9', 'D');
+INSERT INTO public.satker_bnn VALUES (109, 'BNNK KAB SUMEDANG', 'BNN104', 104, 'PROV9', 'D');
+INSERT INTO public.satker_bnn VALUES (110, 'BNNP JAWA TENGAH', 'BNN109', 109, 'PROV10', 'D');
+INSERT INTO public.satker_bnn VALUES (111, 'BNNK KAB TEMANGGUNG', 'BNN114', 114, 'PROV10', 'D');
+INSERT INTO public.satker_bnn VALUES (112, 'BNNK KOTA TEGAL', 'BNN116', 116, 'PROV10', 'D');
+INSERT INTO public.satker_bnn VALUES (113, 'BNNK KAB BANYUMAS', 'BNN115', 115, 'PROV10', 'D');
+INSERT INTO public.satker_bnn VALUES (114, 'BNNK KAB CILACAP', 'BNN111', 111, 'PROV10', 'D');
+INSERT INTO public.satker_bnn VALUES (115, 'BNNK KAB KENDAL', 'BNN112', 112, 'PROV10', 'D');
+INSERT INTO public.satker_bnn VALUES (116, 'BNNK KAB BATANG', 'BNN110', 110, 'PROV10', 'D');
+INSERT INTO public.satker_bnn VALUES (117, 'BNNK KAB PURBALINGGA', 'BNN113', 113, 'PROV10', 'D');
+INSERT INTO public.satker_bnn VALUES (118, 'BNNK KAB MAGELANG', 'BNN118', 118, 'PROV10', 'D');
+INSERT INTO public.satker_bnn VALUES (119, 'BNNK KOTA SURAKARTA', 'BNN117', 117, 'PROV10', 'D');
+INSERT INTO public.satker_bnn VALUES (120, 'BNNP DAERAH ISTIMEWA YOGYAKARTA', 'BNN119', 119, 'PROV5', 'D');
+INSERT INTO public.satker_bnn VALUES (121, 'BNNK KAB SLEMAN', 'BNN120', 120, 'PROV5', 'D');
+INSERT INTO public.satker_bnn VALUES (122, 'BNNK KOTA YOGYAKARTA', 'BNN121', 121, 'PROV5', 'D');
+INSERT INTO public.satker_bnn VALUES (123, 'BNNK KAB BANTUL', 'BNN122', 122, 'PROV5', 'D');
+INSERT INTO public.satker_bnn VALUES (124, 'BNNP JAWA TIMUR', 'BNN123', 123, 'PROV11', 'D');
+INSERT INTO public.satker_bnn VALUES (125, 'BNNK KAB SUMENEP', 'BNN138', 138, 'PROV11', 'D');
+INSERT INTO public.satker_bnn VALUES (126, 'BNNK KOTA MOJOKERTO', 'BNN137', 137, 'PROV11', 'D');
+INSERT INTO public.satker_bnn VALUES (127, 'BNNK KOTA MALANG', 'BNN135', 135, 'PROV11', 'D');
+INSERT INTO public.satker_bnn VALUES (128, 'BNNK KOTA BATU', 'BNN133', 133, 'PROV11', 'D');
+INSERT INTO public.satker_bnn VALUES (129, 'BNNK KAB TULUNGAGUNG', 'BNN132', 132, 'PROV11', 'D');
+INSERT INTO public.satker_bnn VALUES (130, 'BNNK KAB NGANJUK', 'BNN129', 129, 'PROV11', 'D');
+INSERT INTO public.satker_bnn VALUES (131, 'BNNK KAB SIDOARJO', 'BNN130', 130, 'PROV11', 'D');
+INSERT INTO public.satker_bnn VALUES (132, 'BNNK KOTA SURABAYA', 'BNN136', 136, 'PROV11', 'D');
+INSERT INTO public.satker_bnn VALUES (133, 'BNNK KOTA KEDIRI', 'BNN126', 126, 'PROV11', 'D');
+INSERT INTO public.satker_bnn VALUES (134, 'BNNK KAB MALANG', 'BNN128', 128, 'PROV11', 'D');
+INSERT INTO public.satker_bnn VALUES (135, 'BNNK KAB GRESIK', 'BNN125', 125, 'PROV11', 'D');
+INSERT INTO public.satker_bnn VALUES (136, 'BNNK KAB TRENGGALEK', 'BNN131', 131, 'PROV11', 'D');
+INSERT INTO public.satker_bnn VALUES (137, 'BNNK KAB LUMAJANG', 'BNN127', 127, 'PROV11', 'D');
+INSERT INTO public.satker_bnn VALUES (138, 'BNNK KAB BLITAR', 'BNN124', 124, 'PROV11', 'D');
+INSERT INTO public.satker_bnn VALUES (139, 'BNNK KAB PASURUAN', 'BNN139', 139, 'PROV11', 'D');
+INSERT INTO public.satker_bnn VALUES (140, 'BNNK KAB TUBAN', 'BNN140', 140, 'PROV11', 'D');
+INSERT INTO public.satker_bnn VALUES (141, 'BNNK KAB KEDIRI', 'BNN134', 134, 'PROV11', 'D');
+INSERT INTO public.satker_bnn VALUES (142, 'BNNP BALI', 'BNN197', 197, 'PROV1', 'D');
+INSERT INTO public.satker_bnn VALUES (143, 'BNNK KOTA DENPASAR', 'BNN199', 199, 'PROV1', 'D');
+INSERT INTO public.satker_bnn VALUES (144, 'BNNK KAB GIANYAR', 'BNN200', 200, 'PROV1', 'D');
+INSERT INTO public.satker_bnn VALUES (145, 'BNNK KAB BANDUNG', 'BNN198', 198, 'PROV1', 'D');
+INSERT INTO public.satker_bnn VALUES (146, 'BNNK KAB BULELENG', 'BNN202', 202, 'PROV1', 'D');
+INSERT INTO public.satker_bnn VALUES (147, 'BNNK KAB KLUNGKUNG', 'BNN203', 203, 'PROV1', 'D');
+INSERT INTO public.satker_bnn VALUES (148, 'BNNK KARANGASEM', 'BNN201', 201, 'PROV1', 'D');
+INSERT INTO public.satker_bnn VALUES (149, 'BNNP NUSA TENGGARA BARAT', 'BNN204', 204, 'PROV22', 'D');
+INSERT INTO public.satker_bnn VALUES (150, 'BNNK KAB BIMA', 'BNN207', 207, 'PROV22', 'D');
+INSERT INTO public.satker_bnn VALUES (151, 'BNNK KOTA MATARAM', 'BNN205', 205, 'PROV22', 'D');
+INSERT INTO public.satker_bnn VALUES (152, 'BNNK KAB SUMBAWA BARAT', 'BNN206', 206, 'PROV22', 'D');
+INSERT INTO public.satker_bnn VALUES (153, 'BNNK KAB SUMBAWA', 'BNN208', 208, 'PROV22', 'D');
+INSERT INTO public.satker_bnn VALUES (154, 'BNNP NUSA TENGGARA TIMUR', 'BNN209', 209, 'PROV23', 'D');
+INSERT INTO public.satker_bnn VALUES (155, 'BNNK KAB BELU', 'BNN212', 212, 'PROV23', 'D');
+INSERT INTO public.satker_bnn VALUES (156, 'BNNK KOTA KUPANG', 'BNN210', 210, 'PROV23', 'D');
+INSERT INTO public.satker_bnn VALUES (157, 'BNNK KAB ROTE NDAO', 'BNN211', 211, 'PROV23', 'D');
+INSERT INTO public.satker_bnn VALUES (158, 'BNNP KALIMANTAN BARAT', 'BNN147', 147, 'PROV12', 'D');
+INSERT INTO public.satker_bnn VALUES (159, 'BNNK KAB BENGKAYANG', 'BNN152', 152, 'PROV12', 'D');
+INSERT INTO public.satker_bnn VALUES (160, 'BNNK KAB SINTANG', 'BNN153', 153, 'PROV12', 'D');
+INSERT INTO public.satker_bnn VALUES (161, 'BNNK KOTA PONTIANAK', 'BNN150', 150, 'PROV12', 'D');
+INSERT INTO public.satker_bnn VALUES (162, 'BNNK KOTA SENGKAWANG', 'BNN151', 151, 'PROV12', 'D');
+INSERT INTO public.satker_bnn VALUES (163, 'BNNK KAB SANGGAU', 'BNN149', 149, 'PROV12', 'D');
+INSERT INTO public.satker_bnn VALUES (164, 'BNNK KAB MEMPAWAH', 'BNN148', 148, 'PROV12', 'D');
+INSERT INTO public.satker_bnn VALUES (165, 'BNNK KAB KUBU RAYA', 'BNN154', 154, 'PROV12', 'D');
+INSERT INTO public.satker_bnn VALUES (166, 'BNNP KALIMANTAN TENGAH', 'BNN144', 144, 'PROV14', 'D');
+INSERT INTO public.satker_bnn VALUES (167, 'BNNK KOTA PALANGKARAYA', 'BNN145', 145, 'PROV14', 'D');
+INSERT INTO public.satker_bnn VALUES (168, 'BNNK KAB KOTAWARINGIN BARAT', 'BNN146', 146, 'PROV14', 'D');
+INSERT INTO public.satker_bnn VALUES (169, 'BNNP KALIMANTAN SELATAN', 'BNN155', 155, 'PROV13', 'D');
+INSERT INTO public.satker_bnn VALUES (170, 'BNNK KAB BARITO KUALA', 'BNN159', 159, 'PROV13', 'D');
+INSERT INTO public.satker_bnn VALUES (171, 'BNNK KOTA BANJARMASIN', 'BNN158', 158, 'PROV13', 'D');
+INSERT INTO public.satker_bnn VALUES (172, 'BNNK KOTA BANJAR BARU', 'BNN157', 157, 'PROV13', 'D');
+INSERT INTO public.satker_bnn VALUES (173, 'BNNK KAB BALANGAN', 'BNN156', 156, 'PROV13', 'D');
+INSERT INTO public.satker_bnn VALUES (174, 'BNNK KAB HULU SUNGAI SELATAN', 'BNN160', 160, 'PROV13', 'D');
+INSERT INTO public.satker_bnn VALUES (175, 'BNNK KAB TANAH LAUT', 'BNN161', 161, 'PROV13', 'D');
+INSERT INTO public.satker_bnn VALUES (176, 'BNNK KAB TABALONG', 'BNN163', 163, 'PROV13', 'D');
+INSERT INTO public.satker_bnn VALUES (177, 'BNNK KAB HULU SUNGAI UTARA', 'BNN162', 162, 'PROV13', 'D');
+INSERT INTO public.satker_bnn VALUES (178, 'BNNP KALIMANTAN TIMUR', 'BNN164', 164, 'PROV15', 'D');
+INSERT INTO public.satker_bnn VALUES (179, 'BNNK KOTA BALIKPAPAN', 'BNN165', 165, 'PROV15', 'D');
+INSERT INTO public.satker_bnn VALUES (180, 'BNNK KAB SAMARINDA', 'BNN166', 166, 'PROV15', 'D');
+INSERT INTO public.satker_bnn VALUES (181, 'BNN BOTANG', 'BNN167', 167, 'PROV15', 'D');
+INSERT INTO public.satker_bnn VALUES (182, 'BNNP KALIMANTAN UTARA', 'BNN141', 141, 'PROV16', 'D');
+INSERT INTO public.satker_bnn VALUES (183, 'BNNK KOTA TARAKAN', 'BNN142', 142, 'PROV16', 'D');
+INSERT INTO public.satker_bnn VALUES (184, 'BNNK KAB NUNUKAN', 'BNN143', 143, 'PROV16', 'D');
+INSERT INTO public.satker_bnn VALUES (185, 'BNNP SULAWASI UTARA', 'BNN168', 168, 'PROV31', 'D');
+INSERT INTO public.satker_bnn VALUES (186, 'BNNK KAB BLAANG MONGONDOW', 'BNN171', 171, 'PROV31', 'D');
+INSERT INTO public.satker_bnn VALUES (187, 'BNNK KOTA BITUNG', 'BNN170', 170, 'PROV31', 'D');
+INSERT INTO public.satker_bnn VALUES (188, 'BNNK KAB MANADO', 'BNN169', 169, 'PROV31', 'D');
+INSERT INTO public.satker_bnn VALUES (189, 'BNNK KAB KEPULAUAN SANGIHE', 'BNN172', 172, 'PROV31', 'D');
+INSERT INTO public.satker_bnn VALUES (190, 'BNNP SULAWESI TENGAH', 'BNN183', 183, 'PROV29', 'D');
+INSERT INTO public.satker_bnn VALUES (191, 'BNNK KAB BANGGAI KEPULAUAN', 'BNN189', 189, 'PROV29', 'D');
+INSERT INTO public.satker_bnn VALUES (192, 'BNNK KAB MOROWALI', 'BNN185', 185, 'PROV29', 'D');
+INSERT INTO public.satker_bnn VALUES (193, 'BNNK KOTA PALU', 'BNN187', 187, 'PROV29', 'D');
+INSERT INTO public.satker_bnn VALUES (194, 'BNNK KAB DONGGALA', 'BNN184', 184, 'PROV29', 'D');
+INSERT INTO public.satker_bnn VALUES (195, 'BNNK KAB POSO', 'BNN186', 186, 'PROV29', 'D');
+INSERT INTO public.satker_bnn VALUES (196, 'BNNK KAB TOJO UNA UNA', 'BNN188', 188, 'PROV29', 'D');
+INSERT INTO public.satker_bnn VALUES (197, 'BNNP SULAWESI SELATAN', 'BNN179', 179, 'PROV28', 'D');
+INSERT INTO public.satker_bnn VALUES (198, 'BNNK KAB TANA TORAJA', 'BNN181', 181, 'PROV28', 'D');
+INSERT INTO public.satker_bnn VALUES (199, 'BNNK KAB BONE', 'BNN182', 182, 'PROV28', 'D');
+INSERT INTO public.satker_bnn VALUES (200, 'BNNK KOTA PALOPO', 'BNN180', 180, 'PROV28', 'D');
+INSERT INTO public.satker_bnn VALUES (201, 'BNNP SULAWESI TENGGARA', 'BNN190', 190, 'PROV30', 'D');
+INSERT INTO public.satker_bnn VALUES (202, 'BNNK KAB MUNA', 'BNN193', 193, 'PROV30', 'D');
+INSERT INTO public.satker_bnn VALUES (203, 'BNNK KAB KOLAKA', 'BNN 192', 192, 'PROV30', 'D');
+INSERT INTO public.satker_bnn VALUES (204, 'BNNK KOTA KENDARI', 'BNN191', 191, 'PROV30', 'D');
+INSERT INTO public.satker_bnn VALUES (205, 'BNNK KOTA BAUBAU', 'BNN194', 194, 'PROV30', 'D');
+INSERT INTO public.satker_bnn VALUES (206, 'BNNP SULAWESI BARAT', 'BNN195', 195, 'PROV27', 'D');
+INSERT INTO public.satker_bnn VALUES (207, 'BNN POLEWALI MANDAR', NULL, 196, 'PROV27', 'D');
+INSERT INTO public.satker_bnn VALUES (208, 'BNNP GORONTALO', 'BNN173', 173, 'PROV7', 'D');
+INSERT INTO public.satker_bnn VALUES (209, 'BNNK KAB BOALEMO', 'BNN176', 176, 'PROV7', 'D');
+INSERT INTO public.satker_bnn VALUES (210, 'BNNK KOTA GORONTALO', 'BNN174', 174, 'PROV7', 'D');
+INSERT INTO public.satker_bnn VALUES (211, 'BNNK KAB BONE BOLANGO', 'BNN175', 175, 'PROV7', 'D');
+INSERT INTO public.satker_bnn VALUES (212, 'BNNK KAB GORONTALO', 'BNN177', 177, 'PROV7', 'D');
+INSERT INTO public.satker_bnn VALUES (213, 'BNNK KAB GORONTALO UTARA', 'BNN178', 178, 'PROV7', 'D');
+INSERT INTO public.satker_bnn VALUES (214, 'BNNP MALUKU', 'BNN213', 213, 'PROV20', 'D');
+INSERT INTO public.satker_bnn VALUES (215, 'BNNK KAB BURU SELATAN', 'BNN215', 215, 'PROV20', 'D');
+INSERT INTO public.satker_bnn VALUES (216, 'BNNK KOTA TUAL', 'BNN214', 214, 'PROV20', 'D');
+INSERT INTO public.satker_bnn VALUES (217, 'BNNP MALUKU UTARA', 'BNN216', 216, 'PROV21', 'D');
+INSERT INTO public.satker_bnn VALUES (218, 'BNNK KAB PULAU MOROTAI', 'BNN219', 219, 'PROV21', 'D');
+INSERT INTO public.satker_bnn VALUES (219, 'BNNK KOTA TIDORE KEPULAUAN', 'BNN217', 217, 'PROV21', 'D');
+INSERT INTO public.satker_bnn VALUES (220, 'BNNK KAB HALMAHERA UTARA', 'BNN218', 218, 'PROV21', 'D');
+INSERT INTO public.satker_bnn VALUES (221, 'BNNP PAPUA BARAT', 'BNN223', 223, 'PROV25', 'D');
+INSERT INTO public.satker_bnn VALUES (222, 'BNNP PAPUA', 'BNN220', 220, 'PROV24', 'D');
+INSERT INTO public.satker_bnn VALUES (223, 'BNNK KAB MIMIKA', 'BNN222', 222, 'PROV24', 'D');
+INSERT INTO public.satker_bnn VALUES (224, 'BNNK KAB JAYAPURA', 'BNN221', 221, 'PROV24', 'D');
+
+
+--
+-- Name: satker_bnn satker_bnn_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.satker_bnn
+    ADD CONSTRAINT satker_bnn_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: TABLE satker_bnn; Type: ACL; Schema: public; Owner: postgres
+--
+
+GRANT ALL ON TABLE public.satker_bnn TO postgres;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
