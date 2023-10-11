@@ -6,7 +6,7 @@
         <h1 class="text-dark fw-bolder mb-3">Masuk ke Aplikasi</h1>
         <!--end::Title-->
         <!--begin::Subtitle-->
-        <div class="text-gray-500 fw-semibold fs-6">Masuk ke Sistem Informasi Pemberdayaan Masyarakat atau <b>DAYAMAS</b></div>
+        <div class="text-gray-500 fw-semibold fs-6">Masuk ke aplikasi Alumni AKPOL Angkatan 95 Patriatama atau <b>IKATAMA</b></div>
         <!--end::Subtitle=-->
      </div>
      <!--begin::Heading-->

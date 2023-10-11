@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\URL;
 // URL::forceRootUrl(config('app.url'));
 
 Route::middleware(['guest'])->group(function () {
-    Route::get('/', HomeIndex::class)->name('home.index');
-    Route::get('/login', Login::class)->name('login');
+    // Route::get('/', HomeIndex::class)->name('home.index');
+    Route::get('/', Login::class)->name('login');
     Route::get('/lupa-password', LupaPassword::class)->name('lupa-password');
 });
 
@@ -36,11 +36,9 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'pengaturan', 'as' => 'pengaturan.'], function () {
         // Pengaturan Website
         Route::get('/website', PengaturanWebsite::class)->name('website');
-        
         // Profil Settings
         Route::get('/profil-saya', PengaturanProfile::class)->name('profile');
         Route::get('/keamanan', PengaturanKeamanan::class)->name('keamanan');
-        
         // Pengaturan User
         Route::get('/user', PengaturanUser::class)->name('user');
     });
