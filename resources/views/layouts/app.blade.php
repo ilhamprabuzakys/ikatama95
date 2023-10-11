@@ -25,13 +25,16 @@ Follow: www.instagram.com/ilhamprabuzakyyys
    <meta property="og:url" content="{{ config('app.url') }}" />
    <meta property="og:site_name" content="SIDAMAS" />
    <link rel="canonical" href="{{ config('app.url') }}" />
-   <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon"/>
+   <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon" />
    <!--begin::Fonts(mandatory for all pages)-->
    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
    <!--end::Fonts-->
    <!--begin::Vendor Stylesheets(used for this page only)-->
    <link href="{{ asset('assets/dist/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet" type="text/css" />
    <link href="{{ asset('assets/dist/assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
+
+   {{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
+   <link href="https://unpkg.com/survey-jquery/defaultV2.min.css" type="text/css" rel="stylesheet">
    <!--end::Vendor Stylesheets-->
    <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
    <link href="{{ asset('assets/dist/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
@@ -166,10 +169,13 @@ Follow: www.instagram.com/ilhamprabuzakyyys
    <!--begin::Global Javascript Bundle(mandatory for all pages)-->
    <script src="{{ asset('assets/dist/assets/plugins/global/plugins.bundle.js') }}"></script>
    <script src="{{ asset('assets/dist/assets/js/scripts.bundle.js') }}"></script>
+   @persist('survey')
+   <script type="text/javascript" src="https://unpkg.com/survey-jquery/survey.jquery.min.js"></script>
+   @endpersist
    <!--end::Global Javascript Bundle-->
    <!--begin::Vendors Javascript(used for this page only)-->
    <script src="{{ asset('assets/dist/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js') }}"></script>
-   <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+   {{--    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
    <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
    <script src="https://cdn.amcharts.com/lib/5/radar.js"></script>
@@ -179,9 +185,12 @@ Follow: www.instagram.com/ilhamprabuzakyyys
    <script src="https://cdn.amcharts.com/lib/5/geodata/continentsLow.js"></script>
    <script src="https://cdn.amcharts.com/lib/5/geodata/usaLow.js"></script>
    <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZonesLow.js"></script>
-   <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script>
-   <script src="assets/dist/assets/plugins/custom/datatables/datatables.bundle.js"></script>
-   <!--end::Vendors Javascript-->
+   <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script> --}}
+
+   <script src="{{ asset('assets/dist/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+   {{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <link href="https://unpkg.com/survey-jquery/defaultV2.min.css" type="text/css" rel="stylesheet">
+   <script type="text/javascript" src="https://unpkg.com/survey-jquery/survey.jquery.min.js"></script> --}}
    <!--begin::Custom Javascript(used for this page only)-->
    <script src="{{ asset('assets/dist/assets/js/widgets.bundle.js') }}"></script>
    <script src="{{ asset('assets/dist/assets/js/custom/widgets.js') }}"></script>
@@ -191,7 +200,10 @@ Follow: www.instagram.com/ilhamprabuzakyyys
    <!--end::Custom Javascript-->
    <!--end::Javascript-->
    @stack('js')
+   @stack('javascript')
+   @stack('scripts')
    @livewireScripts
+   @stack('script')
 </body>
 <!--end::Body-->
 

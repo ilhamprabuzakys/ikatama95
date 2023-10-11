@@ -25,7 +25,7 @@
                   <!--begin::Item-->
                   <li class="breadcrumb-item text-muted">{{ $title }}</li>
                   <!--end::Item-->
-                </ol>
+               </ol>
                <!--end::Breadcrumb-->
             </div>
             <!--end::Page title-->
@@ -63,11 +63,44 @@
    <!--end::Card header-->
    <!--begin::Card body-->
    <div class="card-body py-4">
-
+      <div id="surveyContainer"></div>
    </div>
    <!--end::Card body-->
 </div>
 
+@push('script')
+   <script>
+      $(document).ready(function() {
+         const surveyJson = {
+            elements: [{
+               name: "FirstName",
+               title: "Enter your first name:",
+               type: "text"
+            }, {
+               name: "LastName",
+               title: "Enter your last name:",
+               type: "text"
+            }]
+         };
+
+         const survey = new Survey.Model(surveyJson);
+         survey.focusFirstQuestionAutomatic = false;
+
+         function alertResults(sender) {
+            const results = JSON.stringify(sender.data);
+            alert(results);
+         }
+
+         survey.onComplete.add(alertResults);
+
+         $(function() {
+            $("#surveyContainer").Survey({
+               model: survey
+            });
+         });
+      });
+   </script>
+@endpush
 
 @push('modals')
    <div wire:ignore.self class="modal fade" id="kt_modal_export_users" tabindex="-1" aria-hidden="true">
@@ -263,4 +296,13 @@
       </div>
       <!--end::Modal dialog-->
    </div>
+@endpush
+
+
+@push('style')
+   {{-- Survey JS --}}
+  {{--  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <link href="https://unpkg.com/survey-jquery/defaultV2.min.css" type="text/css" rel="stylesheet">
+   <script type="text/javascript" src="https://unpkg.com/survey-jquery/survey.jquery.min.js"></script> --}}
+   {{-- End Survey JS --}}
 @endpush
