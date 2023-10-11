@@ -8,7 +8,7 @@ use Livewire\Attributes\Title;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
 
-#[Title('Daftar Formulir')]
+#[Title('Edit Formulir')]
 #[Layout('layouts.app')]
 class FormulirUpdate extends Component
 {
