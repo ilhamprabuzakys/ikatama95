@@ -7,9 +7,6 @@ use App\Livewire\Dashboard\Dashboard;
 use App\Livewire\Dashboard\Formulir\FormulirCreate;
 use App\Livewire\Dashboard\Formulir\FormulirIndex;
 use App\Livewire\Dashboard\Formulir\FormulirUpdate;
-use App\Livewire\Dashboard\Laporan\CariLaporan;
-use App\Livewire\Dashboard\Laporan\LaporanRelawan;
-use App\Livewire\Dashboard\Laporan\RekapLaporan;
 use App\Livewire\Dashboard\Pengaturan\PengaturanKeamanan;
 use App\Livewire\Dashboard\Pengaturan\PengaturanProfile;
 use App\Livewire\Dashboard\Pengaturan\PengaturanUser;
@@ -28,13 +25,6 @@ Route::middleware(['guest'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
 
-    // Menu Laporan
-    Route::group(['prefix' => 'laporan', 'as' => 'laporan.'], function () {
-        Route::get('/laporan-relawan', LaporanRelawan::class)->name('laporan-relawan');
-        Route::get('/cari-laporan', CariLaporan::class)->name('cari-laporan');
-        Route::get('/rekap-laporan', RekapLaporan::class)->name('rekap-laporan');
-    });
-   
     // Menu Formulir   
     Route::group(['prefix' => 'formulir', 'as' => 'formulir.'], function () {
         Route::get('/', FormulirIndex::class)->name('index');
@@ -43,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     
+    // Menu Pengaturan
     Route::group(['prefix' => 'pengaturan', 'as' => 'pengaturan.'], function () {
         // Pengaturan Website
         Route::get('/website', PengaturanWebsite::class)->name('website');
