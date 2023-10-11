@@ -72,7 +72,7 @@
                <!--end::Heading-->
                <!--begin::Items-->
                <div class="scroll-y mh-200px mh-lg-325px">
-                  @include('layouts.partials.header.items.search-result')
+                  @include('layouts.partials.header.items.search-recently')
                </div>
                <!--end::Items-->
             </div>

@@ -1,5 +1,5 @@
  <!--begin::Item-->
- <a href="{{ route('pengaturan.profile') }}" class="d-flex text-dark text-hover-primary align-items-center mb-5">
+ <a wire:navigate href="{{ route('pengaturan.profile') }}" class="d-flex text-dark text-hover-primary align-items-center mb-5">
     <!--begin::Symbol-->
     <div class="symbol symbol-40px me-4">
        <span class="symbol-label bg-light">
@@ -16,7 +16,7 @@
  </a>
  <!--end::Item-->
  <!--begin::Item-->
- <a href="{{ route('pengaturan.keamanan') }}" class="d-flex text-dark text-hover-primary align-items-center mb-5">
+ <a wire:navigate href="{{ route('pengaturan.keamanan') }}" class="d-flex text-dark text-hover-primary align-items-center mb-5">
     <!--begin::Symbol-->
     <div class="symbol symbol-40px me-4">
        <span class="symbol-label bg-light">
@@ -33,7 +33,7 @@
  </a>
  <!--end::Item-->
  <!--begin::Item-->
- <a href="{{ route('pengaturan.user') }}" class="d-flex text-dark text-hover-primary align-items-center mb-5">
+ <a wire:navigate href="{{ route('pengaturan.user') }}" class="d-flex text-dark text-hover-primary align-items-center mb-5">
     <!--begin::Symbol-->
     <div class="symbol symbol-40px me-4">
        <span class="symbol-label bg-light">
@@ -50,7 +50,7 @@
  </a>
  <!--end::Item-->
  <!--begin::Item-->
- <a href="{{ route('pengaturan.website') }}" class="d-flex text-dark text-hover-primary align-items-center mb-5">
+ <a wire:navigate href="{{ route('pengaturan.website') }}" class="d-flex text-dark text-hover-primary align-items-center mb-5">
     <!--begin::Symbol-->
     <div class="symbol symbol-40px me-4">
        <span class="symbol-label bg-light">
@@ -67,11 +67,11 @@
  </a>
  <!--end::Item-->
  <!--begin::Item-->
- <a href="{{ route('formulir.index') }}" class="d-flex text-dark text-hover-primary align-items-center mb-5">
+ <a wire:navigate href="{{ route('formulir.index') }}" class="d-flex text-dark text-hover-primary align-items-center mb-5">
     <!--begin::Symbol-->
     <div class="symbol symbol-40px me-4">
        <span class="symbol-label bg-light">
-          <i class="fas fa-store-alt fs-2 text-primary"></i>
+          <i class="fas fa-newspaper fs-2 text-primary"></i>
        </span>
     </div>
     <!--end::Symbol-->

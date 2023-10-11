@@ -10,7 +10,7 @@
 
          <x-sidebar.accordion-item iconClass="fa-regular fa-newspaper fs-2" title="Formulir">
             <x-sidebar.sub-menu-item routeName="formulir.index" menuTitle="Daftar Formulir" tooltipText="Lihat daftar formulir alumni" />
-            <x-sidebar.sub-menu-item routeName="formulir.create" menuTitle="Buat Formulir" tooltipText="Buat formulir alumin" />
+            <x-sidebar.sub-menu-item routeName="formulir.create" menuTitle="Buat Formulir" tooltipText="Buat formulir alumni" />
          </x-sidebar.accordion-item>
 
          <x-sidebar.accordion-item iconClass="fa-solid fa-cog fs-2" title="Konfigurasi">
