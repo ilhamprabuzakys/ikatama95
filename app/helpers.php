@@ -24,7 +24,7 @@ function getErrorsString($e)
     else {
         return 'Terjadi kesalahan yang tidak dikenal.';
     }
-    
+
     $errorString = '<br><br>';
     foreach ($errors as $field => $errorList) {
         foreach ($errorList as $error) {
@@ -54,17 +54,19 @@ function getPublicIP()
     return request()->ip();
 }
 
-function formatTanggalIndonesia($tanggal) {
-   $hari = array("Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu");
-   $bulan = array("", "Jan", "Feb", "Mar", "Apr", "Mei", "Juni", "Juli", "Agust", "Sep", "Okto", "Nov", "Des");
+function formatTanggalIndonesia($tanggal)
+{
+    $hari = array("Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu");
+    $bulan = array("", "Jan", "Feb", "Mar", "Apr", "Mei", "Juni", "Juli", "Agust", "Sep", "Okto", "Nov", "Des");
 
-   $namaHari = $hari[date('w', strtotime($tanggal))];
-   $namaBulan = $bulan[date('n', strtotime($tanggal))];
+    $namaHari = $hari[date('w', strtotime($tanggal))];
+    $namaBulan = $bulan[date('n', strtotime($tanggal))];
 
-   return $namaHari . ", " . date('d', strtotime($tanggal)) . " " . $namaBulan . " " . date('Y', strtotime($tanggal));
+    return $namaHari . ", " . date('d', strtotime($tanggal)) . " " . $namaBulan . " " . date('Y', strtotime($tanggal));
 }
 
-function getUserRoleDetail($role = '') {
+function getUserRoleDetail($role = '')
+{
     if ($role == '') {
         $role = auth()->user()->role;
     }
@@ -88,7 +90,8 @@ function getUserRoleDetail($role = '') {
     return $detail;
 }
 
-function getUserRoleBG($role = '') {
+function getUserRoleBG($role = '')
+{
     if ($role == '') {
         $role = auth()->user()->role;
     }
@@ -112,7 +115,8 @@ function getUserRoleBG($role = '') {
     return $bg;
 }
 
-function getUserRoleShort($role = '') {
+function getUserRoleShort($role = '')
+{
     if ($role == '') {
         $role = auth()->user()->role;
     }
@@ -137,4 +141,61 @@ function getUserRoleShort($role = '') {
         $detail = strtoupper($detail);
     }
     return $detail;
+}
+
+function getPages()
+{
+    $pages = collect([
+        [
+            'name' => 'Dashboard Utama',
+            'icon' => 'mdi-monitor',
+            'url' => route('dashboard')
+        ],
+        [
+            'name' => 'Daftar Postingan',
+            'icon' => 'mdi-library-outline',
+            'url' => route('posts.index')
+        ],
+        [
+            'name' => 'Buat Postingan',
+            'icon' => 'mdi-library-outline',
+            'url' => route('posts.create')
+        ],
+        [
+            'name' => 'Daftar Ebook',
+            'icon' => 'mdi-book-check-outline',
+            'url' => route('ebooks.index')
+        ],
+        [
+            'name' => 'Buat Ebook',
+            'icon' => 'mdi-book-check-outline',
+            'url' => route('ebooks.create')
+        ],
+        [
+            'name' => 'Daftar Aktivitas',
+            'icon' => 'mdi-resistor',
+            'url' => route('logs.index')
+        ],
+        [
+            'name' => 'Profil Saya',
+            'icon' => 'mdi-account-outline',
+            'url' => route('profile')
+        ],
+        [
+            'name' => 'Pengaturan Profil',
+            'icon' => 'mdi-account-outline',
+            'url' => route('settings', ['tab' => 'profile'])
+        ],
+        [
+            'name' => 'Pengaturan Keamanan',
+            'icon' => 'mdi-cog-outline',
+            'url' => route('settings', ['tab' => 'security'])
+        ],
+        [
+            'name' => 'Pengaturan Sosial Media',
+            'icon' => 'mdi-cog-outline',
+            'url' => route('settings', ['tab' => 'social-media'])
+        ],
+    ]);
+    return $pages;
 }

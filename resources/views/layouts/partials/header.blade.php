@@ -16,8 +16,8 @@
             <!--end::Sidebar mobile toggle-->
             <!--begin::Logo-->
             <a href="{{ route('dashboard') }}" class="app-sidebar-logo me-2">
-               {{-- <img alt="Logo" src="{{ asset('assets/images/favicon.png') }}" class="h-25px theme-light-show" /> --}}
-               <img alt="Logo" src="{{ asset('assets/images/header.png') }}" class="h-50px w-100 theme-light-show" />
+               <img alt="Logo" src="{{ asset('assets/images/favicon.png') }}" class="h-50px w-100 theme-light-show" />
+               {{-- <img alt="Logo" src="{{ asset('assets/images/header.png') }}" class="h-50px w-100 theme-light-show" /> --}}
                {{-- <img alt="Logo" src="{{ asset('assets/images/favicon.png') }}" class="h-25px theme-dark-show" /> --}}
             </a>
             {{-- <h3 class="d-flex align-self-end my-auto" style="color: #0051ff; letter-spacing: 3px;">SIDAMAS</h3> --}}
@@ -47,7 +47,7 @@
                   <i class="ki-outline ki-magnifier search-icon fs-2 text-gray-500 position-absolute top-50 translate-middle-y ms-5"></i>
                   <!--end::Icon-->
                   <!--begin::Input-->
-                  <input type="text" class="search-input form-control form-control border-0 h-lg-45px ps-13" name="search" value="" placeholder="Search..."
+                  <input type="text" class="search-input form-control form-control border-0 h-lg-45px ps-13" name="search" value="" placeholder="Pencarian..."
                      data-kt-search-element="input" />
                   <!--end::Input-->
                   <!--begin::Spinner-->
@@ -71,10 +71,10 @@
                         <!--begin::Items-->
                         <div class="scroll-y mh-200px mh-lg-350px">
                            <!--begin::Category title-->
-                           <h3 class="fs-5 text-muted m-0 pt-5 pb-5" data-kt-search-element="category-title">Projects</h3>
+                           <h3 class="fs-5 text-muted m-0 pt-5 pb-5" data-kt-search-element="category-title">Hasil pencarian</h3>
                            <!--end::Category title-->
                            <!--begin::Item-->
-                           <a href="#" class="d-flex text-dark text-hover-primary align-items-center mb-5">
+                           <a href="javascript:void(0)" class="d-flex text-dark text-hover-primary align-items-center mb-5">
                               <!--begin::Symbol-->
                               <div class="symbol symbol-40px me-4">
                                  <span class="symbol-label bg-light">
@@ -304,8 +304,8 @@
                         <!--end::Icon-->
                         <!--begin::Message-->
                         <div class="pb-15 fw-semibold">
-                           <h3 class="text-gray-600 fs-5 mb-2">No result found</h3>
-                           <div class="text-muted fs-7">Please try again with a different query</div>
+                           <h3 class="text-gray-600 fs-5 mb-2">Pencarian tidak ditemukan</h3>
+                           <div class="text-muted fs-7">Coba lagi dengan kata kunci yang lain</div>
                         </div>
                         <!--end::Message-->
                      </div>
@@ -481,10 +481,62 @@
          </div>
 
 
+         <!--begin::Menu toggle-->
+         <a href="javascript:void(0);" class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-35px h-35px" data-kt-menu-trigger="{default:'click', lg: 'click'}"
+            data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+            <i class="ki-duotone ki-night-day theme-light-show fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span
+                  class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span></i> <i
+               class="ki-duotone ki-moon theme-dark-show fs-1"><span class="path1"></span><span class="path2"></span></i></a>
+         <!--begin::Menu toggle-->
+
+         <!--begin::Menu-->
+         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-title-gray-700 menu-icon-gray-500 menu-active-bg menu-state-color fw-semibold py-4 fs-base w-150px me-5"
+            data-kt-menu="true" data-kt-element="theme-mode-menu">
+            <!--begin::Menu item-->
+            <div class="menu-item px-3 my-0">
+               <a href="javascript:void(0); class="menu-link px-3 py-2" data-kt-element="mode" data-kt-value="light">
+                  <span class="menu-icon" data-kt-element="icon">
+                     <i class="ki-duotone ki-night-day fs-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span
+                           class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span></i>
+                  </span>
+                  <span class="menu-title">
+                     Terang
+                  </span>
+               </a>
+            </div>
+            <!--end::Menu item-->
+
+            <!--begin::Menu item-->
+            <div class="menu-item px-3 my-0">
+               <a href="javascript:void(0);" class="menu-link px-3 py-2" data-kt-element="mode" data-kt-value="dark">
+                  <span class="menu-icon" data-kt-element="icon">
+                     <i class="ki-duotone ki-moon fs-2"><span class="path1"></span><span class="path2"></span></i> </span>
+                  <span class="menu-title">
+                     Gelap
+                  </span>
+               </a>
+            </div>
+            <!--end::Menu item-->
+
+            <!--begin::Menu item-->
+            <div class="menu-item px-3 my-0">
+               <a href="javascript:void(0);" class="menu-link px-3 py-2" data-kt-element="mode" data-kt-value="system">
+                  <span class="menu-icon" data-kt-element="icon">
+                     <i class="ki-duotone ki-screen fs-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i> </span>
+                  <span class="menu-title">
+                     Sistem
+                  </span>
+               </a>
+            </div>
+            <!--end::Menu item-->
+         </div>
+         <!--end::Menu-->
+
+
          <!--begin::User menu-->
          <div class="app-navbar-item ms-2 ms-lg-6 me-lg-8" id="kt_header_user_menu_toggle">
             <!--begin::Menu wrapper-->
-            <div class="cursor-pointer symbol symbol-circle symbol-30px symbol-lg-45px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent"
+            <div class="cursor-pointer symbol symbol-circle symbol-30px symbol-lg-45px" data-kt-menu-trigger="{default: 'click', lg: 'click'}" data-kt-menu-attach="parent"
                data-kt-menu-placement="bottom-end">
                <img src="{{ asset(auth()->user()->avatar) }}" alt="user" />
             </div>
@@ -533,7 +585,7 @@
          <!--begin::Header menu toggle-->
          <div class="app-navbar-item ms-2 ms-lg-6 ms-n2 me-3 d-flex d-lg-none">
             <div class="btn btn-icon btn-custom btn-color-gray-600 btn-active-color-primary w-35px h-35px w-md-40px h-md-40px" id="kt_app_aside_mobile_toggle">
-               <i class="ki-outline ki-burger-menu-2 fs-2"></i>
+               {{-- <i class="ki-outline ki-burger-menu-2 fs-2"></i> --}}
             </div>
          </div>
          <!--end::Header menu toggle-->
@@ -545,3 +597,9 @@
    <div class="app-header-separator"></div>
    <!--end::Separator-->
 </div>
+
+@push('js')
+<script>
+
+</script>
+@endpush

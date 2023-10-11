@@ -8,11 +8,10 @@
          class="app-sidebar-menu-primary menu menu-column menu-rounded menu-sub-indention menu-state-bullet-primary px-6 mb-5">
          <x-sidebar.menu-item iconClass="ki-outline ki-home-2 fs-2" menuTitle="Beranda" routeName="dashboard" />
 
-         {{-- <x-sidebar.accordion-item iconClass="fa-regular fa-newspaper fs-2" title="Laporan">
-            <x-sidebar.sub-menu-item routeName="laporan.laporan-relawan" menuTitle="Laporan Relawan" tooltipText="Check out over 200 in-house components" />
-            <x-sidebar.sub-menu-item routeName="laporan.cari-laporan" menuTitle="Cari Area" tooltipText="Check out the complete documentation" />
-            <x-sidebar.sub-menu-item routeName="laporan.rekap-laporan" menuTitle="Rekap Laporan" tooltipText="Build your layout and export HTML for server side integration" />
-         </x-sidebar.accordion-item> --}}
+         <x-sidebar.accordion-item iconClass="fa-regular fa-newspaper fs-2" title="Formulir">
+            <x-sidebar.sub-menu-item routeName="formulir.index" menuTitle="Daftar Formulir" tooltipText="Lihat daftar formulir alumni" />
+            <x-sidebar.sub-menu-item routeName="formulir.create" menuTitle="Buat Formulir" tooltipText="Buat formulir alumin" />
+         </x-sidebar.accordion-item>
 
          <x-sidebar.accordion-item iconClass="fa-solid fa-cog fs-2" title="Konfigurasi">
             <x-sidebar.sub-menu-item routeName="pengaturan.website" menuTitle="Pengaturan Website" tooltipText="Menu untuk mengatur tampilan dan konfigurasi Website" />

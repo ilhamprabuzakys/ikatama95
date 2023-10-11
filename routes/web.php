@@ -1,9 +1,12 @@
 <?php
 
-use App\Livewire\Home\HomeIndex;
+// use App\Livewire\Home\HomeIndex;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\LupaPassword;
 use App\Livewire\Dashboard\Dashboard;
+use App\Livewire\Dashboard\Formulir\FormulirCreate;
+use App\Livewire\Dashboard\Formulir\FormulirIndex;
+use App\Livewire\Dashboard\Formulir\FormulirUpdate;
 use App\Livewire\Dashboard\Laporan\CariLaporan;
 use App\Livewire\Dashboard\Laporan\LaporanRelawan;
 use App\Livewire\Dashboard\Laporan\RekapLaporan;
@@ -30,6 +33,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/laporan-relawan', LaporanRelawan::class)->name('laporan-relawan');
         Route::get('/cari-laporan', CariLaporan::class)->name('cari-laporan');
         Route::get('/rekap-laporan', RekapLaporan::class)->name('rekap-laporan');
+    });
+   
+    // Menu Formulir   
+    Route::group(['prefix' => 'formulir', 'as' => 'formulir.'], function () {
+        Route::get('/', FormulirIndex::class)->name('index');
+        Route::get('/tambah', FormulirCreate::class)->name('create');
+        Route::get('/{formulir}/edit', FormulirUpdate::class)->name('update');
     });
 
     

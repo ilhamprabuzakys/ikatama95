@@ -29,7 +29,7 @@
          <!--end::Svg Icon-->
          <!--begin::Title-->
          <div class="flex-grow-1 me-2 text-center">
-            <a href="{{ route('laporan.laporan-relawan') }}" class="fw-bold text-gray-800 text-hover-primary fs-6">Total Kuisioner</a>
+            <a href="{{ route('laporan.laporan-relawan') }}" class="fw-bold text-gray-800 text-hover-primary fs-6">Total Formulir</a>
          </div>
          <!--end::Title-->
          <!--begin::Lable-->

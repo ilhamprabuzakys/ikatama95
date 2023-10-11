@@ -11,7 +11,7 @@
                <!--begin::Title-->
                <h1
                   class="page-heading d-flex flex-column justify-content-center text-dark fw-bold fs-3 m-0">
-                  {{ __('Daftar User') }}</h1>
+                  {{ $title }}</h1>
                <!--end::Title-->
                <!--begin::Breadcrumb-->
                <ol class="breadcrumb fw-semibold fs-7 my-0">
@@ -22,7 +22,7 @@
                   </li>
                   <!--end::Item-->
                   <!--begin::Item-->
-                  <li class="breadcrumb-item text-muted">Konfigurasi</li>
+                  <li class="breadcrumb-item text-muted">Formulir</li>
                   <!--end::Item-->
                   <!--begin::Item-->
                   <li class="breadcrumb-item text-muted">{{ $title }}</li>
@@ -34,14 +34,14 @@
             <!--begin::Actions-->
             <div class="d-flex align-items-center gap-2 gap-lg-3">
                <!--begin::Filter-->
-               <button type="button" class="btn btn-light-primary me-3"
+               <button type="button" class="btn btn-light-success me-3"
                   data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                   <i class="ki-outline ki-filter fs-2"></i>Filter</button>
                <!--begin::Menu 1-->
                <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
                   <!--begin::Header-->
                   <div class="px-7 py-5">
-                     <div class="fs-5 text-dark fw-bold">Filter Options</div>
+                     <div class="fs-5 text-dark fw-bold">Opsi Filter</div>
                   </div>
                   <!--end::Header-->
                   <!--begin::Separator-->
@@ -51,30 +51,40 @@
                   <div class="px-7 py-5" data-kt-user-table-filter="form">
                      <!--begin::Input group-->
                      <div class="mb-10">
-                        <label class="form-label fs-6 fw-semibold">Role:</label>
+                        <label class="form-label fs-6 fw-semibold">Jumlah Diisi:</label>
                         <select class="form-select form-select-solid fw-bold"
                            data-kt-select2="true" data-placeholder="Select option"
                            data-allow-clear="true" data-kt-user-table-filter="role"
                            data-hide-search="true">
                            <option></option>
-                           <option value="Administrator">Administrator</option>
-                           <option value="Analyst">Analyst</option>
-                           <option value="Developer">Developer</option>
-                           <option value="Support">Support</option>
-                           <option value="Trial">Trial</option>
+                           <option value="1 sampai 10">1 sampai 10</option>
+                           <option value="11 sampai 25">11 sampai 25</option>
+                           <option value="26 sampai 50">26 sampai 50</option>
+                           <option value="51 sampai 100">51 sampai 100</option>
+                           <option value="100 keatas">100 keatas</option>
                         </select>
                      </div>
                      <!--end::Input group-->
                      <!--begin::Input group-->
                      <div class="mb-10">
-                        <label class="form-label fs-6 fw-semibold">Two Step Verification:</label>
-                        <select class="form-select form-select-solid fw-bold"
+                        <label class="form-label fs-6 fw-semibold">Tanggal:</label>
+                        {{-- <select class="form-select form-select-solid fw-bold"
                            data-kt-select2="true" data-placeholder="Select option"
                            data-allow-clear="true" data-kt-user-table-filter="two-step"
                            data-hide-search="true">
                            <option></option>
                            <option value="Enabled">Enabled</option>
-                        </select>
+                        </select> --}}
+                        <div class="mb-3">
+                          <label for="" class="form-label">Mulai</label>
+                          <input type="text"
+                            class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                        </div>
+                        <div class="mb-3">
+                          <label for="" class="form-label">Akhir</label>
+                          <input type="text"
+                            class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                        </div>
                      </div>
                      <!--end::Input group-->
                      <!--begin::Actions-->
@@ -85,7 +95,7 @@
                            data-kt-user-table-filter="reset">Reset</button>
                         <button type="submit" class="btn btn-primary fw-semibold px-6"
                            data-kt-menu-dismiss="true"
-                           data-kt-user-table-filter="filter">Apply</button>
+                           data-kt-user-table-filter="filter">Terapkan</button>
                      </div>
                      <!--end::Actions-->
                   </div>
@@ -94,14 +104,13 @@
                <!--end::Menu 1-->
                <!--end::Filter-->
                <!--begin::Export-->
-               <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal"
+               <button type="button" class="btn btn-light-success me-3" data-bs-toggle="modal"
                   data-bs-target="#kt_modal_export_users">
                   <i class="ki-outline ki-exit-up fs-2"></i>Export</button>
                <!--end::Export-->
                <!--begin::Add user-->
-               <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                  data-bs-target="#kt_modal_add_user">
-                  <i class="ki-outline ki-plus fs-2"></i>Add User</button>
+               <a href="{{ route('formulir.create') }}" class="btn btn-primary" wire:navigate>
+                  <i class="ki-outline ki-plus fs-2"></i>Buat Formulir</a>
                <!--end::Add user-->
             </div>
             <!--end::Actions-->
@@ -123,7 +132,7 @@
             <i class="ki-outline ki-magnifier fs-3 position-absolute ms-5"></i>
             <input type="search" data-kt-user-table-filter="search"
                class="form-control form-control-solid w-250px ps-13"
-               placeholder="Cari Pengguna" />
+               placeholder="Cari Formulir" />
          </div>
          <!--end::Search-->
       </div>
@@ -140,7 +149,6 @@
                data-kt-user-table-select="delete_selected">Delete Selected</button>
          </div>
          <!--end::Group actions-->
-
       </div>
       <!--end::Card toolbar-->
    </div>
@@ -159,11 +167,10 @@
                      </div>
                   </th>
                   <th class="min-w-125px">No</th>
-                  <th class="min-w-125px">Nama</th>
-                  <th class="min-w-125px">Nama Pengguna</th>
-                  <th class="min-w-125px">Peranan</th>
-                  <th class="min-w-125px">Status</th>
-                  <th class="min-w-125px">Bergabung Pada</th>
+                  <th class="min-w-125px">Judul</th>
+                  <th class="min-w-125px">Dibuat oleh</th>
+                  <th class="min-w-125px">Ditambahkan pada</th>
+                  <th class="min-w-125px">Jumlah Pengisi</th>
                   <th class="text-center min-w-100px">Aksi</th>
                </tr>
             </thead>
@@ -178,7 +185,7 @@
                      <td scope="row">{{ $loop->iteration }}</td>
                      <td>{{ $user->name }}</td>
                      <td>{{ $user->username }}</td>
-                     <td>
+                    {{--  <td>
                         <span class="badge badge-{{ getUserRoleBG($user->role) }}">{{ getUserRoleDetail($user->role) }}</span>
                      </td>
                      <td>
@@ -194,8 +201,9 @@
                            }
                         @endphp
                         <span class="badge badge-light-{{ $bg_status }}">{{ $status }}</span>
-                     </td>
+                     </td> --}}
                      <td>{{ $user->created_at->diffForHumans() }}</td>
+                     <td>{{ __('10') }}</td>
                      <td class="  text-center">
                         <a href="details/{{ $user->id }}" class="btn btn-sm btn-primary btn-clean btn-icon btn-icon-md">
                            <i class="fa-solid fa-circle-info"></i>
@@ -208,7 +216,7 @@
                @empty
                   <tr class="">
                      <td colspan="3" class="text-center">
-                        <h5>Data Pengguna masih kosong</h5>
+                        <h5>Data Formulir masih kosong</h5>
                      </td>
                   </tr>
                @endforelse
@@ -230,7 +238,7 @@
             <!--begin::Modal header-->
             <div class="modal-header">
                <!--begin::Modal title-->
-               <h2 class="fw-bold">Ekspor Data Admin</h2>
+               <h2 class="fw-bold">Ekspor Data Formulir</h2>
                <!--end::Modal title-->
                <!--begin::Close-->
                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -245,16 +253,19 @@
                   <!--begin::Input group-->
                   <div class="fv-row mb-10">
                      <!--begin::Label-->
-                     <label class="fs-6 fw-semibold form-label mb-2">Pilih Peranan:</label>
+                     <label class="fs-6 fw-semibold form-label mb-2">Pilih Rentang waktu:</label>
                      <!--end::Label-->
                      <!--begin::Input-->
                      <select name="role" data-control="select2"
-                        data-placeholder="Select a role" data-hide-search="true"
+                        data-placeholder="Pilih rentang waktu" data-hide-search="true"
                         class="form-select form-select-solid fw-bold">
                         <option></option>
                         <option value="semua">Semua</option>
-                        <option value="superadmin">Super Admin</option>
-                        <option value="admin">Admin</option>
+                        <option value="superadmin">Hari ini</option>
+                        <option value="admin">Kemarin</option>
+                        <option value="admin">Satu minggu ini</option>
+                        <option value="admin">Satu bulan ini</option>
+                        <option value="admin">Tiga bulan ini</option>
                      </select>
                      <!--end::Input-->
                   </div>
