@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <!--
-Author: Ilham Prabu Zaky Setiawan
+Author: Ilham Prabu Zaky Setiawan dan Raka Aditya
 Vendor Company: Inti Optima Teknologi
-Product Name: SIDAMAS
+Product Name: IKATAMA 95
 Product Version: 1.0.0
 Contact: ilhamprabuzakys@gmail.com
 Follow: www.instagram.com/ilhamprabuzakyyys
@@ -14,16 +14,16 @@ Follow: www.instagram.com/ilhamprabuzakyyys
    <title>{{ $title ?? '' }} | {{ config('app.name') }}</title>
    <meta charset="utf-8" />
    <meta name="description"
-      content="SIDAMAS." />
+      content="IKATAMA." />
    <meta name="keywords"
-      content="SIDAMAS" />
+      content="IKATAMA" />
    <meta name="viewport" content="width=device-width, initial-scale=1" />
    <meta property="og:locale" content="en_US" />
    <meta property="og:type" content="article" />
    <meta property="og:title"
-      content="SIDAMAS" />
+      content="IKATAMA" />
    <meta property="og:url" content="{{ config('app.url') }}" />
-   <meta property="og:site_name" content="SIDAMAS" />
+   <meta property="og:site_name" content="IKATAMA" />
    <link rel="canonical" href="{{ config('app.url') }}" />
    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon" />
    <!--begin::Fonts(mandatory for all pages)-->

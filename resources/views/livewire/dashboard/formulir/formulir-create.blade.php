@@ -102,6 +102,15 @@
    </script>
 @endpush
 
+
+@push('style')
+   {{-- Survey JS --}}
+   {{--  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <link href="https://unpkg.com/survey-jquery/defaultV2.min.css" type="text/css" rel="stylesheet">
+   <script type="text/javascript" src="https://unpkg.com/survey-jquery/survey.jquery.min.js"></script> --}}
+   {{-- End Survey JS --}}
+@endpush
+
 @push('modals')
    <div wire:ignore.self class="modal fade" id="kt_modal_export_users" tabindex="-1" aria-hidden="true">
       <!--begin::Modal dialog-->
@@ -296,13 +305,4 @@
       </div>
       <!--end::Modal dialog-->
    </div>
-@endpush
-
-
-@push('style')
-   {{-- Survey JS --}}
-  {{--  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-   <link href="https://unpkg.com/survey-jquery/defaultV2.min.css" type="text/css" rel="stylesheet">
-   <script type="text/javascript" src="https://unpkg.com/survey-jquery/survey.jquery.min.js"></script> --}}
-   {{-- End Survey JS --}}
 @endpush

@@ -27,7 +27,7 @@ var object3D;
 var loader = new GLTFLoader();
 
 loader.load(
-   'models/bus.gltf',
+   'models/school.gltf',
    function (gltf) {
       object3D = gltf.scene;
       scene.add(object3D);
@@ -39,7 +39,7 @@ loader.load(
       var distance = box.getSize(new THREE.Vector3()).length();
       controls.target.copy(center);
       camera.position.copy(center);
-      camera.position.z += distance - 0.9;
+      camera.position.z += distance - 0.95;
    },
    undefined,
    function (error) {

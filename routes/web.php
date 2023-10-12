@@ -14,7 +14,7 @@ use App\Livewire\Dashboard\Pengaturan\PengaturanWebsite;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 
-// URL::forceRootUrl(config('app.url'));
+URL::forceRootUrl(config('app.url'));
 
 Route::middleware(['guest'])->group(function () {
     // Route::get('/', HomeIndex::class)->name('home.index');
