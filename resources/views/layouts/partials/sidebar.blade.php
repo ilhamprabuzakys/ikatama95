@@ -6,7 +6,7 @@
       <!--begin::Sidebar menu-->
       <div id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false"
          class="app-sidebar-menu-primary menu menu-column menu-rounded menu-sub-indention menu-state-bullet-primary px-6 mb-5">
-         <x-sidebar.menu-item iconClass="fas fa-dashboard fs-2" menuTitle="Beranda" routeName="dashboard" />
+         <x-sidebar.menu-item iconClass="fas fa-house-chimney fs-2" menuTitle="Beranda" routeName="dashboard" />
 
          <x-sidebar.accordion-item iconClass="fa-regular fa-newspaper fs-2" title="Formulir">
             <x-sidebar.sub-menu-item routeName="formulir.index" menuTitle="Daftar Formulir" tooltipText="Lihat daftar formulir alumni" />

@@ -45884,6 +45884,8 @@ code:not([class*="language-"]) {
     ul::-webkit-scrollbar {
         width: var(--bs-scrollbar-size);
         height: var(--bs-scrollbar-size);
+        /* width: var(--bs-scrollbar-size);
+        height: var(--bs-scrollbar-size); */
     }
     div ::-webkit-scrollbar-track,
     main ::-webkit-scrollbar-track,
@@ -45907,7 +45909,9 @@ code:not([class*="language-"]) {
     pre::-webkit-scrollbar-thumb,
     span::-webkit-scrollbar-thumb,
     ul::-webkit-scrollbar-thumb {
-        background-color: var(--bs-scrollbar-color);
+        /* background-color: var(--bs-scrollbar-color); */
+        /* background-color: var(--bs-scrollbar-color); */
+        background-color: #fff0f0;
     }
     div::-webkit-scrollbar-corner,
     main::-webkit-scrollbar-corner,

@@ -1,9 +1,10 @@
 <?php
 
-use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Http;
+use App\Models\User;
+use Illuminate\Support\Str;
 use Jenssegers\Agent\Agent;
+use Illuminate\Support\Facades\Http;
 use Stevebauman\Location\Facades\Location;
 
 function getErrorsString($e)
@@ -54,6 +55,12 @@ function getPublicIP()
     return request()->ip();
 }
 
+
+function generateUsername($email)
+{
+    return Str::before($email, '@');
+}
+
 function formatTanggalIndonesia($tanggal)
 {
     $hari = array("Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu");
@@ -72,22 +79,54 @@ function getUserRoleDetail($role = '')
     }
     $detail = '';
     switch ($role) {
-        case 'dayamas':
-            $detail = 'Deputi Bidang Pemberdayaan Masyarakat';
-            break;
-        case 'dayatif':
-            $detail = 'Direktorat Pemberdayaan Alternatif';
-            break;
-        case 'psm':
-            $detail = 'Direktorat Peran Serta Masyarakat';
-            break;
         case 'admin':
             $detail = 'Admin';
+            break;
+        case 'alumni':
+            $detail = 'Alumni';
             break;
         default:
             break;
     }
     return $detail;
+}
+
+function getUserStatus($status = '')
+{
+    if ($status == '') {
+        $status = auth()->user()->is_active;
+    }
+    $detail = '';
+    switch ($status) {
+        case true:
+            $detail = 'Aktif';
+            break;
+        case false:
+            $detail = 'Tidak Aktif';
+            break;
+        default:
+            break;
+    }
+    return $detail;
+}
+
+function getUserStatusBG($status = '')
+{
+    if ($status == '') {
+        $status = auth()->user()->is_active;
+    }
+    $bg = '';
+    switch ($status) {
+        case true:
+            $bg = 'success';
+            break;
+        case false:
+            $bg = 'danger';
+            break;
+        default:
+            break;
+    }
+    return $bg;
 }
 
 function getUserRoleBG($role = '')
@@ -97,14 +136,8 @@ function getUserRoleBG($role = '')
     }
     $bg = '';
     switch ($role) {
-        case 'dayamas':
-            $bg = 'danger';
-            break;
-        case 'dayatif':
+        case 'alumni':
             $bg = 'success';
-            break;
-        case 'psm':
-            $bg = 'warning';
             break;
         case 'admin':
             $bg = 'primary';
@@ -122,24 +155,18 @@ function getUserRoleShort($role = '')
     }
     $detail = '';
     switch ($role) {
-        case 'dayamas':
-            $detail = 'Dayamas';
-            break;
-        case 'dayatif':
-            $detail = 'Dayatif';
-            break;
-        case 'psm':
-            $detail = 'PSM';
-            break;
         case 'admin':
             $detail = 'Admin';
+            break;
+        case 'alumni':
+            $detail = 'Alumni';
             break;
         default:
             break;
     }
-    if ($detail != 'Admin') {
-        $detail = strtoupper($detail);
-    }
+    // if ($detail != 'Admin') {
+    //     $detail = strtoupper($detail);
+    // }
     return $detail;
 }
 
@@ -198,4 +225,17 @@ function getPages()
         ],
     ]);
     return $pages;
+}
+
+function getRoleList()
+{
+    return collect([
+        (object) ['key' => 'admin', 'label' => 'Admin'],
+        (object) ['key' => 'alumni', 'label' => 'Alumni'],
+    ]);
+}
+
+function getPaginationNumber($data)
+{
+    return '<td scope="row">{{ $loop->iteration + $paginate * ($" . $data . "->currentPage() - 1) }}</td>';
 }

@@ -43,8 +43,30 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function satker()
+    public function scopeCountUser($query, $role = null)
     {
-        return $this->belongsTo(Satker::class, 'group_id');
+        if ($role) {
+            return $query->where('role', $role)->count();
+        }
+
+        return $query->count();
+    }
+
+    // Model User
+
+    public function scopeSearch($query, $search)
+    {
+        $search = strtolower($search);
+        return $query->whereRaw('LOWER(name) LIKE ?', ["%{$search}%"]);
+    }
+
+    public function scopeGlobalSearch($query, $search)
+    {
+        $search = strtolower($search);
+
+        return $query->whereRaw("LOWER(name) LIKE '%{$search}%' OR 
+                                LOWER(email) LIKE '%{$search}%' OR
+                                LOWER(username) LIKE '%{$search}%' OR 
+                                LOWER(role) LIKE '%{$search}%'");
     }
 }

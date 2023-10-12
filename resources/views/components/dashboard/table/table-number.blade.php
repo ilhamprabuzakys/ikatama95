@@ -1,0 +1,1 @@
+<td scope="row">{{ $iteration + $paginate * ($data->currentPage() - 1) }}</td>

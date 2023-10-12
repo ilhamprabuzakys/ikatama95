@@ -47,7 +47,7 @@
             <a href="https://siparelnew.id/" class="text-white" style="font-weight: bold;">
                <img alt="Logo" src="{{ asset('assets/images/favicon.png') }}" class="h-50px w-100" />
             </a>
-            <span class="m-2 h1" style="color: #ff7676; letter-spacing: 2px;">ITAMA 95</span>
+            <span class="m-2 h1" style="color: #ff7676; letter-spacing: 2px; font-family: 'Oswald';">IKATAMA <span style="color: #e8c84a">95</span></span>
             <!--end::Logo-->
          </div>
       @endpersist
