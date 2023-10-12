@@ -39,6 +39,7 @@ Follow: www.instagram.com/ilhamprabuzakyyys
    <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
    <link href="{{ asset('assets/dist/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
    <link href="{{ asset('assets/dist/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+   <link href="{{ asset('assets/dist/assets/css/custom.css') }}" rel="stylesheet" type="text/css" />
    <!--end::Global Stylesheets Bundle-->
    @stack('css')
    @stack('style')
