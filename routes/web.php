@@ -15,7 +15,7 @@ use App\Livewire\Survey\IsiSurvey;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 
-URL::forceRootUrl(config('app.url'));
+// URL::forceRootUrl(config('app.url'));
 
 // Halaman terpisah untuk mengisi survey
 Route::get('/survey', IsiSurvey::class)->name('survey.isi');
