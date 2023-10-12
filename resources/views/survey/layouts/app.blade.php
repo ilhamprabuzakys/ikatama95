@@ -19,6 +19,9 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
       integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
+
+   {{-- swal2 --}}
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    <style>
       ::-webkit-scrollbar {
          width: 15px;
@@ -58,6 +61,11 @@
          font-family: "Oswald";
          letter-spacing: 3px;
          color: #ffd52b;
+      }
+
+      .sd-body.sd-body--static {
+         max-width: 100%;
+         padding-bottom: 10px;
       }
    </style>
    @stack('styles')
@@ -120,6 +128,7 @@
    </div>
    @livewireScripts
    @stack('scripts')
+   <script src="sweetalert2.min.js"></script>
    @persist('survey')
       <script type="text/javascript" src="https://unpkg.com/survey-jquery/survey.jquery.min.js"></script>
    @endpersist
