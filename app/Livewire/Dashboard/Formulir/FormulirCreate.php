@@ -12,6 +12,7 @@ use Livewire\Attributes\Rule;
 #[Layout('layouts.app')]
 class FormulirCreate extends Component
 {
+    #[On('refresh')]
     public function render()
     {
         return view('livewire.dashboard.formulir.formulir-create', [

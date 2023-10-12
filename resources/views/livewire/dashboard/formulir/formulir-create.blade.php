@@ -32,6 +32,8 @@
             <!--begin::Actions-->
             <div class="d-flex align-items-center gap-2 gap-lg-3">
                <a href="{{ route('formulir.index') }}" wire:navigate class="btn btn-flex btn-outline btn-color-gray-700 btn-active-color-primary bg-body h-40px fs-7 fw-bold">Kembali</a>
+               <button type="button" wire:click='$dispatch("reloadSurvey")' class="btn btn-flex btn-outline btn-color-primary btn-active-color-primary bg-body h-40px fs-7 fw-bold"><i
+                     class="fas fa-refresh me-2"></i>Reload survey</button>
                <button type="button" class="btn btn-flex btn-primary h-40px fs-7 fw-bold" data-bs-toggle="modal">Simpan Formulir</button>
             </div>
             <!--end::Actions-->
@@ -55,6 +57,17 @@
       document.addEventListener('livewire:navigated', () => {
          initializeSurvey();
       });
+
+      // Livewire.on('reloadSurvey', () => {
+      //    console.log('menginisaliasi survey kembali..')
+      //    const elemen = document.querySelector('[routeName="formulir.create"]');
+      //    // Menambahkan aksi klik ke elemen
+      //    elemen.addEventListener('click', function() {
+      //       // Lakukan sesuatu ketika elemen diklik
+      //       console.log('Elemen diklik');
+      //       // Anda dapat menambahkan kode lain di sini sesuai kebutuhan
+      //    });
+      // });
 
       $(document).ready(function() {
          initializeSurvey();

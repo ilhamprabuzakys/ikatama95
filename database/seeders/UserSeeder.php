@@ -21,27 +21,34 @@ class UserSeeder extends Seeder
             'email_verified_at' => \now()
         ]);
         User::create([
-            'name' => 'Brigjen Pol. Drs. Heri Maryadi, M.M.',
-            'username' => 'dayamas',
-            'password' => 'dayamas',
-            'role' => 'dayamas',
+            'name' => 'Alumni Hebat',
+            'username' => 'alumni',
+            'password' => 'alumni',
+            'role' => 'alumni',
             'email_verified_at' => \now()
         ]);
-        User::create([
-            'name' => 'Brigjen. Pol. Drs. Edi Swasono, M.M.',
-            'username' => 'dayatif',
-            'password' => 'dayatif',
-            'role' => 'dayatif',
-            'dob' => '1969-04-30',
-            'email_verified_at' => \now()
-        ]);
-        User::create([
-            'name' => 'Drs. Yuki Ruchimat, M.Si.',
-            'username' => 'psm',
-            'password' => 'psm',
-            'role' => 'psm',
-            'email_verified_at' => \now(),
-            'keterangan' => 'ASN',
-        ]);
+        // User::create([
+        //     'name' => 'Brigjen Pol. Drs. Heri Maryadi, M.M.',
+        //     'username' => 'dayamas',
+        //     'password' => 'dayamas',
+        //     'role' => 'dayamas',
+        //     'email_verified_at' => \now()
+        // ]);
+        // User::create([
+        //     'name' => 'Brigjen. Pol. Drs. Edi Swasono, M.M.',
+        //     'username' => 'dayatif',
+        //     'password' => 'dayatif',
+        //     'role' => 'dayatif',
+        //     'dob' => '1969-04-30',
+        //     'email_verified_at' => \now()
+        // ]);
+        // User::create([
+        //     'name' => 'Drs. Yuki Ruchimat, M.Si.',
+        //     'username' => 'psm',
+        //     'password' => 'psm',
+        //     'role' => 'psm',
+        //     'email_verified_at' => \now(),
+        //     'keterangan' => 'ASN',
+        // ]);
     }
 }

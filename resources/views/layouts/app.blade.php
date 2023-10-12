@@ -171,7 +171,7 @@ Follow: www.instagram.com/ilhamprabuzakyyys
    <script src="{{ asset('assets/dist/assets/plugins/global/plugins.bundle.js') }}"></script>
    <script src="{{ asset('assets/dist/assets/js/scripts.bundle.js') }}"></script>
    @persist('survey')
-   <script type="text/javascript" src="https://unpkg.com/survey-jquery/survey.jquery.min.js"></script>
+      <script type="text/javascript" src="https://unpkg.com/survey-jquery/survey.jquery.min.js"></script>
    @endpersist
    <!--end::Global Javascript Bundle-->
    <!--begin::Vendors Javascript(used for this page only)-->
@@ -187,7 +187,7 @@ Follow: www.instagram.com/ilhamprabuzakyyys
    <script src="https://cdn.amcharts.com/lib/5/geodata/usaLow.js"></script>
    <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZonesLow.js"></script>
    <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script> --}}
-
+   @livewireScripts
    <script src="{{ asset('assets/dist/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
    {{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
    <link href="https://unpkg.com/survey-jquery/defaultV2.min.css" type="text/css" rel="stylesheet">
@@ -195,15 +195,17 @@ Follow: www.instagram.com/ilhamprabuzakyyys
    <!--begin::Custom Javascript(used for this page only)-->
    <script src="{{ asset('assets/dist/assets/js/widgets.bundle.js') }}"></script>
    <script src="{{ asset('assets/dist/assets/js/custom/widgets.js') }}"></script>
-   <script src="{{ asset('assets/dist/assets/js/custom/apps/chat/chat.js') }}"></script>
-   <script src="{{ asset('assets/dist/assets/js/custom/utilities/modals/upgrade-plan.js') }}"></script>
-   <script src="{{ asset('assets/dist/assets/js/custom/utilities/modals/users-search.js') }}"></script>
+   @persist('custom-utils-js')
+   <script src="{{ asset('assets/js/dashboard/utils.js') }}"></script>
+   @endpersist
+   {{-- <script src="{{ asset('assets/dist/assets/js/custom/apps/chat/chat.js') }}"></script> --}}
+   {{-- <script src="{{ asset('assets/dist/assets/js/custom/utilities/modals/upgrade-plan.js') }}"></script> --}}
+   {{-- <script src="{{ asset('assets/dist/assets/js/custom/utilities/modals/users-search.js') }}"></script> --}}
    <!--end::Custom Javascript-->
    <!--end::Javascript-->
    @stack('js')
    @stack('javascript')
    @stack('scripts')
-   @livewireScripts
    @stack('script')
 </body>
 <!--end::Body-->

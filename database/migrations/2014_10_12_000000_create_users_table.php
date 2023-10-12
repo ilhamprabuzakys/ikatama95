@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('username')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('role', ['admin', 'dayamas', 'dayatif', 'psm']);
+            $table->enum('role', ['admin', 'alumni']);
             // Additional
             $table->text('avatar')->default('assets/images/avatar/avatar-' . random_int(1,5) .'.png');
             $table->string('nik')->nullable();

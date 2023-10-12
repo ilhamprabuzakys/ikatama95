@@ -20,6 +20,20 @@
       integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
    <style>
+      ::-webkit-scrollbar {
+         width: 15px;
+         background-color: #2f576d;
+      }
+
+      ::-webkit-scrollbar-thumb {
+         height: 6px;
+         border: 4px solid rgba(0, 0, 0, 0);
+         background-clip: padding-box;
+         -webkit-border-radius: 7px;
+         background-color: #a9a9a9;
+      }
+
+
       body {
          background-color: #2f576d;
       }
