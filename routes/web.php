@@ -11,10 +11,14 @@ use App\Livewire\Dashboard\Pengaturan\PengaturanKeamanan;
 use App\Livewire\Dashboard\Pengaturan\PengaturanProfile;
 use App\Livewire\Dashboard\Pengaturan\PengaturanUser;
 use App\Livewire\Dashboard\Pengaturan\PengaturanWebsite;
+use App\Livewire\Survey\IsiSurvey;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 
 URL::forceRootUrl(config('app.url'));
+
+// Halaman terpisah untuk mengisi survey
+Route::get('/survey', IsiSurvey::class)->name('survey.isi');
 
 Route::middleware(['guest'])->group(function () {
     // Route::get('/', HomeIndex::class)->name('home.index');
