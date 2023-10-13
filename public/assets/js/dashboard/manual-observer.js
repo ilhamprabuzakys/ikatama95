@@ -69,7 +69,7 @@ document.addEventListener('input', debounce(function (event) {
 }, 500));
 
 document.addEventListener('change', function (event) {
-   let parentDropdown = event.target.closest('ul.dropdown-menu');
+   let parentDropdown = event.target.closest('div.menu-sub-dropdown');
    let parentModal = event.target.closest('.modal');
    if (event.target.tagName.toLowerCase() === 'select' && !parentDropdown && !parentModal) {
       blockUI();
