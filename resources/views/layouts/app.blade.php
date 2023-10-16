@@ -167,7 +167,9 @@ Follow: www.instagram.com/ilhamprabuzakyyys
    </div>
    <!--end::Scrolltop-->
 
+   @persist('modals')
    @stack('modals')
+   @endpersist
    @include('layouts.partials.modals')
    <!--begin::Javascript-->
    <script>

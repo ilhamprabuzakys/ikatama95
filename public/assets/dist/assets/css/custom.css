@@ -1,3 +1,4 @@
+/* Override Browser Scrollbar */
 body::-webkit-scrollbar {
     width: 15px;
     background-color: #fff0f0;
@@ -9,4 +10,9 @@ body::-webkit-scrollbar-thumb {
     background-clip: padding-box;
     -webkit-border-radius: 7px;
     background-color: #a9a9a9;
+}
+
+/* Prevent Opacity of Toastr */
+#toast-container > div {
+    opacity: 1 !important;
 }

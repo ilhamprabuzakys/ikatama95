@@ -91,13 +91,13 @@
                <!--end::Menu 1-->
                <!--end::Filter-->
                <!--begin::Export-->
-               <button type="button" class="btn btn-light-success me-3" data-bs-toggle="modal"
-                  data-bs-target="#kt_modal_export_users">
-                  <i class="ki-outline ki-exit-up fs-2"></i>Export</button>
+               {{-- <button type="button" class="btn btn-light-success me-3" data-bs-toggle="modal"
+                  data-bs-target="#exportUserModal">
+                  <i class="ki-outline ki-exit-up fs-2"></i>Export</button> --}}
                <!--end::Export-->
                <!--begin::Add user-->
                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                  data-bs-target="#kt_modal_add_user">
+                  data-bs-target="#createUserModal">
                   <i class="ki-outline ki-plus fs-2"></i>Tambah User</button>
                <!--end::Add user-->
             </div>
@@ -156,6 +156,10 @@
       @include('livewire.dashboard.pengaturan.pengaturan-user.table')
    </div>
    <!--end::Card body-->
+
+   @include('livewire.dashboard.pengaturan.pengaturan-user.export')
+   @include('livewire.dashboard.pengaturan.pengaturan-user.edit')
+   @include('livewire.dashboard.pengaturan.pengaturan-user.create')
 </div>
 
 
@@ -230,6 +234,6 @@
 @endpush
 
 
-@push('modals')
-   @include('livewire.dashboard.pengaturan.pengaturan-user.modals')
-@endpush
+{{-- @push('modals')
+@include('livewire.dashboard.pengaturan.pengaturan-user.modals')
+@endpush --}}

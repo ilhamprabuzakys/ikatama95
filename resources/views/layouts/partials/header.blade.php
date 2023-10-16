@@ -67,7 +67,8 @@
 
 
          <!--begin::User menu-->
-         @include('layouts.partials.header.users-dropdown')
+         {{-- @include('layouts.partials.header.users-dropdown') --}}
+         @livewire('dashboard.partials.header-user-dropdown')
          <!--end::Header menu toggle-->
       </div>
       <!--end::Navbar-->

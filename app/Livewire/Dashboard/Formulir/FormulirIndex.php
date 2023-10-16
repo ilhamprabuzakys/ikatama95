@@ -2,46 +2,131 @@
 
 namespace App\Livewire\Dashboard\Formulir;
 
+use App\Models\Survey;
 use App\Models\User;
+use Carbon\Carbon;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Rule;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Url;
+use Livewire\Features\SupportFileUploads\WithFileUploads;
+use Livewire\WithPagination;
 
-#[Title('Daftar Formulir')]
+#[Title('Daftar Hasil Formulir')]
 #[Layout('layouts.app')]
 class FormulirIndex extends Component
 {
-    public $users;
-    public $email, $role, $user_id;
+    use WithPagination, WithFileUploads;
 
-    public function mount()
+    #[Url(as: 'q')]
+    public $search = '';
+
+    /*     #[Url(as: 'filter_role')]
+    public $filter_role = ''; */
+
+    #[Url(as: 'filter_date')]
+    public $filter_date = '';
+
+    public $paginate = 10;
+    public $file;
+
+    public $allTarget = null;
+    public $downloadTarget = [];
+    public $downloadUrls = [];
+
+    public $export_role = '';
+    public $export_format = '';
+
+    protected $queryString = [
+        'q' => ['except' => ''],
+        'filter_date' => ['except' => ''],
+    ];
+
+    /* public function updated($property)
     {
-        $this->users = User::latest('created_at')->get();
-    }
+        // $property: The name of the current property that was updated
+ 
+        if ($property === 'filter_date') {
+            dd($this->filter_date);
+        }
+    } */
 
     public function render()
     {
+        $query = Survey::latest('created_at')
+            ->when($this->search, function ($query) {
+                return $query->globalSearch($this->search);
+            })
+            ->when($this->filter_date, function ($query) {
+                $dates = explode(' - ', $this->filter_date);
+                if (count($dates) == 2) {
+                    $startDate = Carbon::createFromFormat('m/d/Y', $dates[0])->startOfDay();
+                    $endDate = Carbon::createFromFormat('m/d/Y', $dates[1])->endOfDay();
+                    return $query->whereBetween('created_at', [$startDate, $endDate]);
+                }
+            });
+            
+        if (\getRole() == 'alumni') {
+            $query = $query->where('user_id', auth()->id());
+        }
+        
+        $surveys = $query->paginate($this->paginate);
+
         return view('livewire.dashboard.formulir.formulir-index', [
-            'title' => 'Daftar Formulir'
+            'title' => 'Daftar Hasil Formulir',
+            'surveys' => $surveys
         ]);
     }
 
-    public function store()
+    public function bulkDownload()
     {
-        $validatedData = $this->validate([
-            'role' => 'required',
-            'email' => ['required', 'email', 'not_in:' . auth()->user()->email, Rule::unique('users')->ignore($this->user_id)],
-        ], [
-            'email.required' => 'Alamat email harus terisi.',
-            'email.email' => 'Alamat email harus berformat email, contoh: @gmail.com, @yahoo.com.',
-            'email.unique' => 'Alamat email ini telah digunakan oleh pengguna lain.',
-            'role.required' => 'Peranan harus dipilih.',
+        // dd($this->downloadTarget);
+        if ($this->downloadTarget != []) {
+            $this->dispatch('swal:bulksurvey', [
+                'title' => 'Survey',
+                'text' => count($this->downloadTarget) . ' pengisian survey yang terpilih, akan segera diunduh per-PDF dari hasil surveynya, apakah kamu yakin.'
+            ]);
+        }
+    }
+
+    #[On('downloadSurveyConfirm')]
+    public function downloadSurveyConfirm()
+    {
+        $urls = [];
+
+        foreach ($this->downloadTarget as $each_survey) {
+            $urls[] = route('download.pdf', $each_survey);
+        }
+
+        // dd($urls);
+        $this->dispatch('openNewTabs', ['urls' => $urls]);
+
+        $this->downloadTarget = [];
+        $this->allTarget = null;
+        $this->dispatch('alert', [
+            'title' => 'Berhasil',
+            'message' => 'Data berhasil diunduh',
+            'type' => 'success',
         ]);
-        $validatedData['username'] = Str::before($validatedData['email'], '@');
-        User::create($validatedData);
-        
+    }
+
+
+    public function setAllTarget()
+    {
+        if (\getRole() == 'admin') {
+            $surveys = Survey::all(['id']);
+        } elseif (\getRole() == 'alumni') {
+            $surveys = Survey::where('user_id', auth()->id())->get(['id']);
+        }
+
+        if (count($this->downloadTarget) == $surveys->count()) {
+            $this->downloadTarget = []; // Deselect all jika semua sudah dipilih
+        } else {
+            $this->downloadTarget = $surveys->pluck('id')->toArray(); // Select all jika belum semua dipilih
+        }
+        // dd($this->downloadTarget);
     }
 }

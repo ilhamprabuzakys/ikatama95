@@ -22,7 +22,7 @@ class PengaturanUser extends Component
     #[Url(as: 'q')]
     public $search = '';
 
-    #[Url(as: 'role')]
+    #[Url(as: 'filter_role')]
     public $filter_role = '';
 
     #[Url(as: 'tanggal_mulai')]
@@ -40,14 +40,16 @@ class PengaturanUser extends Component
     public $allTarget = null;
     public $deleteTarget = [];
 
+    public $export_role = '';
+    public $export_format = '';
 
-    public $name, $old_name, $email, $username, $password, $user_id, $user;
+    public $name, $old_name, $email, $username, $role, $password, $new_password, $user_id, $user;
 
     protected $queryString = [
         'q' => ['except' => ''],
         'tanggal_mulai' => ['except' => ''],
         'tanggal_akhir' => ['except' => ''],
-        'role' => ['except' => ''],
+        'filter_role' => ['except' => ''],
         'akun' => ['except' => ''],
     ];
 
@@ -55,6 +57,7 @@ class PengaturanUser extends Component
     public function mount()
     {
     }
+    
 
     public function render()
     {
@@ -78,7 +81,7 @@ class PengaturanUser extends Component
             })->when($this->filter_status_akun !== '', function ($query) {
                 return $query->where('is_active', intval($this->filter_status_akun));
             });
-        
+
         $users = $query->paginate($this->paginate);
         $allCount = User::count();
         $adminCount = User::where('role', 'admin')->count();
@@ -135,7 +138,14 @@ class PengaturanUser extends Component
             $validatedData = $this->validate($rules, $messages);
             if ($this->username == '') {
                 $validatedData['username'] = Str::before($validatedData['email'], '@');
+                // Cek apakah username sudah ada di tabel users
+                if (User::where('username', $validatedData['username'])->exists()) {
+                    // Jika sudah ada, tambahkan 3 angka acak di akhir username
+                    $suffix = rand(100, 999); // Angka acak antara 100 dan 999
+                    $validatedData['username'] .= $suffix;
+                }
             }
+
             $password = '';
             if ($this->password != null || $this->password != '') {
                 $password = $this->password;
@@ -165,10 +175,78 @@ class PengaturanUser extends Component
                 'title' => 'Berhasil ditambahkan',
                 'message' => 'Data berhasil ditambahkan'
             ]);
-            $this->dispatch('close-modal');
+            $this->dispatch('closeModal');
         } catch (\Illuminate\Validation\ValidationException $e) {
             $this->setErrorBag($e->validator->getMessageBag());
             return;
+        }
+    }
+
+    public function update()
+    {
+        try {
+            $rules = $this->rules();
+            $messages = $this->messages;
+
+            if (!$this->username == '' || !$this->username == null) {
+                $rules['username'] = ['min:6', 'not_in:' . auth()->user()->username, Rule::unique('users')->ignore($this->user_id), 'regex:/^[a-z][a-z0-9_]*[a-z0-9]+$/'];
+                $messages['username.min'] = 'Username minimal harus 6 karakter.';
+                $messages['username.not_in'] = 'Username ini sama dengan milik anda.';
+                $messages['username.unique'] = 'Username ini telah dimiliki oleh user lain.';
+                $messages['username.regex'] = 'Username tidak valid, format yang valid: a-z / 0-9 / _ /.';
+            } else {
+                $this->username = '';
+            }
+            $validatedData = $this->validate($rules, $messages);
+            if ($this->username == '') {
+                $validatedData['username'] = Str::before($validatedData['email'], '@');
+            }
+            $password = '';
+            if ($this->new_password != null || $this->new_password != '') {
+                $password = $this->new_password;
+                User::where('id', $this->user_id)->update([
+                    'name' => $validatedData['name'],
+                    'email' => $validatedData['email'],
+                    'username' => $validatedData['username'],
+                    'role' => $validatedData['role'],
+                    'password' => $password,
+                ]);
+            } 
+
+            User::where('id', $this->user_id)->update([
+                'name' => $validatedData['name'],
+                'email' => $validatedData['email'],
+                'username' => $validatedData['username'],
+                'role' => $validatedData['role'],
+            ]);
+            $this->resetInput();
+            $this->dispatch('refresh');
+            $this->dispatch('alert', [
+                'type' => 'success',
+                'title' => 'Berhasil diperbarui',
+                'message' => 'Data berhasil diperbarui'
+            ]);
+            $this->dispatch('closeModal');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // dd($e);
+            $this->setErrorBag($e->validator->getMessageBag());
+            return;
+        }
+    }
+
+    public function editUser(int $user_id)
+    {
+        $user = User::find($user_id);
+        if ($user) {
+            $this->user_id = $user->id;
+            $this->name = $user->name;
+            $this->old_name = $user->name;
+            $this->email = $user->email;
+            $this->username = $user->username;
+            $this->password = $user->password;
+            $this->role = $user->role;
+        } else {
+            return back();
         }
     }
 
@@ -177,12 +255,12 @@ class PengaturanUser extends Component
         // dd($this->deleteTarget);
         if ($this->deleteTarget != []) {
             $this->dispatch('swal:bulkconfirmation', [
-                'title' => 'Tag',
+                'title' => 'User',
                 'text' => count($this->deleteTarget) . ' user yang terpilih, akan dihapus dari database secara permanen.'
             ]);
         }
     }
-  
+
     public function setAllTarget()
     {
         $user = User::all(['id']);
@@ -232,6 +310,26 @@ class PengaturanUser extends Component
             'message' => 'Data berhasil dihapus',
             'type' => 'success',
         ]);
+    }
+
+    public function exportUser()
+    {
+        dd($this->export_format, $this->export_role);
+    }
+
+    public function resetInput()
+    {
+        $this->name = '';
+        $this->old_name = '';
+        $this->email = '';
+        $this->username = '';
+        $this->password = '';
+        $this->role = '';
+    }
+
+    public function closeModal()
+    {
+        $this->resetInput();
     }
 
     public function activate($id)

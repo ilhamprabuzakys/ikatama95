@@ -22,9 +22,6 @@ class Logout extends Component
     {
         User::find(auth()->user()->id);
 
-        // $this->dispatch('refresh');
-        // \saveUserLogoutInfo();
-        // $user->logout();
         // Logout user
         Auth::logout();
 
@@ -32,13 +29,8 @@ class Logout extends Component
         session()->invalidate();
         session()->regenerateToken();
 
-        // Mengirimkan notifikasi ke frontend (jika diperlukan)
-
         // Redirect ke halaman login
-        $this->redirect('/');
-
-        // Kemudian, kirim event ke komponen lain
-        /* $this->dispatch('refresh')->to(ChatList::class);
-        $this->dispatch('refresh')->to(ChatCreate::class); */
+        // $this->redirect('/');
+        return redirect()->route('login');
     }
 }

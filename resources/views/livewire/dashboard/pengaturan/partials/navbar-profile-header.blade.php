@@ -18,22 +18,22 @@
          <div class="d-flex flex-column">
             <!--begin::Name-->
             <div class="d-flex align-items-center mb-2">
-               <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bold me-2">{{ auth()->user()->name }}</a>
-               <a href="#">
+               <a href="javascript:void(0);" class="text-gray-900 text-hover-primary fs-2 fw-bold me-2">{{ auth()->user()->name }}</a>
+               <a href="javascript:void(0);">
                   <i class="ki-outline ki-verify fs-1 text-primary"></i>
                </a>
             </div>
             <!--end::Name-->
             <!--begin::Info-->
             <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
-               <a href="#"
+               <a href="javascript:void(0);"
                   class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
                   <i class="ki-outline ki-profile-circle fs-4 me-2"></i>{{ getUserRoleDetail() }}</a>
-               {{-- <a href="#"
+               {{-- <a href="javascript:void(0);"
                class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
                <i class="ki-outline ki-geolocation fs-4 me-1"></i>SF, Bay Area</a> --}}
                @if (auth()->user()->email != null || auth()->user()->email != '')
-                  <a href="#"
+                  <a href="javascript:void(0);"
                      class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
                      <i class="ki-outline ki-sms fs-4 me-1"></i>{{ auth()->user()->email }}</a>
                @endif
@@ -60,7 +60,7 @@
                   <!--end::Heading-->
                   <!--begin::Menu item-->
                   <div class="menu-item px-3">
-                     <a href="#" class="menu-link px-3">Cetak PDF</a>
+                     <a href="javascript:void(0);" class="menu-link px-3">Cetak PDF</a>
                   </div>
                   <!--end::Menu item-->
                </div>
@@ -84,7 +84,7 @@
                   <div class="d-flex align-items-center">
                      <i class="ki-outline ki-arrow-up fs-3 text-success me-2"></i>
                      <div class="fs-2 fw-bold" data-kt-countup="true"
-                        data-kt-countup-value="4">0</div>
+                        data-kt-countup-value="1">0</div>
                   </div>
                   <!--end::Number-->
                   <!--begin::Label-->
@@ -99,7 +99,7 @@
                   <div class="d-flex align-items-center">
                      <i class="ki-outline ki-arrow-down fs-3 text-danger me-2"></i>
                      <div class="fs-2 fw-bold" data-kt-countup="true"
-                        data-kt-countup-value="12">0</div>
+                        data-kt-countup-value="{{ getPengisianKusioner() }}">0</div>
                   </div>
                   <!--end::Number-->
                   <!--begin::Label-->

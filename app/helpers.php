@@ -72,6 +72,9 @@ function formatTanggalIndonesia($tanggal)
     return $namaHari . ", " . date('d', strtotime($tanggal)) . " " . $namaBulan . " " . date('Y', strtotime($tanggal));
 }
 
+function getRole() {
+    return auth()->user()->role;
+}
 function getUserRoleDetail($role = '')
 {
     if ($role == '') {
@@ -235,7 +238,10 @@ function getRoleList()
     ]);
 }
 
-function getPaginationNumber($data)
-{
-    return '<td scope="row">{{ $loop->iteration + $paginate * ($" . $data . "->currentPage() - 1) }}</td>';
+function getPengisianKusioner($user_id = '') {
+    $user_id = $user_id == '' ?  auth()->id() : $user_id;
+    $user = User::findOrFail($user_id);
+    $surveyCount = $user->surveys()->count();
+
+    return $surveyCount;
 }

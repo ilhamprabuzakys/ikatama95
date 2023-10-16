@@ -1,37 +1,3 @@
-
-/* Livewire.hook('commit', ({
-   component,
-   commit,
-   respond,
-   succeed,
-   fail
-}) => {
-   console.log('terjadi');
-   // Block ketika request sedang terjadi
-   $("[id$='-table']").block({
-      message: '<div class="spinner-border text-primary" role="status"></div>',
-      css: {
-         backgroundColor: "transparent",
-         border: "0"
-      },
-      overlayCSS: {
-         backgroundColor: "#fff",
-         opacity: 0.8
-      }
-   });
-
-   // Jangan lupa menambahkan event listener untuk kasus error juga, untuk memastikan bahwa UI dibuka kembali
-   // meskipun ada error yang terjadi
-   fail(() => {
-      $("[id$='-table']").unblock();
-   });
-
-   // Lepaskan block ketika request selesai
-   respond(() => {
-      $("[id$='-table']").unblock();
-   });
-}); */
-
 Livewire.on('swal:modal', data => {
    if (data[0].duration) {
       if (data[0].duration == 'no') {
@@ -40,7 +6,12 @@ Livewire.on('swal:modal', data => {
             title: data[0].title,
             html: data[0].text,
             icon: data[0].icon,
+            buttonsStyling: false,
             confirmButtonText: 'Ok',
+            customClass: {
+               confirmButton: "btn btn-primary",
+               cancelButton: 'btn btn-danger'
+            },
             allowOutsideClick: false,
          });
       } else {
@@ -48,7 +19,12 @@ Livewire.on('swal:modal', data => {
             title: data[0].title,
             html: data[0].text,
             icon: data[0].icon,
+            buttonsStyling: false,
             confirmButtonText: 'Ok',
+            customClass: {
+               confirmButton: "btn btn-primary",
+               cancelButton: 'btn btn-danger'
+            },
             timer: data[0].duration ?? 3500,
             allowOutsideClick: false,
          });
@@ -58,7 +34,12 @@ Livewire.on('swal:modal', data => {
          title: data[0].title,
          html: data[0].text,
          icon: data[0].icon,
+         buttonsStyling: false,
          confirmButtonText: 'Ok',
+         customClass: {
+            confirmButton: "btn btn-primary",
+            cancelButton: 'btn btn-danger'
+         },
          timer: 3500,
          allowOutsideClick: false,
       });
@@ -91,7 +72,13 @@ Livewire.on('swal:confirmation', data => {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Ya, saya yakin.',
-      cancelButtonText: 'Batalkan.'
+      cancelButtonText: 'Batalkan.',
+      buttonsStyling: false,
+      confirmButtonText: 'Ok',
+      customClass: {
+         confirmButton: "btn btn-primary",
+         cancelButton: 'btn btn-danger'
+      },
    }).then((result) => {
       if (result.isConfirmed) {
          Livewire.dispatch('deleteConfirmed'); // emit event
@@ -113,13 +100,47 @@ Livewire.on('swal:bulkconfirmation', data => {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Ya, saya yakin.',
-      cancelButtonText: 'Batalkan.'
+      cancelButtonText: 'Batalkan.',
+      buttonsStyling: false,
+      confirmButtonText: 'Ok',
+      customClass: {
+         confirmButton: "btn btn-primary",
+         cancelButton: 'btn btn-danger'
+      },
    }).then((result) => {
       if (result.isConfirmed) {
          Livewire.dispatch('deleteConfirmedBulk'); // emit event
          Swal.fire(
             'Data Berhasil Dihapus!',
             'Semua data yang kamu pilih berhasil dihapus.',
+            'success'
+         )
+      }
+   });
+});
+
+Livewire.on('swal:bulksurvey', data => {
+   Swal.fire({
+      title: 'Apakah kamu yakin?',
+      text: data[0].text ?? "Semua data pengisian " + data[0].title + " yang kamu pilih akan segera di unduh!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya, saya yakin.',
+      cancelButtonText: 'Batalkan.',
+      buttonsStyling: false,
+      confirmButtonText: 'Ok',
+      customClass: {
+         confirmButton: "btn btn-primary",
+         cancelButton: 'btn btn-danger'
+      },
+   }).then((result) => {
+      if (result.isConfirmed) {
+         Livewire.dispatch('downloadSurveyConfirm'); // emit event
+         Swal.fire(
+            'Data survey berhasil diunduh!',
+            'Semua data yang kamu pilih akan segera diunduh.',
             'success'
          )
       }
@@ -135,7 +156,13 @@ Livewire.on('swal:filepond', data => {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Ya, saya yakin.',
-      cancelButtonText: 'Batalkan.'
+      cancelButtonText: 'Batalkan.',
+      buttonsStyling: false,
+      confirmButtonText: 'Ok',
+      customClass: {
+         confirmButton: "btn btn-primary",
+         cancelButton: 'btn btn-danger'
+      },
    }).then((result) => {
       if (result.isConfirmed) {
          Livewire.dispatch('filepondDeleteConfirmed'); // emit event
@@ -157,7 +184,13 @@ Livewire.on('swal:postmedia', data => {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Ya, saya yakin.',
-      cancelButtonText: 'Batalkan.'
+      cancelButtonText: 'Batalkan.',
+      buttonsStyling: false,
+      confirmButtonText: 'Ok',
+      customClass: {
+         confirmButton: "btn btn-primary",
+         cancelButton: 'btn btn-danger'
+      },
    }).then((result) => {
       if (result.isConfirmed) {
          Livewire.dispatch('mediaDeleteConfirmed'); // emit event
@@ -194,13 +227,20 @@ Livewire.on('swal:ebookpdf', data => {
 
 Livewire.on('alert', data => {
    toastr.options = {
-      "closeButton": false,
-      "progressBar": false,
+      "closeButton": true,
       "debug": false,
-      "newest": true,
+      "newestOnTop": true,
+      "progressBar": true,
+      "positionClass": "toastr-top-center",
       "preventDuplicates": true,
-      "positionClass": "toast-top-center",
-      "timeOut": 2000,
+      "showDuration": "300",
+      "hideDuration": "1000",
+      "timeOut": "5000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
    };
 
    // "showMethod": 'bounceIn',
@@ -216,3 +256,53 @@ Livewire.on('alert', data => {
 
    toastr[type](message, title);
 });
+
+
+Livewire.on('openTab', function (event) {
+   window.open(event.detail, '_blank');
+});
+
+Livewire.on('openNewTabs', function (data) {
+   var daftarUrl = data[0].urls;
+   daftarUrl.forEach(function (url) {
+      window.open(url, '_blank');
+   });
+});
+
+Livewire.on('closeModal', function (e) {
+   $('.modal.show').modal('hide');
+});
+
+// Deprecated but kept for backward compatibility
+/* Livewire.hook('commit', ({
+   component,
+   commit,
+   respond,
+   succeed,
+   fail
+}) => {
+   console.log('terjadi');
+   // Block ketika request sedang terjadi
+   $("[id$='-table']").block({
+      message: '<div class="spinner-border text-primary" role="status"></div>',
+      css: {
+         backgroundColor: "transparent",
+         border: "0"
+      },
+      overlayCSS: {
+         backgroundColor: "#fff",
+         opacity: 0.8
+      }
+   });
+
+   // Jangan lupa menambahkan event listener untuk kasus error juga, untuk memastikan bahwa UI dibuka kembali
+   // meskipun ada error yang terjadi
+   fail(() => {
+      $("[id$='-table']").unblock();
+   });
+
+   // Lepaskan block ketika request selesai
+   respond(() => {
+      $("[id$='-table']").unblock();
+   });
+}); */

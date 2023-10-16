@@ -21,8 +21,8 @@ return new class extends Migration
             $table->enum('role', ['admin', 'alumni']);
             // Additional
             $table->text('avatar')->default('assets/images/avatar/avatar-' . random_int(1,5) .'.png');
-            $table->string('nik')->nullable();
-            $table->string('nip')->nullable();
+            $table->string('nrp')->nullable();
+            $table->string('pangkat')->nullable();
             $table->string('keterangan')->nullable();
             $table->date('dob')->nullable();
             $table->string('pob')->nullable();

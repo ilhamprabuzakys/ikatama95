@@ -67,6 +67,12 @@
          max-width: 100%;
          padding-bottom: 10px;
       }
+
+      .sv-components-column {
+         padding-top: 0 !important;
+         padding-bottom: 0 !important;
+         margin: 0;
+      }
    </style>
    @stack('styles')
    @livewireStyles
@@ -77,27 +83,45 @@
       <div class="container-fluid">
          <a class="navbar-brand" href="{{ route('login') }}">
             <img src="{{ asset('assets/images/favicon.png') }}" alt="" style="width: 50px">
-            <span class="logo-text">{{ config('app.name') }}</span>
+            {{-- <span class="logo-text">{{ config('app.name') }}</span> --}}
+            <span class="logo-text" style="color: #ff7676; font-family: 'Oswald';">IKATAMA <span style="color: #e8c84a">95</span></span>
          </a>
          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
          </button>
          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-               <li class="nav-item">
-                  @auth
-                     <a class="nav-link text-white" href="{{ route('dashboard') }}">Kembali ke Dashboard <i class="fas fa-home ms-1"></i></a>
-                  @else
-                     <a class="nav-link text-white" href="{{ route('login') }}">Login <i class="fas fa-login ms-1"></i></a>
+            <ul class="navbar-nav mx-auto">
+               <div class="gx-3">
+                  <a href="https://www.facebook.com/ikatama95" target="_blank"><img src="{{ asset('assets/images/socials/facebook.png') }}"
+                        alt="Follow me on Facebook" title="Follow me on Facebook"></a>
 
-                  @endauth
+                  <a href="https://twitter.com/ikatama95" target="_blank"><img src="{{ asset('assets/images/socials/twitter.png') }}"
+                        alt="Follow me on Twitter" title="Follow me on Twitter"></a>
+                  <a href="https://www.instagram.com/ikatama95/" target="_blank"><img src="{{ asset('assets/images/socials/instagram.png') }}"
+                        alt="Follow me on Instagram" title="Follow me on Instagram"></a>
+                  <a href="https://www.youtube.com/channel/UCamlJXgVUdqLuyYmrxlu8TQ" target="_blank"><img
+                        src="{{ asset('assets/images/socials/youtube.png') }}" alt="Follow me on Youtube" title="Follow me on Youtube"></a>
+                  <a href="mailto:ikatama95@gmail.com" target="_blank"><img src="{{ asset('assets/images/socials/email.png') }}" alt="Send me a Email"
+                        title="Send me a Email"></a>
+               </div>
+            </ul>
+            <ul class="navbar-nav">
+               <li class="nav-item">
+                  <div>
+                     @auth
+                        <a class="nav-link text-white" href="{{ route('dashboard') }}">Kembali ke Dashboard <i class="fas fa-home ms-1"></i></a>
+                     @else
+                        <a class="nav-link text-white" href="{{ route('login') }}">Login <i class="fas fa-login ms-1"></i></a>
+                     @endauth
+
+                  </div>
                </li>
             </ul>
          </div>
       </div>
    </nav>
 
-   <div class="container">
+   <div class="container-lg container-sm-fluid">
       <div class="header-survey mt-5 text-white">
          <h3>Pengisian Survey Alumni Patriatama 95</h3>
          <hr>
@@ -121,14 +145,17 @@
          <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
             <li class="ms-3">
                <span class="text-white">Made by </span>
-               <span class="maker">PT. Inti Optima Teknologi</span>.
+               <span class="maker">PT. Inti Optima Teknologi</span>
             </li>
          </ul>
       </footer>
    </div>
    @livewireScripts
+   {{-- <script src="sweetalert2.min.js"></script> --}}
    @stack('scripts')
-   <script src="sweetalert2.min.js"></script>
+   @persist('custom-utils-js')
+      <script src="{{ asset('assets/js/dashboard/utils.js') }}"></script>
+   @endpersist
    @persist('survey')
       <script type="text/javascript" src="https://unpkg.com/survey-jquery/survey.jquery.min.js"></script>
    @endpersist

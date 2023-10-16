@@ -38,12 +38,19 @@
                   </td>
                   <td>{{ $user->created_at->diffForHumans() }}</td>
                   <td class="  text-center">
+                     <a href="javascript:void(0);" class="btn btn-sm btn-success btn-clean btn-icon btn-md"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editUserModal" wire:click="editUser({{ $user->id }})">
+                        <i class="fas fa-edit"></i>
+                     </a>
                      <a href="details/{{ $user->id }}" class="btn btn-sm btn-primary btn-clean btn-icon btn-icon-md">
                         <i class="fa-solid fa-circle-info"></i>
                      </a>
-                     <a href="javascript:void(0);" wire:click="deleteConfirmation({{ $user->id }})" class="btn btn-sm btn-danger btn-clean btn-icon btn-icon-md">
-                        <i class="fas fa-trash-alt"></i>
-                     </a>
+                     @if ($user->id != auth()->id())
+                        <a href="javascript:void(0);" wire:click="deleteConfirmation({{ $user->id }})" class="btn btn-sm btn-danger btn-clean btn-icon btn-icon-md">
+                           <i class="fas fa-trash-alt"></i>
+                        </a>
+                     @endif
                   </td>
                </tr>
             @empty

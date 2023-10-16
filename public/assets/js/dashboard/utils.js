@@ -13,8 +13,8 @@ Livewire.on('reloadSurvey', () => {
 Livewire.on('swal:modal', data => {
    Swal.fire({
       title: data[0].title,
-      html: data[0].text,
-      icon: data[0].icon,
+      html: data[0].text ?? data[0].message,
+      icon: data[0].icon ?? data[0].type,
       confirmButtonText: 'Ok',
       timer: data[0].duration ?? 2500,
    })
