@@ -8,6 +8,7 @@ use App\Models\KolaseAlbumPhoto;
 use App\Models\Survey;
 use App\Models\TarunaPhoto;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Illuminate\Support\Str;
@@ -30,12 +31,15 @@ class IsiSurvey extends Component
         // Dekode hasil JSON
         $data = json_decode($results, true);
 
+        // Cek data json.
+        // dd($data);
+
         $this->saveSurvey($data);
         $this->saveTaruna($data);
         $this->saveTerkini($data);
         $this->saveKeluarga($data);
         $this->saveFotoAnakSemua($data);
-        
+
         // Foto Kolase Album Taruna
         if (array_key_exists('foto_kolase_album_taruna', $data)) {
             $this->saveImageToMultipleDirectory($data['foto_kolase_album_taruna'], 'foto-kolase-album');
@@ -98,6 +102,7 @@ class IsiSurvey extends Component
     {
         $fotoTarunaFilename = $this->saveImageToDirectory($data['foto_taruna'][0], 'foto-taruna');
         // Simpan foto_taruna ke tabel taruna_photos
+        Survey::where('id', $this->survey_id)->update(['foto_taruna' => $fotoTarunaFilename]);
         TarunaPhoto::create([
             'survey_id' => $this->survey_id,
             'path' => $fotoTarunaFilename
@@ -204,7 +209,11 @@ class IsiSurvey extends Component
 
         $status_pernikahan = isset($data['status_pernikahan']) ? $data['status_pernikahan'] : (isset($data['status_pernikahan_lainya']) ? $data['status_pernikahan_lainya'] : null);
 
+        $timestamp = Carbon::now();
+        // $timestamp = Carbon::now()->format('d/m/Y H:i:s');
+
         $survey = Survey::create([
+            'timestamp' => $timestamp,
             'user_id' => Auth::check() ? auth()->id() : null,
             'nama' => \strtoupper($data['nama']),
             'panggilan' => $data['panggilan'],

@@ -2,6 +2,7 @@
 
 // use App\Livewire\Home\HomeIndex;
 
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\PDFController;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\LupaPassword;
@@ -29,11 +30,13 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/lupa-password', LupaPassword::class)->name('lupa-password');
 });
 Route::get('/download-pdf/{id}', [PDFController::class, 'download'])->name('download.pdf');
+Route::get('/preview-pdf/{id}', [PDFController::class, 'preview_formulir'])->name('preview.formulir');
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
 
     // Menu Formulir   
     Route::group(['prefix' => 'formulir', 'as' => 'formulir.'], function () {
+        Route::get('/export-formulir', [ExportController::class, 'exportFormulir'])->name('export');
         Route::get('/', FormulirIndex::class)->name('index');
         // Route::get('/tambah', FormulirCreate::class)->name('create');
         // Route::get('/{formulir}/edit', FormulirUpdate::class)->name('update');

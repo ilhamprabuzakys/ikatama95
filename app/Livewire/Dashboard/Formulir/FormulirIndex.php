@@ -40,6 +40,8 @@ class FormulirIndex extends Component
     public $export_role = '';
     public $export_format = '';
 
+    public $survey_id;
+
     protected $queryString = [
         'q' => ['except' => ''],
         'filter_date' => ['except' => ''],
@@ -56,7 +58,7 @@ class FormulirIndex extends Component
 
     public function render()
     {
-        $query = Survey::latest('created_at')
+        $query = Survey::latest('timestamp')
             ->when($this->search, function ($query) {
                 return $query->globalSearch($this->search);
             })
@@ -65,14 +67,14 @@ class FormulirIndex extends Component
                 if (count($dates) == 2) {
                     $startDate = Carbon::createFromFormat('m/d/Y', $dates[0])->startOfDay();
                     $endDate = Carbon::createFromFormat('m/d/Y', $dates[1])->endOfDay();
-                    return $query->whereBetween('created_at', [$startDate, $endDate]);
+                    return $query->whereBetween('timestamp', [$startDate, $endDate]);
                 }
             });
-            
+
         if (\getRole() == 'alumni') {
             $query = $query->where('user_id', auth()->id());
         }
-        
+
         $surveys = $query->paginate($this->paginate);
 
         return view('livewire.dashboard.formulir.formulir-index', [
@@ -128,5 +130,33 @@ class FormulirIndex extends Component
             $this->downloadTarget = $surveys->pluck('id')->toArray(); // Select all jika belum semua dipilih
         }
         // dd($this->downloadTarget);
+    }
+
+    public function exportExcel()
+    {
+        $this->dispatch('startDownload', ['url' => route('formulir.export')]);
+        $this->dispatch('closeModal');
+    }
+
+    public function deleteConfirmation($id)
+    {
+        $this->survey_id = $id;
+        $this->dispatch('swal:confirmation', [
+            'title' => 'Hasil pengisian'
+        ]);
+    }
+
+    #[On('deleteConfirmed')]
+    public function destroy()
+    {
+        $survey = Survey::find($this->survey_id);
+        // Kemudian hapus survey
+        $survey->delete();
+        $this->dispatch('alert', [
+            'type' => 'success',
+            'title' => 'Berhasil dihapus',
+            'message' => 'Data berhasil dihapus'
+        ]);
+        $this->dispatch('refresh');
     }
 }

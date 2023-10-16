@@ -5,9 +5,6 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Document</title>
-   <!-- Bootstrap CSS v5.2.1 -->
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 </head>
 <style>
    * {
@@ -91,7 +88,14 @@
    .wrapper .main_content {
       width: 100%;
       margin-left: 200px;
+      background-image: url("http://ikatama95.test/assets/images/favicon-polos-segitiga-opacity.png");
+      background-color: #fff;
+      background-repeat: no-repeat;
+      /* background-position: calc(50% - 100px) calc(50% - 15px); */
+      background-position: center;
+
    }
+
 
    .wrapper .main_content .header {
       padding: 20px;
@@ -129,14 +133,16 @@
       color: #717171;
       line-height: 25px;
       background-color: #0a235c;
+      width: 40%;
+      height: 30%;
    }
 
    .wrapper .main_content .box-motto hr {
       position: relative;
       border: none;
-      height: 12px;
+      height: 5px;
       width: 100px;
-      background: #ffffff;
+      background: #ffcf7c;
    }
 
    td.ms-3 {
@@ -155,18 +161,31 @@
 
    <div class="wrapper">
       <div class="sidebar">
-         <h2>IKATAMA 95</h2>
-         <div class="card ms-3 rounded-5 bg-white" style="border: 2px dashed black; width: 250px; height: 275px; object-fit: cover;">
-            <img src="{{ asset($survey->foto_terkini) }}" style="height: inherit" class="rounded-5"
+         {{-- <h2>IKATAMA 95</h2> --}}
+         <div class="" style="border: 2px dashed black;
+         width: 250px;
+         height: 275px;
+         object-fit: cover;
+         border-radius: 25px;
+         margin-left: 20px;">
+            <img src="{{ asset($survey->foto_terkini) }}" style="
+               height: 272px;
+  width: 248px;
+  max-width: 250px;
+  border-radius: 25px;
+            "
                alt="">
             <div class="card-body">
             </div>
          </div>
          <img src="{{ asset('assets/images/favicon-polos-segitiga.png') }}"
-            style="width: 150px; align-items: center; position: absolute;right: 25px;bottom: 10%;" alt="">
+            style="width: 150px;
+            align-items: center;
+            position: relative;
+            margin: 40px 25px 0 25px;" alt="">
       </div>
       <div class="main_content">
-         <div class="header">Welcome!! Have a nice day.</div>
+         {{-- <div class="header">Welcome!! Have a nice day.</div> --}}
          <div class="info">
             <h2>{{ $survey->nama }}</h2>
             <hr>
@@ -176,47 +195,47 @@
                      <tr class="">
                         <td scope="row">Panggilan</td>
                         <td class="text-end">:</td>
-                        <td class="ms-3">{{ $survey->panggilan }}</td>
+                        <td><span style="margin-left: 10px">{{ $survey->panggilan }}</span></td>
                      </tr>
                      <tr class="">
                         <td scope="row">Tempat, Tgl. Lahir</td>
                         <td class="text-end">:</td>
-                        <td class="ms-3">{{ $survey->tempat_lahir . ', ' . $survey->tanggal_lahir }}</td>
+                        <td><span style="margin-left: 10px">{{ $survey->tempat_lahir . ', ' . $survey->tanggal_lahir }}</span></td>
                      </tr>
                      <tr class="">
                         <td scope="row">Pangkat</td>
                         <td class="text-end">:</td>
-                        <td class="ms-3">{{ $survey->pangkat }}</td>
+                        <td><span style="margin-left: 10px">{{ $survey->pangkat }}</span></td>
                      </tr>
                      <tr class="">
                         <td scope="row">NRP</td>
                         <td class="text-end">:</td>
-                        <td class="ms-3">{{ $survey->nrp }}</td>
+                        <td><span style="margin-left: 10px">{{ $survey->nrp }}</span></td>
                      </tr>
                      <tr class="">
                         <td scope="row">Status</td>
                         <td class="text-end">:</td>
-                        <td class="ms-3">{{ $survey->status_kedinasan }}</td>
+                        <td><span style="margin-left: 10px">{{ $survey->status_kedinasan }}</span></td>
                      </tr>
                      <tr class="">
                         <td scope="row">Status Pernikahan</td>
                         <td class="text-end">:</td>
-                        <td class="ms-3">{{ $survey->status_pernikahan }}</td>
+                        <td><span style="margin-left: 10px">{{ $survey->status_pernikahan }}</span></td>
                      </tr>
                      <tr class="">
                         <td scope="row">No. Telepon</td>
                         <td class="text-end">:</td>
-                        <td class="ms-3">{{ $survey->no_telepon }}</td>
+                        <td><span style="margin-left: 10px">{{ $survey->no_telepon }}</span></td>
                      </tr>
                      <tr class="">
                         <td scope="row">Email</td>
                         <td class="text-end">:</td>
-                        <td class="ms-3">{{ $survey->email }}</td>
+                        <td><span style="margin-left: 10px">{{ $survey->email }}</span></td>
                      </tr>
                      <tr class="">
                         <td scope="row">Alamat</td>
                         <td class="text-end">:</td>
-                        <td class="ms-3">{{ $survey->alamat }}</td>
+                        <td><span style="margin-left: 10px">{{ $survey->alamat }}</span></td>
                      </tr>
                   </tbody>
                </table>
@@ -224,23 +243,14 @@
          </div>
 
          <div class="box-motto">
-            <h2 class="text-white">Motto</h2>
+            <h2 style="color: #fff">Motto</h2>
             <hr>
-            <p class="text-white">
+            <p style="color: #dadada">
                {{ $survey->motto }}
             </p>
          </div>
       </div>
    </div>
-
-   <!-- Bootstrap JavaScript Libraries -->
-   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-      integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-      crossorigin="anonymous"></script>
-
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
-      integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
-      crossorigin="anonymous"></script>
 </body>
 
 </html>

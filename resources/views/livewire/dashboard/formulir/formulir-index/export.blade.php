@@ -27,10 +27,9 @@
                   <select wire:model='export_format'
                      data-placeholder="Pilih format hasil ekspor"
                      class="form-select form-select-solid fw-bold">
-                     <option></option>
                      <option value="excel">Excel</option>
                      {{-- <option value="pdf">PDF</option> --}}
-                     <option value="zip">ZIP</option>
+                     {{-- <option value="zip">ZIP</option> --}}
                   </select>
                   <!--end::Input-->
                </div>
@@ -39,7 +38,7 @@
                <div class="text-center">
                   <button type="reset" class="btn btn-danger me-3"
                      data-bs-dismiss="modal"><i class="fas fa-xmark me-2"></i>Batalkan</button>
-                  <button type="button" wire:click='exportSurvey()' class="btn btn-primary">
+                  <button type="button" wire:click='exportExcel()' id="exportExcel" class="btn btn-primary">
                      <span class="indicator-label"><i class="fas fa-file-export me-2"></i>Ekspor Data</span>
                      <span class="indicator-progress">Please wait...
                         <span

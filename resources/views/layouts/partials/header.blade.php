@@ -44,7 +44,7 @@
                <img alt="Logo" src="{{ asset('assets/images/favicon.png') }}" class="h-50px w-100 theme-dark-show" />
             </a>
             <h3 class="d-flex align-self-end my-auto" style="color: #ff7676; letter-spacing: 3px;">ITAMA 95</h3> --}}
-            <a href="https://siparelnew.id/" class="text-white" style="font-weight: bold;">
+            <a href="{{ route('dashboard') }}" wire:navigate class="text-white" style="font-weight: bold;">
                <img alt="Logo" src="{{ asset('assets/images/favicon.png') }}" class="h-50px w-100" />
             </a>
             <span class="m-2 h1" style="color: #ff7676; letter-spacing: 2px; font-family: 'Oswald';">IKATAMA <span style="color: #e8c84a">95</span></span>

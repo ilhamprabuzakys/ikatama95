@@ -8,7 +8,7 @@
        data-bs-trigger="hover"
        data-bs-dismiss="click"
        data-bs-placement="right"
-       wire:navigate>
+       wire:navigate.hover>
         <span class="menu-bullet">
             <span class="bullet bullet-dot"></span>
         </span>

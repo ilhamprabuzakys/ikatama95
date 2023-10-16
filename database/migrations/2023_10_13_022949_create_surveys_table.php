@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('surveys', function (Blueprint $table) {
             $table->id();
+            $table->timestamp('timestamp');
             $table->foreignId('user_id')->nullable();
+            $table->text('foto_taruna')->nullable();
             $table->string('nama');
             $table->string('panggilan');
             $table->string('tempat_lahir');
@@ -53,6 +55,11 @@ return new class extends Migration
                 $table->text('motto_anak_' . $anak_index)->nullable();
             }
 
+            $table->text('nama_bakti')->nullable();
+            $table->text('narasi_bakti')->nullable();
+            
+            $table->text('nama_karya')->nullable();
+            $table->text('narasi_karya')->nullable();
             $table->timestamps();
 
             // Relasi ke tabel lain

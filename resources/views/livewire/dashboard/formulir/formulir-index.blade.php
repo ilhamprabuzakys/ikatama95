@@ -142,6 +142,28 @@
          $('#filter_date').val('');
       });
 
+      $('#exportExcel').click(function(e) {
+         Livewire.dispatch('swal:loading');
+         console.log('ok..');
+      });
+
+      Livewire.on('startDownload', data => {
+         // Swal.close();
+         window.location.href = data[0].url; // Mulai unduhan setelah swal tertutup
+         // console.log(data[0].url);
+         Swal.fire({
+            title: 'Mempersiapkan Unduhan...',
+            didOpen: () => {
+               Swal.showLoading();
+            },
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            showConfirmButton: false,
+            timer: 6000, // misalnya, tunggu 2 detik sebelum mulai unduhan
+            didClose: () => {
+            }
+         });
+      });
       Livewire.on('downloadUrlNya', function() {
          console.log('nyampe ui');
          // var urls = @json($downloadUrls);
