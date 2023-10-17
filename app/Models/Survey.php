@@ -24,7 +24,7 @@ class Survey extends Model
                             LOWER(status_pernikahan) LIKE '%{$search}%' OR 
                             LOWER(email) LIKE '%{$search}%' OR 
                             LOWER(nrp) LIKE '%{$search}%' OR 
-                            LOWER(TO_CHAR(timestamp, 'DD/MM/YYYY HH24:MI:SS')) LIKE '%{$search}%' OR 
+                            LOWER(timestamp::text) LIKE '%{$search}%' OR 
                             LOWER(pangkat) LIKE '%{$search}%'"
         );
     }

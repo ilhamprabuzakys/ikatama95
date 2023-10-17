@@ -16,6 +16,26 @@
       font-family: sans-serif;
    }
 
+   .fw-bold {
+      font-weight: bold !important;
+   }
+
+   .text-success {
+      color: rgb(0, 255, 0);
+   }
+
+   .text-danger {
+      color: rgb(255, 0, 0);
+   }
+
+   .text-primary {
+      color: #0059ff;
+   }
+   
+   .text-contras {
+      color: #313131;
+   }
+
    body {
       background-color: #ffffff;
    }
@@ -215,7 +235,17 @@
                      <tr class="">
                         <td scope="row">Status</td>
                         <td class="text-end">:</td>
-                        <td><span style="margin-left: 10px">{{ $survey->status_kedinasan }}</span></td>
+                        <td>
+                           <span style="margin-left: 10px">
+                              <span class="
+                              @if($survey->status_kedinasan == 'Tidak Aktif')
+                              fw-bold text-danger
+                              @else
+                              fw-bold text-success
+                              @endif
+                              ">{{ $survey->status_kedinasan }}</span>
+                           </span>
+                        </td>
                      </tr>
                      <tr class="">
                         <td scope="row">Status Pernikahan</td>
@@ -223,19 +253,19 @@
                         <td><span style="margin-left: 10px">{{ $survey->status_pernikahan }}</span></td>
                      </tr>
                      <tr class="">
-                        <td scope="row">No. Telepon</td>
+                        <td scope="row" class="text-contras">No. Telepon</td>
                         <td class="text-end">:</td>
-                        <td><span style="margin-left: 10px">{{ $survey->no_telepon }}</span></td>
+                        <td><span style="margin-left: 10px" class="text-contras">{{ $survey->no_telepon }}</span></td>
                      </tr>
                      <tr class="">
-                        <td scope="row">Email</td>
+                        <td scope="row" class="text-contras">Email</td>
                         <td class="text-end">:</td>
-                        <td><span style="margin-left: 10px">{{ $survey->email }}</span></td>
+                        <td><span style="margin-left: 10px" class="text-contras">{{ $survey->email }}</span></td>
                      </tr>
                      <tr class="">
-                        <td scope="row">Alamat</td>
+                        <td scope="row" class="text-contras">Alamat</td>
                         <td class="text-end">:</td>
-                        <td><span style="margin-left: 10px">{{ $survey->alamat }}</span></td>
+                        <td><span style="margin-left: 10px" class="text-contras">{{ $survey->alamat }}</span></td>
                      </tr>
                   </tbody>
                </table>

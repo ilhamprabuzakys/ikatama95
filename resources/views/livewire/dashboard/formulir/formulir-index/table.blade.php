@@ -1,6 +1,6 @@
  <!--begin::Table-->
  <div class="table-responsive">
-    <table class="table border-left align-middle table-row-dashed border-right" id="kt_table_formulirs">
+    <table class="table border-left align-middle table-row-dashed border-right" id="kt_table_formulirs" style="border: 1px solid #f1f1f1">
        <thead class="bg-secondary-subtle">
           <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
              <th class="w-10px ps-3">
@@ -52,15 +52,28 @@
                 <td class="fw-bold">{{ $survey->pangkat }}</td>
                 <td>{{ Carbon\Carbon::parse($survey->timestamp)->format('d/m/Y H:i:s') }}</td>
                 <td class="text-center">
-                   <a href="{{ route('download.pdf', $survey->id) }}" class="btn btn-sm btn-primary btn-clean btn-icon btn-icon-md">
-                      <i class="fa-solid fa-print"></i>
-                   </a>
-                   <a href="{{ route('preview.formulir', $survey->id) }}" target="_blank" class="btn btn-sm btn-light-success btn-clean btn-icon btn-icon-md mx-1">
-                      <i class="fa fa-eye"></i>
-                   </a>
-                   <a href="javascript:void(0);" wire:click="deleteConfirmation({{ $survey->id }})" class="btn btn-sm btn-danger btn-clean btn-icon btn-icon-md">
-                      <i class="fas fa-trash-alt"></i>
-                   </a>
+                   <a href="javascript:;" class="" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"><i
+                         class="fas fa-ellipsis"></i>
+                      <i class="ki-outline ki-down fs-6 ms-1"></i></a>
+                   <!--begin::Menu-->
+                   <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
+                      <div class="menu-item px-3">
+                         <a href="{{ route('download.pdf', $survey->id) }}" class="menu-link">
+                            <i class="text-primary fa-solid fa-print me-2"></i> Cetak
+                         </a>
+                      </div>
+                      <div class="menu-item px-3">
+                         <a href="{{ route('preview.formulir', $survey->id) }}" target="_blank" class="menu-link">
+                            <i class="text-success fa fa-eye me-2"></i>Lihat
+                         </a>
+                      </div>
+                      <div class="menu-item px-3">
+                         <a href="javascript:void(0);" wire:click="deleteConfirmation({{ $survey->id }})" class="menu-link">
+                            <i class="text-danger fas fa-trash-alt me-2"></i> Hapus
+                         </a>
+                      </div>
+                   </div>
+                   <!--end::Menu-->
                 </td>
              </tr>
           @empty

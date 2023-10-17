@@ -1,6 +1,6 @@
 <!--begin::Table-->
 <div class="table-responsive">
-   <table class="table  align-middle table-row-dashed border-right" id="kt_table_users" style="border: 1px solid #f1f1f1">
+   <table class="table align-middle table-row-dashed border-right" id="kt_table_users" style="border: 1px solid #f1f1f1">
       <thead class="bg-secondary-subtle">
          <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
             <th class="w-10px ps-3">

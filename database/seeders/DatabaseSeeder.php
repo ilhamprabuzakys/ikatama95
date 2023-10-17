@@ -20,18 +20,12 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
         ]);
 
-        /* $satker = resource_path('../importable/satker.sql');
-        $users = resource_path('../importable/data_users.sql');
-        $relawan = resource_path('../importable/relawan.sql');
-        $laporan = resource_path('../importable/laporan.sql');
-        $laporan_log = resource_path('../importable/laporan_log.sql');
-
+        $surveys = \database_path('sql/surveys.sql');
         try {
-            DB::unprepared(file_get_contents($satker));
-            DB::unprepared(file_get_contents($relawan));
+            DB::unprepared(file_get_contents($surveys));
         } catch (\Throwable $th) {
-            echo "Terjadi kesalahan pada file: {$satker}. Pesan kesalahan: " . $th->getMessage();
-        } */
+            echo "Terjadi kesalahan pada saat import sql data. Pesan kesalahan: " . $th->getMessage();
+        }
 
         // DB::unprepared(
         //     file_get_contents($regencies)
