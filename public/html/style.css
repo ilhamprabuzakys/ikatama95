@@ -1,0 +1,169 @@
+.PAGE {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.PAGE .overlap-wrapper {
+  background-color: #ffffff;
+  overflow: hidden;
+  width: 595px;
+  height: 842px;
+}
+
+.PAGE .overlap {
+  position: relative;
+  height: 982px;
+  top: -30px;
+}
+
+.PAGE .overlap-group {
+  position: absolute;
+  width: 569px;
+  height: 982px;
+  top: 0;
+  left: 0;
+}
+
+.PAGE .div {
+  position: absolute;
+  width: 226px;
+  height: 982px;
+  top: 0;
+  left: 0;
+}
+
+.PAGE .rectangle {
+  position: absolute;
+  width: 181px;
+  height: 982px;
+  top: 0;
+  left: 0;
+  background-color: #eb9f0b;
+}
+
+.PAGE .favicon-polos {
+  position: absolute;
+  width: 135px;
+  height: 156px;
+  top: 413px;
+  left: 31px;
+  object-fit: cover;
+}
+
+.PAGE .text-wrapper {
+  position: absolute;
+  width: 139px;
+  top: 798px;
+  left: 26px;
+  -webkit-text-stroke: 1px #000000;
+  font-family: "Pathway Gothic One", Helvetica;
+  font-weight: 400;
+  color: #00235d;
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.PAGE .vector {
+  position: absolute;
+  width: 178px;
+  height: 247px;
+  top: 32px;
+  left: 1px;
+}
+
+.PAGE .rectangle-2 {
+  position: absolute;
+  width: 211px;
+  height: 242px;
+  top: 120px;
+  left: 14px;
+  background-color: #ffffff;
+  border-radius: 25px;
+  border: 3px dashed;
+  border-color: #000000;
+}
+
+.PAGE .overlap-2 {
+  position: absolute;
+  width: 345px;
+  height: 230px;
+  top: 607px;
+  left: 224px;
+  background-color: #00235d;
+}
+
+.PAGE .text-wrapper-2 {
+  position: absolute;
+  width: 74px;
+  top: 17px;
+  left: 15px;
+  -webkit-text-stroke: 1px #000000;
+  font-family: "Inter", Helvetica;
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.PAGE .rectangle-3 {
+  position: absolute;
+  width: 55px;
+  height: 5px;
+  top: 43px;
+  left: 16px;
+  background-color: #ffce70;
+}
+
+.PAGE .AKPOL-TR {
+  position: absolute;
+  width: 174px;
+  height: 48px;
+  top: 41px;
+  left: 421px;
+  object-fit: cover;
+}
+
+.PAGE .img {
+  position: absolute;
+  width: 280px;
+  height: 293px;
+  top: 228px;
+  left: 260px;
+  object-fit: cover;
+}
+
+.PAGE .overlap-3 {
+  position: absolute;
+  width: 275px;
+  height: 95px;
+  top: 120px;
+  left: 267px;
+}
+
+.PAGE .text-wrapper-3 {
+  position: absolute;
+  width: 275px;
+  top: 0;
+  left: 0;
+  -webkit-text-stroke: 1px #000000;
+  font-family: "Inter", Helvetica;
+  font-weight: 600;
+  color: #000000;
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.PAGE .rectangle-4 {
+  position: absolute;
+  width: 137px;
+  height: 11px;
+  top: 52px;
+  left: 2px;
+  background-color: #ffce70;
+}

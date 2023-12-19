@@ -38,7 +38,7 @@ class Logout extends Component
         // Mengirimkan notifikasi ke frontend (jika diperlukan)
 
         // Redirect ke halaman login
-        $this->redirect('/login');
+        $this->redirect('/login', navigate: true);
 
         // Kemudian, kirim event ke komponen lain
         /* $this->dispatch('refresh')->to(ChatList::class);

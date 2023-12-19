@@ -14,25 +14,42 @@
          text-decoration: none;
          font-family: sans-serif;
       }
+
+      header img.header {
+         width: 100%;
+         height: 200px;
+         position: relative;
+      }
+
+      main .keluarga-biru img {
+         width: 100%;
+         height: auto;
+         position: relative;
+         bottom: 0;
+      }
+      .container {
+         padding-left: 120px;
+      }
+      .container .gambar-keluarga {
+         width: 90%;
+         height: auto;
+         position: relative;
+         margin-top: 290px;
+      }
    </style>
 </head>
 
 <body>
-   <header class="header-container">
-      <div class="image-container">
-         <img src="{{ asset('assets/images/AKPOL-95.png') }}" alt="" class="akpol95">
-         {{-- <img src="{{ asset($survey->foto_keluarga) }}" alt=""> --}}
-         <img src="{{ asset('assets/images/favicon-polos-segitiga.png') }}" class="logoSegitiga">
-
-      </div>
+   <header>
+      <img src="{{ asset('assets/images/pdf/PAGE-4-HEADER.png') }}" alt="" class="header">
    </header>
+   
+   <div class="container">
+      <img src="{{ asset('assets/images/KELUARGA.jpg') }}" alt="" class="gambar-keluarga">
+   </div>
    <main style="margin-top: 220px">
-      <div class="nama">
-         <h1>{{ $survey->nama }}</h1>
-      </div>
-      <hr class="main-hr">
-      <div class="narasi">
-         <p>{{ $survey->narasi_personal }}</p>
+      <div class="keluarga-biru">
+         <img src="{{ asset('assets/images/KELUARGA-BIRU.png') }}" alt="">
       </div>
    </main>
 </body>

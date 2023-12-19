@@ -34,6 +34,22 @@
                   <!--end::Input-->
                </div>
                <!--end::Input group-->
+
+               <!--begin::Input group-->
+               <div class="fv-row mb-10">
+                  <!--begin::Label-->
+                  <label class="required fs-6 fw-semibold form-label mb-4">Opsi:</label>
+                  <!--end::Label-->
+                  <div class="form-check">
+                     <input class="form-check-input" type="checkbox" value="true" wire:model='export_with_date' id="flexCheckDefault" />
+                     <label class="form-check-label" for="flexCheckDefault">
+                        Sertakan filter tanggal
+                     </label>
+                  </div>
+               </div>
+               <!--end::Input group-->
+
+
                <!--begin::Actions-->
                <div class="text-center">
                   <button type="reset" class="btn btn-danger me-3"

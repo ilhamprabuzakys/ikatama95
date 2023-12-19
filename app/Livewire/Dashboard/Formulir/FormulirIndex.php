@@ -42,6 +42,8 @@ class FormulirIndex extends Component
 
     public $survey_id;
 
+    public $export_with_date = false;
+
     protected $queryString = [
         'q' => ['except' => ''],
         'filter_date' => ['except' => ''],
@@ -56,6 +58,7 @@ class FormulirIndex extends Component
         }
     } */
 
+    #[On('refresh')]
     public function render()
     {
         $query = Survey::latest('timestamp')
@@ -134,10 +137,17 @@ class FormulirIndex extends Component
 
     public function exportExcel()
     {
-        $this->dispatch('startDownload', ['url' => route('formulir.export')]);
+        if ($this->export_with_date == true) {
+            $encodedDate = base64_encode($this->filter_date);
+            $url = route('formulir.export') . '?export_date=' . $encodedDate;
+            $this->dispatch('startDownload', ['url' => $url]);            
+        } else {
+            $this->dispatch('startDownload', ['url' => route('formulir.export')]);            
+        }
         $this->dispatch('closeModal');
+        $this->export_with_date = false;
+        
     }
-
     public function deleteConfirmation($id)
     {
         $this->survey_id = $id;

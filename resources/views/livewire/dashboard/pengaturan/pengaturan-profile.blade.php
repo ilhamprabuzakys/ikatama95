@@ -120,7 +120,7 @@
                   <!--end::Label-->
                   <!--begin::Col-->
                   <div class="col-lg-8 fv-row">
-                     <input type="number" name="phone" wire:model='phone'
+                     <input type="text" name="phone" wire:model='phone'
                         class="form-control form-control-lg form-control-solid"
                         placeholder="Nomor telepon anda" />
                   </div>
@@ -151,6 +151,31 @@
                   </div>
                   <!--end::Col-->
                   @error('nrp')
+                     <div class="text-danger ms-3 mt-1">
+                        {{ $message }}
+                     </div>
+                  @enderror
+               </div>
+               <!--end::Input group-->
+               <!--begin::Input group-->
+               <div class="row mb-6">
+                  <!--begin::Label-->
+                  <label class="col-lg-4 col-form-label fw-semibold fs-6">
+                     <span class="">Tanggal Lahir</span>
+                     <span class="ms-1" data-bs-toggle="tooltip"
+                        title="Tanggal Lahir anda">
+                        <i class="ki-outline ki-information-5 text-gray-500 fs-6"></i>
+                     </span>
+                  </label>
+                  <!--end::Label-->
+                  <!--begin::Col-->
+                  <div class="col-lg-8 fv-row">
+                     <input type="date" wire:model='dob'
+                        class="form-control form-control-lg form-control-solid"
+                        placeholder="Tanggal Lahir anda" />
+                  </div>
+                  <!--end::Col-->
+                  @error('dob')
                      <div class="text-danger ms-3 mt-1">
                         {{ $message }}
                      </div>

@@ -17,7 +17,7 @@ class PengaturanProfile extends Component
 {
     use WithFileUploads;
 
-    public $name, $nrp, $phone, $pangkat, $email, $username, $avatar, $old_avatar, $user;
+    public $name, $nrp, $phone, $pangkat, $dob, $email, $username, $avatar, $old_avatar, $user;
     public $firstTimeUpdate = true;
 
     public function mount()
@@ -28,26 +28,34 @@ class PengaturanProfile extends Component
         $this->phone = auth()->user()->phone;
         $this->pangkat = auth()->user()->pangkat;
         $this->email = auth()->user()->email;
+        $this->dob = auth()->user()->dob;
         $this->username = auth()->user()->username;
         $this->user = auth()->user();
     }
 
     public function rules()
     {
-        return [
+        $rules = [
             'name' => ['required', 'min:3', 'max:50'],
             'avatar' => 'nullable|file|image|mimes:jpg,jpeg,png|max:3069',
-            'username' => [
+            'nrp' => ['max:20'],
+            'phone' => ['nullable', 'max:15'],
+            'pangkat' => ['nullable', 'max:50'],
+            'dob' => ['nullable', 'date'],
+        ];
+
+        if (\getRole() == 'alumni') {
+            $rules['nrp'][] = 'required';
+        } else {
+            $rules['username']  = [
                 'required',
                 'min:3',
                 'max:30',
                 'regex:/^[a-z][a-z0-9_]*[a-z0-9]+$/',
                 Rule::unique('users')->ignore(auth()->user()->id)
-            ],
-            'nrp' => ['nullable', 'max:20'],
-            'phone' => ['nullable', 'max:15'],
-            'pangkat' => ['nullable', 'max:50'],
-        ];
+            ];
+        }
+        return $rules;
     }
 
     protected $messages = [
@@ -63,7 +71,8 @@ class PengaturanProfile extends Component
         'username.regex' => 'Format username tidak valid, format yang valid: a-z / 0-9 / _ /',
         'username.unique' => 'Username ini tidak tersedia, silahkan ganti ke yang lain.',
         'phone.max' => 'Nomor telepon terlalu panjang, maksimal itu hanya 15 karakter.',
-        'nrp.max' => 'Nomor NRP terlalu panjang, maksimal itu hanya 20 karakter.',
+        'nrp.required' => 'NRP harus diisi.',
+        'nrp.max' => 'NRP terlalu panjang, maksimal itu hanya 20 karakter.',
         'pangkat.max' => 'Pangkat terlalu panjang, maksimal itu hanya 20 karakter.',
     ];
 
@@ -82,12 +91,12 @@ class PengaturanProfile extends Component
     {
         $this->avatar = null;
     }
-    
+
     public function resetAvatarDefault()
     {
         if ($this->avatar == null) {
             User::find(auth()->id())->update([
-                'avatar' => 'assets/images/avatar/avatar-' . random_int(1,5) .'.png'
+                'avatar' => 'assets/images/avatar/avatar-' . random_int(1, 5) . '.png'
             ]);
         } else {
             $this->avatar = null;
@@ -99,7 +108,7 @@ class PengaturanProfile extends Component
     #[On('file-upload')]
     public function saveChanges()
     {
-        if ($this->name === $this->user->name && $this->email === $this->user->email && $this->username === $this->user->username && !is_object($this->avatar) && $this->old_avatar === $this->user->avatar && $this->nrp === $this->user->nrp && $this->pangkat === $this->user->pangkat && $this->user->phone === $this->phone) {
+        if ($this->name === $this->user->name && $this->email === $this->user->email && $this->username === $this->user->username && !is_object($this->avatar) && $this->old_avatar === $this->user->avatar && $this->nrp === $this->user->nrp && $this->pangkat === $this->user->pangkat && $this->user->phone === $this->phone && $this->user->dob === $this->dob) {
             // dd('tidak ada perubahan');
             $this->dispatch('alert', [
                 'title' => 'Tidak Ada Perubahan',
@@ -187,5 +196,11 @@ class PengaturanProfile extends Component
         $this->email = auth()->user()->email;
         $this->username = auth()->user()->username;
         $this->avatar = null;
+    }
+
+    #[On('printProfile')]
+    public function print_profile_pdf()
+    {
+        \pdf_dashboard_profile();
     }
 }

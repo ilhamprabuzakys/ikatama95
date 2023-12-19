@@ -4,6 +4,7 @@
 
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\PDFViewController;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\LupaPassword;
 use App\Livewire\Dashboard\Dashboard;
@@ -19,7 +20,19 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 
-// URL::forceRootUrl(config('app.url'));
+URL::forceRootUrl(config('app.url'));
+
+$redirect_login = [
+    'login', 'wp-admin', 'wp-login', 'signin', 'masuk'
+ ];
+ 
+ Route::get('/{path}', function ($path) use ($redirect_login) {
+    if (in_array($path, $redirect_login)) {
+       return redirect()->route('login');
+    } else {
+       abort(404); 
+    }
+ })->where('path', implode('|', $redirect_login));
 
 // Halaman terpisah untuk mengisi survey
 Route::get('/survey', IsiSurvey::class)->name('survey.isi');
@@ -29,8 +42,18 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/', Login::class)->name('login');
     Route::get('/lupa-password', LupaPassword::class)->name('lupa-password');
 });
-Route::get('/download-pdf/{id}', [PDFController::class, 'download'])->name('download.pdf');
-Route::get('/preview-pdf/{id}', [PDFController::class, 'preview_formulir'])->name('preview.formulir');
+
+
+Route::controller(PDFController::class)->group(function ()  {
+    Route::get('/cetak-dashboard-profile', 'print_dashboard_profile')->name('pdf.dashboard_profile');
+    Route::get('/download-pdf/{id}', 'download')->name('download.pdf');
+    Route::get('/preview-pdf/{id}', 'preview_formulir')->name('preview.formulir');
+});
+
+Route::controller(PDFViewController::class)->group(function () {
+    Route::get('/keluarga', 'keluarga')->name('pdf.keluarga');
+});
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
 
@@ -54,15 +77,5 @@ Route::middleware(['auth'])->group(function () {
             // Pengaturan Website
             Route::get('/website', PengaturanWebsite::class)->name('website');
         });
-    });
-
-    Route::get('/pdf', function () {
-        $data = [
-            'title' => 'Judul',
-            'text' => 'lorem ipsum dolor sit amet consectetur adipiscing elit...'
-        ];
-
-        $pdf = Pdf::loadView('pdf.survey.hasil', $data);
-        return $pdf->download('document.pdf');
     });
 });

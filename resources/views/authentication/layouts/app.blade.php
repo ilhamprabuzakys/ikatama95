@@ -2,7 +2,7 @@
 <!--
 Author: Ilham Prabu Zaky Setiawan
 Vendor Company: Inti Optima Teknologi
-Product Name: SIDAMAS
+Product Name: IKATAMA 95
 Product Version: 1.0.0
 Contact: ilhamprabuzakys@gmail.com
 Follow: www.instagram.com/ilhamprabuzakyyys
@@ -14,16 +14,16 @@ Follow: www.instagram.com/ilhamprabuzakyyys
    <title>{{ $title ?? '' }} | {{ config('app.name') }}</title>
    <meta charset="utf-8" />
    <meta name="description"
-      content="SIDAMAS" />
+      content="IKATAMA 95" />
    <meta name="keywords"
-      content="SIDAMAS" />
+      content="IKATAMA 95" />
    <meta name="viewport" content="width=device-width, initial-scale=1" />
    <meta property="og:locale" content="en_US" />
    <meta property="og:type" content="article" />
    <meta property="og:title"
-      content="SIDAMAS" />
+      content="IKATAMA 95" />
    <meta property="og:url" content="{{ config('app.url') }}" />
-   <meta property="og:site_name" content="SIDAMAS" />
+   <meta property="og:site_name" content="IKATAMA 95" />
    <link rel="canonical" href="{{ config('app.url') }}" />
    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" />
    <!--begin::Fonts(mandatory for all pages)-->
@@ -93,6 +93,9 @@ Follow: www.instagram.com/ilhamprabuzakyyys
                <!--end::Languages-->
                <!--begin::Links-->
                <div class="d-flex fw-semibold text-primary fs-base gap-5">
+                  {{-- <a href="{{ route('survey.isi') }}">Isi Survey Disini</a> --}}
+               </div>
+               <div class="d-flex fw-semibold text-primary fs-base gap-5">
                   <a href="javascript:void(0);" data-bs-target="#eulaModal" data-bs-toggle="modal" target="_blank">Persyaratan dan Kondisi</a>
                </div>
                <!--end::Links-->
@@ -108,7 +111,7 @@ Follow: www.instagram.com/ilhamprabuzakyyys
                @persist('logo')
                <a href="javascript:void(0);" class="mb-0 mb-lg-0">
                   <img alt="Logo" src="{{ asset('assets/images/favicon.png') }}" class="h-60px h-lg-75px" />
-                  {{-- <h2 class="text">SIDAMAS</h2> --}}
+                  {{-- <h2 class="text">IKATAMA 95</h2> --}}
                </a>
                @endpersist
                <!--end::Logo-->
@@ -116,6 +119,8 @@ Follow: www.instagram.com/ilhamprabuzakyyys
                {{-- <img class="d-none d-lg-block mx-auto w-275px w-md-50 w-xl-500px mb-10 mb-lg-20" src="assets/images/auth/background.png" alt="" /> --}}
                @persist('3dlogo')
                <div id="3dLogo" style="width: 400px; height: 400px;"></div>
+               {{-- <div class="bg-dark">
+               </div> --}}
                @endpersist
                {{-- <div class="mx-auto">
                </div> --}}

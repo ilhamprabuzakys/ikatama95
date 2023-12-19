@@ -80,6 +80,14 @@
             <i class="fa fa-calendar-alt fs-3 position-absolute" style="left: 5%;"></i>
          </div>
          <!--end::Filter Date-->
+         
+         <!--begin::Refresh -->
+         <div class="d-flex align-items-center position-relative my-1 ms-5">
+            <button class="btn btn-success btn-icon rounded-circle text-light" wire:click='$dispatch("refresh")'>
+               <i class="fa fa-refresh fs-3"></i>
+            </button>
+         </div>
+         <!--end::Refresh -->
       </div>
       <!--begin::Card title-->
       <!--begin::Card toolbar-->

@@ -45,6 +45,9 @@ class PengaturanUser extends Component
 
     public $name, $old_name, $email, $username, $role, $password, $new_password, $user_id, $user;
 
+    // Attribute alumni
+    public $dob, $nrp;
+
     protected $queryString = [
         'q' => ['except' => ''],
         'tanggal_mulai' => ['except' => ''],
@@ -57,7 +60,7 @@ class PengaturanUser extends Component
     public function mount()
     {
     }
-    
+
 
     public function render()
     {
@@ -97,27 +100,32 @@ class PengaturanUser extends Component
     public function rules()
     {
         return [
-            'name' => 'required',
-            'email' => ['required', 'email', 'not_in:' . auth()->user()->email, Rule::unique('users')->ignore($this->user_id)],
-            'role' => 'required',
+            // 'name' => 'required',
+            'dob' => 'required',
+            'nrp' => ['required', 'not_in:' . auth()->user()->nrp, Rule::unique('users')->ignore($this->user_id)],
+            // 'email' => ['required', 'email', 'not_in:' . auth()->user()->email, Rule::unique('users')->ignore($this->user_id)],
+            // 'role' => 'required',
         ];
     }
 
     protected $messages = [
-        'email.required' => 'Alamat email harus terisi.',
-        'email.email' => 'Alamat email harus berformat email, contoh: @gmail.com, @yahoo.com.',
-        'email.unique' => 'Alamat email ini telah digunakan.',
-        'name.required' => 'Nama harus terisi.',
-        'password.required' => 'Password harus terisi.',
-        'role.required' => 'Role harus dipilih.',
+        'dob.required' => 'Tanggal lahir wajib diisi.',
+        'nrp.required' => 'NRP wajib diisi.',
+        // 'email.email' => 'Alamat email harus berformat email, contoh: @gmail.com, @yahoo.com.',
+        // 'email.unique' => 'Alamat email ini telah digunakan.',
+        // 'name.required' => 'Nama harus terisi.',
+        // 'password.required' => 'Password harus terisi.',
+        // 'role.required' => 'Role harus dipilih.',
     ];
 
     protected $validationAttributes = [
-        'name' => 'name',
-        'email' => 'email address',
-        'username' => 'username',
-        'password' => 'password',
-        'role' => 'role',
+        'nrp' => 'NRP',
+        'dob' => 'Tanggal lahir',
+        // 'name' => 'name',
+        // 'email' => 'email address',
+        // 'username' => 'username',
+        // 'password' => 'password',
+        // 'role' => 'role',
     ];
 
     public function store()
@@ -125,40 +133,44 @@ class PengaturanUser extends Component
         try {
             $rules = $this->rules();
             $messages = $this->messages;
+            $this->nrp = \trim($this->nrp);
 
-            if (!$this->username == '' || !$this->username == null) {
-                $rules['username'] = ['min:6', 'not_in:' . auth()->user()->username, Rule::unique('users'), 'regex:/^[a-z][a-z0-9_]*[a-z0-9]+$/'];
-                $messages['username.min'] = 'Username minimal harus 6 karakter.';
-                $messages['username.not_in'] = 'Username ini sama dengan milik anda.';
-                $messages['username.unique'] = 'Username ini telah dimiliki oleh user lain.';
-                $messages['username.regex'] = 'Username tidak valid, format yang valid: a-z / 0-9 / _ /.';
-            } else {
-                $this->username = '';
-            }
+            // if (!$this->username == '' || !$this->username == null) {
+            //     $rules['username'] = ['min:6', 'not_in:' . auth()->user()->username, Rule::unique('users'), 'regex:/^[a-z][a-z0-9_]*[a-z0-9]+$/'];
+            //     $messages['username.min'] = 'Username minimal harus 6 karakter.';
+            //     $messages['username.not_in'] = 'Username ini sama dengan milik anda.';
+            //     $messages['username.unique'] = 'Username ini telah dimiliki oleh user lain.';
+            //     $messages['username.regex'] = 'Username tidak valid, format yang valid: a-z / 0-9 / _ /.';
+            // } else {
+            //     $this->username = '';
+            // }
             $validatedData = $this->validate($rules, $messages);
-            if ($this->username == '') {
-                $validatedData['username'] = Str::before($validatedData['email'], '@');
-                // Cek apakah username sudah ada di tabel users
-                if (User::where('username', $validatedData['username'])->exists()) {
-                    // Jika sudah ada, tambahkan 3 angka acak di akhir username
-                    $suffix = rand(100, 999); // Angka acak antara 100 dan 999
-                    $validatedData['username'] .= $suffix;
-                }
-            }
+            // if ($this->username == '') {
+            //     $validatedData['username'] = Str::before($validatedData['email'], '@');
+            //     // Cek apakah username sudah ada di tabel users
+            //     if (User::where('username', $validatedData['username'])->exists()) {
+            //         // Jika sudah ada, tambahkan 3 angka acak di akhir username
+            //         $suffix = rand(100, 999); // Angka acak antara 100 dan 999
+            //         $validatedData['username'] .= $suffix;
+            //     }
+            // }
 
-            $password = '';
-            if ($this->password != null || $this->password != '') {
-                $password = $this->password;
-            } else {
-                $password = 'password123';
-            }
+            // $password = '';
+            // if ($this->password != null || $this->password != '') {
+            //     $password = $this->password;
+            // } else {
+            //     $password = 'password123';
+            // }
             User::create([
-                'name' => $validatedData['name'],
-                'email' => $validatedData['email'],
-                'username' => $validatedData['username'],
-                'role' => $validatedData['role'],
-                'password' => $password,
+                'name' => $this->name ?? null,
+                'role' => 'alumni',
+                'nrp' => $this->nrp,
+                'dob' => $this->dob,
                 'email_verified_at' => \now()
+                // 'email' => $validatedData['email'],
+                // 'username' => $validatedData['username'],
+                // 'role' => $validatedData['role'],
+                // 'password' => $password,
             ]);
             // $data = [
             //     'name' => $validatedData['name'],
@@ -188,36 +200,40 @@ class PengaturanUser extends Component
             $rules = $this->rules();
             $messages = $this->messages;
 
-            if (!$this->username == '' || !$this->username == null) {
-                $rules['username'] = ['min:6', 'not_in:' . auth()->user()->username, Rule::unique('users')->ignore($this->user_id), 'regex:/^[a-z][a-z0-9_]*[a-z0-9]+$/'];
-                $messages['username.min'] = 'Username minimal harus 6 karakter.';
-                $messages['username.not_in'] = 'Username ini sama dengan milik anda.';
-                $messages['username.unique'] = 'Username ini telah dimiliki oleh user lain.';
-                $messages['username.regex'] = 'Username tidak valid, format yang valid: a-z / 0-9 / _ /.';
-            } else {
-                $this->username = '';
-            }
-            $validatedData = $this->validate($rules, $messages);
-            if ($this->username == '') {
-                $validatedData['username'] = Str::before($validatedData['email'], '@');
-            }
-            $password = '';
-            if ($this->new_password != null || $this->new_password != '') {
-                $password = $this->new_password;
-                User::where('id', $this->user_id)->update([
-                    'name' => $validatedData['name'],
-                    'email' => $validatedData['email'],
-                    'username' => $validatedData['username'],
-                    'role' => $validatedData['role'],
-                    'password' => $password,
-                ]);
-            } 
+            // if (!$this->username == '' || !$this->username == null) {
+            //     $rules['username'] = ['min:6', 'not_in:' . auth()->user()->username, Rule::unique('users')->ignore($this->user_id), 'regex:/^[a-z][a-z0-9_]*[a-z0-9]+$/'];
+            //     $messages['username.min'] = 'Username minimal harus 6 karakter.';
+            //     $messages['username.not_in'] = 'Username ini sama dengan milik anda.';
+            //     $messages['username.unique'] = 'Username ini telah dimiliki oleh user lain.';
+            //     $messages['username.regex'] = 'Username tidak valid, format yang valid: a-z / 0-9 / _ /.';
+            // } else {
+            //     $this->username = '';
+            // }
+            // $validatedData = $this->validate($rules, $messages);
+            // if ($this->username == '') {
+            //     $validatedData['username'] = Str::before($validatedData['email'], '@');
+            // }
+            // $password = '';
+            // if ($this->new_password != null || $this->new_password != '') {
+            //     $password = $this->new_password;
+            //     User::where('id', $this->user_id)->update([
+            //         'name' => $validatedData['name'],
+            //         'email' => $validatedData['email'],
+            //         'username' => $validatedData['username'],
+            //         'role' => $validatedData['role'],
+            //         'password' => $password,
+            //     ]);
+            // }
 
             User::where('id', $this->user_id)->update([
-                'name' => $validatedData['name'],
-                'email' => $validatedData['email'],
-                'username' => $validatedData['username'],
-                'role' => $validatedData['role'],
+                'name' => $this->name ?? null,
+                'role' => 'alumni',
+                'nrp' => $this->nrp,
+                'dob' => $this->dob,
+                'email_verified_at' => \now()
+                // 'email' => $validatedData['email'],
+                // 'username' => $validatedData['username'],
+                // 'role' => $validatedData['role'],
             ]);
             $this->resetInput();
             $this->dispatch('refresh');
@@ -245,6 +261,8 @@ class PengaturanUser extends Component
             $this->username = $user->username;
             $this->password = $user->password;
             $this->role = $user->role;
+            $this->dob = $user->dob;
+            $this->nrp = $user->nrp;
         } else {
             return back();
         }
@@ -317,14 +335,23 @@ class PengaturanUser extends Component
         dd($this->export_format, $this->export_role);
     }
 
+    #[On('closedModal')]
+    public function closedModal()
+    {
+        $this->resetInput();
+    }
+
     public function resetInput()
     {
+        // dd('reset');
         $this->name = '';
         $this->old_name = '';
         $this->email = '';
         $this->username = '';
         $this->password = '';
         $this->role = '';
+        $this->dob = '';
+        $this->nrp = '';
     }
 
     public function closeModal()

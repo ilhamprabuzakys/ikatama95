@@ -10,6 +10,54 @@
             <div class="modal-body">
                <div class="row justify-content-between mb-2">
                   <div class="col-3">
+                     <label for="title" class="form-label">Nama</label>
+                  </div>
+                  <div class="col-9">
+                     <input type="text"
+                        class="form-control @error('name')
+                        is-invalid
+                     @enderror" wire:model="name">
+                     @error('name')
+                        <div class="small ms-2 mt-1 text-danger">
+                           {{ $message }}
+                        </div>
+                     @enderror
+                  </div>
+               </div>
+               <div class="row justify-content-between mb-2">
+                  <div class="col-3">
+                     <label for="add_nrp" class="form-label required">NRP</label>
+                  </div>
+                  <div class="col-9">
+                     <input id="add_nrp" type="text"
+                        class="form-control @error('nrp')
+                        is-invalid
+                     @enderror" wire:model="nrp">
+                     @error('nrp')
+                        <div class="small ms-2 mt-1 text-danger">
+                           {{ $message }}
+                        </div>
+                     @enderror
+                  </div>
+               </div>
+               <div class="row justify-content-between mb-2">
+                  <div class="col-3">
+                     <label for="add_dob" class="form-label required">Tanggal Lahir</label>
+                  </div>
+                  <div class="col-9">
+                     <input id="add_dob" type="date"
+                        class="form-control @error('dob')
+                        is-invalid
+                     @enderror" wire:model="dob">
+                     @error('dob')
+                        <div class="small ms-2 mt-1 text-danger">
+                           {{ $message }}
+                        </div>
+                     @enderror
+                  </div>
+               </div>
+               {{-- <div class="row justify-content-between mb-2">
+                  <div class="col-3">
                      <label for="title" class="form-label">Nama <sup class="text-danger">*</sup></label>
                   </div>
                   <div class="col-9">
@@ -86,11 +134,11 @@
                   <div class="col-9">
                      <div class="form-password-toggle">
                         <div class="input-group input-group-merge">
-                           <input type="password" class="form-control" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                           <input type="password" id="passwordEdit" class="form-control" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                               @error('new_password')
                            is-invalid
                         @enderror wire:model="new_password" />
-                           <span class="input-group-text cursor-pointer"><i class="mdi mdi-eye-off-outline"></i></span>
+                           <span class="input-group-text cursor-pointer" id="passwordEditBTN"><i class="fa fa-eye"></i></span>
                         </div>
                         @error('new_password')
                            <div class="small ms-2 mt-1 text-danger">
@@ -100,7 +148,7 @@
                      </div>
                   </div>
                </div>
-               <span class="text-muted mt-1">Lewati bagian ini, jika anda tidak ingin <strong>password</strong></span>
+               <span class="text-muted mt-1">Lewati bagian ini, jika anda tidak ingin <strong>password</strong></span> --}}
             </div>
             <div class="modal-footer">
                <button type="button" wire:click="closeModal" class="btn btn-light" data-bs-dismiss="modal">
@@ -136,6 +184,26 @@
                usernameInput.attr('disabled', 'disabled');
             }
          });
+
+         $('#passwordEditBTN').click(function(e) {
+            e.preventDefault();
+            var passwordInput = $("#passwordEdit");
+            var icon = $("#passwordEditBTN i");
+
+            if (passwordInput.attr('type') === 'password') {
+               console.log('password ke text');
+               passwordInput.attr('type', 'text');
+               icon.removeClass('fa-eye');
+               icon.addClass('fa-eye-slash');
+            } else if (passwordInput.attr('type') === 'text') {
+               console.log('text ke password');
+               passwordInput.attr('type', 'password');
+               icon.removeClass('fa-eye-slash');
+               icon.addClass('fa-eye');
+            }
+         });
+
+
       });
    </script>
 @endpush

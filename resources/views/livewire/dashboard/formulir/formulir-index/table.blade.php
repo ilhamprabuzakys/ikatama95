@@ -1,6 +1,6 @@
  <!--begin::Table-->
  <div class="table-responsive">
-    <table class="table border-left align-middle table-row-dashed border-right" id="kt_table_formulirs" style="border: 1px solid #f1f1f1">
+    <table class="table border-left align-middle table-row-dashed border-right table-sm" id="kt_table_formulirs" style="border: 1px solid #f1f1f1">
        <thead class="bg-secondary-subtle">
           <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
              <th class="w-10px ps-3">
@@ -15,6 +15,7 @@
              <th class="min-w-125px">Nama</th>
              <th class="min-w-125px">NRP</th>
              <th class="min-w-125px">Pangkat</th>
+             <th class="min-w-125px">Tanggal Lahir</th>
              <th class="min-w-125px">Timestamp</th>
              <th class="text-center min-w-100px">Aksi</th>
           </tr>
@@ -50,13 +51,23 @@
                 <td>{{ $survey->nama }}</td>
                 <td>{{ $survey->nrp }}</td>
                 <td class="fw-bold">{{ $survey->pangkat }}</td>
+                <td>{{ $survey->tanggal_lahir }}</td>
                 <td>{{ Carbon\Carbon::parse($survey->timestamp)->format('d/m/Y H:i:s') }}</td>
                 <td class="text-center">
-                   <a href="javascript:;" class="" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"><i
+                  {{-- Aku ingin jika routenya not found atau error maka tampilkan dibawah --}}
+                  <a href="{{ $survey->file_path ? $survey->file_path : route('download.pdf', $survey->id) }}" target="_blank" class="menu-link">
+                     <i class="text-primary fa-solid fa-print me-2"></i>
+                  </a>
+
+                  {{-- Namun jika routenya  --}}
+                  <a href="javascript:void(0);" wire:click="deleteConfirmation({{ $survey->id }})" class="menu-link">
+                     <i class="text-danger fas fa-trash-alt me-2"></i>
+                  </a>
+                  {{--  <a href="javascript:;" class="dropdown-{{ $survey->id }}" wire:key='dropdown-{{ $survey->id }}' id="dropdown-{{ $survey->id }}" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"><i
                          class="fas fa-ellipsis"></i>
-                      <i class="ki-outline ki-down fs-6 ms-1"></i></a>
+                      <i class="ki-outline ki-down fs-6 ms-1"></i></a> --}}
                    <!--begin::Menu-->
-                   <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
+                   {{-- <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
                       <div class="menu-item px-3">
                          <a href="{{ route('download.pdf', $survey->id) }}" class="menu-link">
                             <i class="text-primary fa-solid fa-print me-2"></i> Cetak
@@ -72,7 +83,7 @@
                             <i class="text-danger fas fa-trash-alt me-2"></i> Hapus
                          </a>
                       </div>
-                   </div>
+                   </div> --}}
                    <!--end::Menu-->
                 </td>
              </tr>

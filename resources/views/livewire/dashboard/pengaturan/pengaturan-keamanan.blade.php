@@ -84,7 +84,7 @@
                </div>
                <!--end::Label-->
                <!--begin::Edit-->
-               <div id="kt_signin_password_edit" class="flex-row-fluid d-none">
+               {{-- <div id="kt_signin_password_edit" class="flex-row-fluid d-none">
                   <!--begin::Form-->
                   <form id="kt_signin_change_password" class="form" novalidate="novalidate">
                      <div class="row mb-1">
@@ -124,15 +124,108 @@
                      </div>
                   </form>
                   <!--end::Form-->
-               </div>
+               </div> --}}
                <!--end::Edit-->
                <!--begin::Action-->
                <div id="kt_signin_password_button" class="ms-auto">
-                  <button class="btn btn-light btn-active-light-primary">Ganti Password</button>
+                  <button class="btn btn-light btn-active-light-primary" data-bs-toggle="modal"
+                  data-bs-target="#gantiPassword">Ganti Password</button>
                </div>
                <!--end::Action-->
             </div>
             <!--end::Password-->
+
+            {{-- Modal Ganti Password --}}
+            <div wire:ignore.self class="modal fade" id="createUserModal" tabindex="-1" aria-hidden="true">
+               <!--begin::Modal dialog-->
+               <div class="modal-dialog modal-dialog-centered mw-650px">
+                  <!--begin::Modal content-->
+                  <div class="modal-content">
+                     <!--begin::Modal header-->
+                     <div class="modal-header" id="kt_modal_add_user_header">
+                        <!--begin::Modal title-->
+                        <h2 class="fw-bold">Tambah User</h2>
+                        <!--end::Modal title-->
+                        <!--begin::Close-->
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            
+                        <!--end::Close-->
+                     </div>
+                     <!--end::Modal header-->
+                     <!--begin::Modal body-->
+                     <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                        <div class="modal-body">
+                           <div class="row justify-content-between mb-2">
+                              <div class="col-3">
+                                 <label for="title" class="form-label">Password Saat Ini</label>
+                              </div>
+                              <div class="col-9">
+                                 <input type="password"
+                                    class="form-control @error('current_password')
+                                    is-invalid
+                                 @enderror" wire:model="current_password">
+                                 @error('current_password')
+                                    <div class="small ms-2 mt-1 text-danger">
+                                       {{ $message }}
+                                    </div>
+                                 @enderror
+                              </div>
+                           </div>
+                           <div class="row justify-content-between mb-2">
+                              <div class="col-3">
+                                 <label for="title" class="form-label">Password Baru</label>
+                              </div>
+                              <div class="col-9">
+                                 <input type="password"
+                                    class="form-control @error('new_password')
+                                    is-invalid
+                                 @enderror" wire:model="new_password">
+                                 @error('new_password')
+                                    <div class="small ms-2 mt-1 text-danger">
+                                       {{ $message }}
+                                    </div>
+                                 @enderror
+                              </div>
+                           </div>
+
+                           <div class="row justify-content-between mb-2">
+                              <div class="col-3">
+                                 <label for="title" class="form-label">Konfirmasi Password Baru</label>
+                              </div>
+                              <div class="col-9">
+                                 <input type="password"
+                                    class="form-control @error('confirmnew_password')
+                                    is-invalid
+                                 @enderror" wire:model="confirmnew_password">
+                                 @error('confirmnew_password')
+                                    <div class="small ms-2 mt-1 text-danger">
+                                       {{ $message }}
+                                    </div>
+                                 @enderror
+                              </div>
+                           </div>
+                        
+                           <div class="text-center pt-15">
+                              <button type="reset" wire:click='closeModal()' class="btn btn-danger me-3" data-bs-dismiss="modal"><i class="fas fa-xmark me-2"></i>Batalkan</button>
+                              <button type="submit" wire:click='updatePassword()' class="btn btn-primary"
+                                 data-kt-users-modal-action="submit">
+                                 <span class="indicator-label"><i class="fas fa-save me-2"></i>Simpan</span>
+                                 <span class="indicator-progress">Please wait...
+                                    <span
+                                       class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                              </button>
+                           </div>
+                           <!--end::Form-->
+                        </div>
+                        <!--end::Modal body-->
+                     </div>
+                     <!--end::Modal content-->
+                  </div>
+                  <!--end::Modal dialog-->
+               </div>
+            </div><!-- /.modal -->            
+
+
             {{--  <!--begin::Notice-->
           <div
              class="notice d-flex bg-light-primary rounded border-primary border border-dashed p-6">

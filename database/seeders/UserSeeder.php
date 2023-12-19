@@ -25,7 +25,9 @@ class UserSeeder extends Seeder
             'username' => 'alumni',
             'password' => 'alumni',
             'role' => 'alumni',
-            'email_verified_at' => \now()
+            'email_verified_at' => \now(),
+            'nrp' => '000',
+            'dob' => '2000-10-10'
         ]);
         // User::create([
         //     'name' => 'Brigjen Pol. Drs. Heri Maryadi, M.M.',

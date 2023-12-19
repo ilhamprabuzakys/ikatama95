@@ -28,15 +28,25 @@
             <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
                <a href="javascript:void(0);"
                   class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
-                  <i class="ki-outline ki-profile-circle fs-4 me-2"></i>{{ getUserRoleDetail() }}</a>
+                  <i class="ki-outline ki-profile-circle fs-4 me-2"></i>Sebagai : {{ getUserRoleDetail() }}</a>
                {{-- <a href="javascript:void(0);"
                class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
                <i class="ki-outline ki-geolocation fs-4 me-1"></i>SF, Bay Area</a> --}}
-               @if (auth()->user()->email != null || auth()->user()->email != '')
-                  <a href="javascript:void(0);"
-                     class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
-                     <i class="ki-outline ki-sms fs-4 me-1"></i>{{ auth()->user()->email }}</a>
-               @endif
+               @can('alumni')
+                  @if (auth()->user()->nrp != null || auth()->user()->nrp != '')
+                     <a href="javascript:void(0);"
+                        class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
+                        <i class="fas fa-code-branch fs-4 me-2"></i>NRP : {{ auth()->user()->nrp }}</a>
+                  @endif
+               @endcan
+               @can('admin')
+                  @if (auth()->user()->username != null || auth()->user()->username != '')
+                     <a href="javascript:void(0);"
+                        class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
+                        <i class="fas fa-code-branch fs-4 me-2"></i>{{ auth()->user()->username }}</a>
+                  @endif
+               @endcan
+
             </div>
             <!--end::Info-->
          </div>
@@ -60,7 +70,7 @@
                   <!--end::Heading-->
                   <!--begin::Menu item-->
                   <div class="menu-item px-3">
-                     <a href="javascript:void(0);" class="menu-link px-3">Cetak PDF</a>
+                     <a href="javascript:void(0);" id="print_profile_pdf" class="menu-link px-3">Cetak PDF</a>
                   </div>
                   <!--end::Menu item-->
                </div>
@@ -77,21 +87,23 @@
          <div class="d-flex flex-column flex-grow-1 pe-8">
             <!--begin::Stats-->
             <div class="d-flex flex-wrap">
-               <!--begin::Stat-->
-               <div
-                  class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                  <!--begin::Number-->
-                  <div class="d-flex align-items-center">
-                     <i class="ki-outline ki-arrow-up fs-3 text-success me-2"></i>
-                     <div class="fs-2 fw-bold" data-kt-countup="true"
-                        data-kt-countup-value="1">0</div>
+               @can('admin')
+                  <!--begin::Stat-->
+                  <div
+                     class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                     <!--begin::Number-->
+                     <div class="d-flex align-items-center">
+                        <i class="ki-outline ki-arrow-up fs-3 text-success me-2"></i>
+                        <div class="fs-2 fw-bold" data-kt-countup="true"
+                           data-kt-countup-value="1">0</div>
+                     </div>
+                     <!--end::Number-->
+                     <!--begin::Label-->
+                     <div class="fw-semibold fs-6 text-gray-400">Kuisoner</div>
+                     <!--end::Label-->
                   </div>
-                  <!--end::Number-->
-                  <!--begin::Label-->
-                  <div class="fw-semibold fs-6 text-gray-400">Kuisoner</div>
-                  <!--end::Label-->
-               </div>
-               <!--end::Stat-->
+                  <!--end::Stat-->
+               @endcan
                <!--begin::Stat-->
                <div
                   class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">

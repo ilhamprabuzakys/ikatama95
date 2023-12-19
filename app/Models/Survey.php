@@ -44,6 +44,11 @@ class Survey extends Model
     {
         return $this->hasMany(BerkaryaPhoto::class);
     }
+    
+    public function kolasePhotos()
+    {
+        return $this->hasMany(KolaseAlbumPhoto::class);
+    }
 
     public function user()
     {

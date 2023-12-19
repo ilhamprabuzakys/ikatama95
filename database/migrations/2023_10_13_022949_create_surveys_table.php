@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('surveys', function (Blueprint $table) {
             $table->id();
             $table->timestamp('timestamp');
+            $table->text('file_path')->nullable();
             $table->foreignId('user_id')->nullable();
             $table->text('foto_taruna')->nullable();
             $table->string('nama');
@@ -28,7 +29,7 @@ return new class extends Migration
             $table->string('no_telepon');
             $table->string('email');
             $table->text('alamat');
-            $table->text('motto');
+            $table->text('motto')->nullable();
             $table->text('foto_terkini')->nullable();
             $table->text('narasi_personal');
             $table->text('foto_keluarga')->nullable();

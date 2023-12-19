@@ -63,7 +63,7 @@
                      </div>
                      <!--end::Input group-->
                      <!--begin::Input group-->
-                     <div class="mb-10">
+                     {{-- <div class="mb-10">
                         <label class="form-label fs-6 fw-semibold">Status Akun</label>
                         <select class="form-select form-select-solid"
                            data-allow-clear="true" id="filter_status_akun"
@@ -72,7 +72,7 @@
                            <option value="1">Aktif</option>
                            <option value="0">Tidak Aktif</option>
                         </select>
-                     </div>
+                     </div> --}}
                      <!--end::Input group-->
                      <!--begin::Actions-->
                      <div class="d-flex justify-content-end">

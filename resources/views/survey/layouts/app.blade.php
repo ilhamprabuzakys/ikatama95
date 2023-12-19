@@ -73,9 +73,21 @@
          padding-bottom: 0 !important;
          margin: 0;
       }
+
+      .sv-components-row {
+         padding: 40px 0 0 0;
+      }
    </style>
    @stack('styles')
    @livewireStyles
+
+   <script src="
+         https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.all.min.js
+         "></script>
+   <link href="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.9.0/dist/sweetalert2.min.css
+" rel="stylesheet">
+
 </head>
 
 <body>
@@ -138,14 +150,15 @@
                </svg>
             </a>
             <div class="d-flex justify-content-between">
-               <span class="text-white">&copy; 2023 Patriatama, Gov.</span>
+               <span class="text-white">Copyright © 2023.</span>
             </div>
          </div>
 
          <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
             <li class="ms-3">
-               <span class="text-white">Made by </span>
-               <span class="maker">PT. Inti Optima Teknologi</span>
+               <span class="text-white">Proudly designed & developed by
+               </span>
+               <span class="maker">HS95™</span>
             </li>
          </ul>
       </footer>

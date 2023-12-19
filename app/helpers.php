@@ -2,9 +2,12 @@
 
 use Carbon\Carbon;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Jenssegers\Agent\Agent;
 use Illuminate\Support\Facades\Http;
+use Spatie\Browsershot\Browsershot;
 use Stevebauman\Location\Facades\Location;
 
 function getErrorsString($e)
@@ -72,7 +75,8 @@ function formatTanggalIndonesia($tanggal)
     return $namaHari . ", " . date('d', strtotime($tanggal)) . " " . $namaBulan . " " . date('Y', strtotime($tanggal));
 }
 
-function getRole() {
+function getRole()
+{
     return auth()->user()->role;
 }
 function getUserRoleDetail($role = '')
@@ -238,10 +242,190 @@ function getRoleList()
     ]);
 }
 
-function getPengisianKusioner($user_id = '') {
+function getPengisianKusioner($user_id = '')
+{
     $user_id = $user_id == '' ?  auth()->id() : $user_id;
     $user = User::findOrFail($user_id);
     $surveyCount = $user->surveys()->count();
 
     return $surveyCount;
+}
+
+
+// PDF FUNGSI
+function pdf_berkarya($data)
+{
+    // Memastikan direktori temp ada
+    if (!File::exists(storage_path('temp'))) {
+        File::makeDirectory(storage_path('temp'), 0755, true);
+    }
+
+    $survey = $data['survey'];
+    $paths = $survey->berkaryaPhotos->pluck('path')->toArray();
+    $send = [
+        'paths' => $paths,
+        'survey' => $survey
+    ];
+    $html = view('pdf.survey.berkarya', $send)->render();
+
+    // Simpan PDF ke sementara
+    $tempPath = storage_path('temp/' . 'pdf_berkarya' . '.pdf');
+    // file_put_contents($tempPath, $pdf->output());
+    BrowserShot::html($html)->showBackground()->margins(0, 0, 0, 0)->format('A4')
+        ->setNodeBinary('/home/ilahazs/.nvm/versions/node/v20.9.0/bin/node')
+        ->setNpmBinary('/home/ilahazs/.nvm/versions/node/v20.9.0/bin/npm')
+        ->savePdf($tempPath);
+    return $tempPath;
+}
+
+function pdf_bakti_akpol($data)
+{
+    // Memastikan direktori temp ada
+    if (!File::exists(storage_path('temp'))) {
+        File::makeDirectory(storage_path('temp'), 0755, true);
+    }
+    $survey = $data['survey'];
+    $paths = $survey->baktiPhotos->pluck('path')->toArray();
+    $send = [
+        'paths' => $paths,
+        'survey' => $survey
+    ];
+    $html = view('pdf.survey.bakti-akpol', $send)->render();
+
+    // Simpan PDF ke sementara
+    $tempPath = storage_path('temp/' . 'pdf_bakti_akpol' . '.pdf');
+    // file_put_contents($tempPath, $pdf->output());
+    BrowserShot::html($html)->showBackground()->margins(0, 0, 0, 0)->format('A4')
+        ->setNodeBinary('/home/ilahazs/.nvm/versions/node/v20.9.0/bin/node')
+        ->setNpmBinary('/home/ilahazs/.nvm/versions/node/v20.9.0/bin/npm')
+        ->savePdf($tempPath);
+    return $tempPath;
+}
+
+function pdf_daftar_anak($data)
+{
+    // Memastikan direktori temp ada
+    if (!File::exists(storage_path('temp'))) {
+        File::makeDirectory(storage_path('temp'), 0755, true);
+    }
+
+    $html = view('pdf.survey.daftar-anak', $data)->render();
+
+    // Simpan PDF ke sementara
+    $tempPath = storage_path('temp/' . 'pdf_daftar_anak' . '.pdf');
+    // file_put_contents($tempPath, $pdf->output());
+    BrowserShot::html($html)->showBackground()->margins(0, 0, 0, 0)->format('A4')
+        ->setNodeBinary('/home/ilahazs/.nvm/versions/node/v20.9.0/bin/node')
+        ->setNpmBinary('/home/ilahazs/.nvm/versions/node/v20.9.0/bin/npm')
+        ->savePdf($tempPath);
+    return $tempPath;
+}
+
+function pdf_keluarga($data)
+{
+    // Membuat PDF dari view
+    // $pdf = Pdf::loadView('pdf.survey.keluarga-own', $data);
+
+    // Memastikan direktori temp ada
+    if (!File::exists(storage_path('temp'))) {
+        File::makeDirectory(storage_path('temp'), 0755, true);
+    }
+
+    $html = view('pdf.survey.keluarga-custom', $data)->render();
+
+    // Simpan PDF ke sementara
+    $tempPath = storage_path('temp/' . 'pdf_keluarga' . '.pdf');
+    // file_put_contents($tempPath, $pdf->output());
+    BrowserShot::html($html)->showBackground()->margins(0, 0, 0, 0)->format('A4')
+        ->setNodeBinary('/home/ilahazs/.nvm/versions/node/v20.9.0/bin/node')
+        ->setNpmBinary('/home/ilahazs/.nvm/versions/node/v20.9.0/bin/npm')
+        ->savePdf($tempPath);
+    return $tempPath;
+}
+
+function pdf_narasi_online($data)
+{
+    // Memastikan direktori temp ada
+    if (!File::exists(storage_path('temp'))) {
+        File::makeDirectory(storage_path('temp'), 0755, true);
+    }
+
+    $html = view('pdf.survey.narasi_online', $data)->render();
+
+    // Simpan PDF ke sementara
+    $tempPath = storage_path('temp/' . 'pdf_narasi_online' . '.pdf');
+    // file_put_contents($tempPath, $pdf->output());
+    BrowserShot::html($html)->showBackground()->margins(0, 0, 0, 0)->format('A4')
+        ->setNodeBinary('/home/ilahazs/.nvm/versions/node/v20.9.0/bin/node')
+        ->setNpmBinary('/home/ilahazs/.nvm/versions/node/v20.9.0/bin/npm')
+        ->savePdf($tempPath);
+    return $tempPath;
+}
+
+
+function pdf_utama($data)
+{
+    // Membuat PDF dari view
+    $pdf = Pdf::loadView('pdf.survey.profil', $data);
+
+    // Memastikan direktori temp ada
+    if (!File::exists(storage_path('temp'))) {
+        File::makeDirectory(storage_path('temp'), 0755, true);
+    }
+
+    // Simpan PDF ke sementara
+    $tempPath = storage_path('temp/' . 'pdf_utama' . '.pdf');
+    file_put_contents($tempPath, $pdf->output());
+    return $tempPath;
+}
+
+function pdf_profil($data)
+{
+    // Memastikan direktori temp ada
+    if (!File::exists(storage_path('temp'))) {
+        File::makeDirectory(storage_path('temp'), 0755, true);
+    }
+
+    $html = view('pdf.survey.profil', $data)->render();
+
+    // Simpan PDF ke sementara
+    $tempPath = storage_path('temp/' . 'pdf_profil' . '.pdf');
+    // file_put_contents($tempPath, $pdf->output());
+    Browsershot::html($html)->showBackground()->margins(0, 0, 0, 0)->format('A4')
+        ->setNodeBinary('/home/ilahazs/.nvm/versions/node/v20.9.0/bin/node')
+        ->setNpmBinary('/home/ilahazs/.nvm/versions/node/v20.9.0/bin/npm')
+        ->savePdf($tempPath);
+    return $tempPath;
+}
+
+function pdf_dashboard_profile($data = [])
+{
+    // Lokasi direktori temp
+    $directory = storage_path('app/public/tmp');
+
+    // Memastikan direktori temp ada
+    if (!File::exists($directory)) {
+        File::makeDirectory($directory, 0755, true);
+    }
+
+    $html = view('livewire.dashboard.pengaturan.pengaturan-profile', $data)->render();
+
+    // Simpan PDF ke sementara
+    $tempPath = $directory . '/pdf_dashboard_profile.pdf';
+    Browsershot::html($html)->showBackground()->margins(0, 0, 0, 0)->format('A4')
+        ->setNodeBinary('/home/ilahazs/.nvm/versions/node/v20.9.0/bin/node')
+        ->setNpmBinary('/home/ilahazs/.nvm/versions/node/v20.9.0/bin/npm')
+        ->savePdf($tempPath);
+
+    // Kompresi PDF
+    $simpleName = 'pdf_dashboard_profile';
+    $compressedPdfOutputSimple = storage_path('app/public/tmp/compressed_' . $simpleName . '.pdf');
+    $command = "gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile={$compressedPdfOutputSimple} {$tempPath}";
+    shell_exec($command);
+
+    // Menentukan nama file untuk unduhan
+    $downloadFileName = auth()->user()->name . ' - IKATAMA 95.pdf';
+
+    // Mengunduh file dengan nama yang telah ditentukan dan menghapusnya setelah diunduh
+    return response()->download($compressedPdfOutputSimple, $downloadFileName)->deleteFileAfterSend(true);
 }

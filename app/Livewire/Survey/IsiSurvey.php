@@ -7,9 +7,11 @@ use App\Models\BerkaryaPhoto;
 use App\Models\KolaseAlbumPhoto;
 use App\Models\Survey;
 use App\Models\TarunaPhoto;
+use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\Attributes\On;
@@ -17,13 +19,32 @@ use Livewire\Attributes\Rule;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Layout;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
+use Intervention\Image\Facades\Image;
+use Karriere\PdfMerge\PdfMerge;
 
 #[Title('Pengisian Survey IKATAMA 95')]
 #[Layout('survey.layouts.app')]
 class IsiSurvey extends Component
 {
-    public $survey_id = 1;
+    public $survey_id = null;
     public $sudah_mengisi = false;
+    public $link_pdf;
+
+    public function mount()
+    {
+        if ($this->survey_id == null) {
+            if (Auth::check()) {
+                # Cek apakah dia sudah mengisi survey
+                if (Survey::where('user_id', Auth::user()->id)->exists()) {
+                    $this->link_pdf = Survey::where('user_id', Auth::user()->id)->first()->file_path;
+                    // $this->survey_id = Survey::where('user_id', Auth::user()->id)->first()->id;
+                }
+            } else {
+                $this->link_pdf = '';
+            }
+        }
+    }
 
     #[On('storeSurvey')]
     public function storeSurvey($results)
@@ -59,35 +80,123 @@ class IsiSurvey extends Component
         //     'text' => 'Formulir anda berhasil disimpan'
         // ]);
 
-        $this->dispatch('surveyCompleted');
-        $this->sudah_mengisi = true;
+        $this->checkOrCreateAccount();
+
+
+        if ($this->generatePDF() == false) {
+            # code...
+            # Set state
+            $this->dispatch('surveyCompleted');
+            $this->sudah_mengisi = true;
+            $this->link_pdf = Survey::find($this->survey_id)->file_path;
+
+            
+            
+        } else {
+            $this->dispatch('swal:loading', [
+                'title' => 'Tunggu konversi',
+                'text' => 'Menyimpan formulir',
+                'icon' => 'info',
+            ]);
+        }
+        // dd($this->link_pdf);
+    }
+
+    #[On('checkAccount')]
+    public function checkOrCreateAccount()
+    {
+        if (Auth::check()) {
+            return;
+        }
+
+        $this->dispatch('swal:loading', [
+            'title' => 'Tunggu pembuatan akun',
+            'text' => 'Mengecekan pembuatan akun',
+            'icon' => 'info',
+        ]);
+
+        // $accountIsExist = false;
+        $survey = Survey::find($this->survey_id);
+        if (!$survey) {
+            $this->dispatch('alert', [
+                'title' => 'Error',
+                'message' => 'Terjadi kesalahan tidak diketahui.',
+                'type' => 'error',
+            ]);
+            return;
+        }
+
+        $user_found = User::where('nrp', $survey->nrp)->first();
+
+        if ($user_found) {
+            $this->dispatch('alert', [
+                'title' => 'Informasi',
+                'message' => 'Data user dengan nrp yang anda masukan sudah ada.',
+                'type' => 'info',
+            ]);
+            return;
+        }
+
+        try {
+            $user = User::create([
+                'avatar' => $survey->foto_terkini,
+                'pangkat' => $survey->pangkat,
+                'phone' => $survey->no_telepon,
+                'name' => $survey->nama,
+                'nrp' => $survey->nrp,
+                'dob' => $survey->tanggal_lahir,
+                'role' => 'alumni',
+                'email_verified_at' => \now()
+            ]);
+
+            $survey->update([
+                'user_id' => $user->id
+            ]);
+    
+            $this->dispatch('alert', [
+                'title' => 'Berhasil',
+                'message' => 'Akun user berhasil dibuat, anda dapat login menggunakan <strong>NRP</strong> dan <strong>tanggal lahir</strong> anda.',
+                'type' => 'success',
+            ]);
+        } catch (ValidationException $th) {
+            $this->dispatch('alert', [
+                'title' => 'Error',
+                'message' => 'Terjadi kesalahan tidak diketahui.',
+                'type' => 'error',
+            ]);
+        }
     }
 
     public function saveFotoAnakSemua($data)
     {
         // Foto Anak Pertama (jika ada)
         if (array_key_exists('foto_anak_pertama', $data)) {
-            $this->saveImageToDirectory($data['foto_anak_pertama'][0], 'foto-anak-pertama');
+            $path = $this->saveImageToDirectory($data['foto_anak_pertama'][0], 'foto-anak-pertama');
+            Survey::where('id', $this->survey_id)->update(['foto_anak_pertama' => $path]);
         }
 
         // Foto Anak Kedua (jika ada)
         if (array_key_exists('foto_anak_kedua', $data)) {
-            $this->saveImageToDirectory($data['foto_anak_kedua'][0], 'foto-anak-kedua');
+            $path = $this->saveImageToDirectory($data['foto_anak_kedua'][0], 'foto-anak-kedua');
+            Survey::where('id', $this->survey_id)->update(['foto_anak_kedua' => $path]);
         }
 
         // Foto Anak Ketiga (jika ada)
         if (array_key_exists('foto_anak_ketiga', $data)) {
-            $this->saveImageToDirectory($data['foto_anak_ketiga'][0], 'foto-anak-ketiga');
+            $path = $this->saveImageToDirectory($data['foto_anak_ketiga'][0], 'foto-anak-ketiga');
+            Survey::where('id', $this->survey_id)->update(['foto_anak_ketiga' => $path]);
         }
 
         // Foto Anak Keempat (jika ada)
         if (array_key_exists('foto_anak_keempat', $data)) {
-            $this->saveImageToDirectory($data['foto_anak_keempat'][0], 'foto-anak-keempat');
+            $path = $this->saveImageToDirectory($data['foto_anak_keempat'][0], 'foto-anak-keempat');
+            Survey::where('id', $this->survey_id)->update(['foto_anak_keempat' => $path]);
         }
 
         // Foto Anak Kelima (jika ada)
         if (array_key_exists('foto_anak_kelima', $data)) {
-            $this->saveImageToDirectory($data['foto_anak_kelima'][0], 'foto-anak-kelima');
+            $path = $this->saveImageToDirectory($data['foto_anak_kelima'][0], 'foto-anak-kelima');
+            Survey::where('id', $this->survey_id)->update(['foto_anak_kelima' => $path]);
         }
     }
 
@@ -125,7 +234,7 @@ class IsiSurvey extends Component
         $waktuSekarang = str_replace(' ', '_', now());
         $waktuSekarang = str_replace(':', '-', $waktuSekarang);
 
-        $base64Image = $imageData['content']; // Ambil bagian content sebagai base64
+        $base64Image = $imageData['content'];
 
         if (Str::startsWith($base64Image, 'data:image')) {
             [$type, $base64Image] = explode(';', $base64Image);
@@ -133,13 +242,24 @@ class IsiSurvey extends Component
             $image = base64_decode($base64Image);
 
             $filename = $namaPengisi . '_' . $waktuSekarang . '_' . \random_int(333, 10000) . '.jpg';
-            Storage::disk('public')->put('surveys/' . $namaPengisi . '/' . $directory . '/' . $filename,     $image);
-            // Tambahkan prefix storage/ ke filename yang akan dikembalikan
+
+            $img = Image::make($image);
+
+            // Opsi 1: Mengurangi dimensi gambar menjadi setengah dengan aspek rasio yang tetap
+            // $width = $img->width() / 2;
+            // $height = $img->height() / 2;
+            // $img->resize($width, $height);
+
+            // Opsi 2: Kompres gambar dengan kualitas 60% tanpa mengubah dimensinya
+            $img->stream('jpg', 60);
+
+            Storage::disk('public')->put('surveys/' . $namaPengisi . '/' . $directory . '/' . $filename, $img);
             $filename = 'storage/surveys/' . $namaPengisi . '/' . $directory . '/' . $filename;
         }
 
         return $filename;
     }
+
 
     protected function saveImageToMultipleDirectory($imageDatas, $directory)
     {
@@ -203,6 +323,7 @@ class IsiSurvey extends Component
 
 
         $pangkat = isset($data['pangkat']) ? $data['pangkat'] : (isset($data['pangkat_lainya']) ? $data['pangkat_lainya'] : null);
+
         $pangkat = strtoupper(str_replace('_', ' ', $pangkat));
 
         $status_kedinasan = isset($data['status_kedinasan']) ? $data['status_kedinasan'] : (isset($data['status_kedinasan_lainya']) ? $data['status_kedinasan_lainya'] : null);
@@ -213,58 +334,64 @@ class IsiSurvey extends Component
         // $timestamp = Carbon::now()->format('d/m/Y H:i:s');
 
         $survey = Survey::create([
-            'timestamp' => $timestamp,
+            'timestamp' => $timestamp ?? '-',
             'user_id' => Auth::check() ? auth()->id() : null,
-            'nama' => \strtoupper($data['nama']),
-            'panggilan' => $data['panggilan'],
-            'tempat_lahir' => $data['tempat_lahir'],
-            'tanggal_lahir' => $data['tanggal_lahir'],
-            'pangkat' => $pangkat,
-            'nrp' => $data['nrp'],
-            'status_kedinasan' => $status_kedinasan,
-            'status_pernikahan' => $status_pernikahan,
-            'jumlah_anak' => $data['jumlah_anak'],
-            'no_telepon' => $data['no_telepon'],
-            'email' => $data['email'],
-            'alamat' => $data['alamat'],
-            'motto' => $data['motto'],
-            'narasi_personal' => $data['narasi_personal'],
-            'narasi_keluarga' => $data['narasi_keluarga'],
-            'nama_anak_pertama' => array_key_exists('nama_anak_pertama', $data) ? \strtoupper($data['nama_anak_pertama']) : null,
-            'tempat_lahir_anak_pertama' => array_key_exists('tempat_lahir_anak_pertama', $data) ? $data['tempat_lahir_anak_pertama'] : null,
-            'jenis_kelamin_anak_pertama' => array_key_exists('jenis_kelamin_anak_pertama', $data) ? $data['jenis_kelamin_anak_pertama'] : null,
-            'pekerjaan_anak_pertama' => array_key_exists('pekerjaan_anak_pertama', $data) ? $data['pekerjaan_anak_pertama'] : null,
-            'alamat_anak_pertama' => array_key_exists('alamat_anak_pertama', $data) ? $data['alamat_anak_pertama'] : null,
-            'motto_anak_pertama' => array_key_exists('motto_anak_pertama', $data) ? $data['motto_anak_pertama'] : null,
-
-            'nama_anak_kedua' => array_key_exists('nama_anak_kedua', $data) ? \strtoupper($data['nama_anak_kedua']) : null,
-            'tempat_lahir_anak_kedua' => array_key_exists('tempat_lahir_anak_kedua', $data) ? $data['tempat_lahir_anak_kedua'] : null,
-            'jenis_kelamin_anak_kedua' => array_key_exists('jenis_kelamin_anak_kedua', $data) ? $data['jenis_kelamin_anak_kedua'] : null,
-            'pekerjaan_anak_kedua' => array_key_exists('pekerjaan_anak_kedua', $data) ? $data['pekerjaan_anak_kedua'] : null,
-            'alamat_anak_kedua' => array_key_exists('alamat_anak_kedua', $data) ? $data['alamat_anak_kedua'] : null,
-            'motto_anak_kedua' => array_key_exists('motto_anak_kedua', $data) ? $data['motto_anak_kedua'] : null,
-
-            'nama_anak_ketiga' => array_key_exists('nama_anak_ketiga', $data) ? \strtoupper($data['nama_anak_ketiga']) : null,
-            'tempat_lahir_anak_ketiga' => array_key_exists('tempat_lahir_anak_ketiga', $data) ? $data['tempat_lahir_anak_ketiga'] : null,
-            'jenis_kelamin_anak_ketiga' => array_key_exists('jenis_kelamin_anak_ketiga', $data) ? $data['jenis_kelamin_anak_ketiga'] : null,
-            'pekerjaan_anak_ketiga' => array_key_exists('pekerjaan_anak_ketiga', $data) ? $data['pekerjaan_anak_ketiga'] : null,
-            'alamat_anak_ketiga' => array_key_exists('alamat_anak_ketiga', $data) ? $data['alamat_anak_ketiga'] : null,
-            'motto_anak_ketiga' => array_key_exists('motto_anak_ketiga', $data) ? $data['motto_anak_ketiga'] : null,
-
-            'nama_anak_keempat' => array_key_exists('nama_anak_keempat', $data) ? \strtoupper($data['nama_anak_keempat']) : null,
-            'tempat_lahir_anak_keempat' => array_key_exists('tempat_lahir_anak_keempat', $data) ? $data['tempat_lahir_anak_keempat'] : null,
-            'jenis_kelamin_anak_keempat' => array_key_exists('jenis_kelamin_anak_keempat', $data) ? $data['jenis_kelamin_anak_keempat'] : null,
-            'pekerjaan_anak_keempat' => array_key_exists('pekerjaan_anak_keempat', $data) ? $data['pekerjaan_anak_keempat'] : null,
-            'alamat_anak_keempat' => array_key_exists('alamat_anak_keempat', $data) ? $data['alamat_anak_keempat'] : null,
-            'motto_anak_keempat' => array_key_exists('motto_anak_keempat', $data) ? $data['motto_anak_keempat'] : null,
-
-            'nama_anak_kelima' => array_key_exists('nama_anak_kelima', $data) ? \strtoupper($data['nama_anak_kelima']) : null,
-            'tempat_lahir_anak_kelima' => array_key_exists('tempat_lahir_anak_kelima', $data) ? $data['tempat_lahir_anak_kelima'] : null,
-            'jenis_kelamin_anak_kelima' => array_key_exists('jenis_kelamin_anak_kelima', $data) ? $data['jenis_kelamin_anak_kelima'] : null,
-            'pekerjaan_anak_kelima' => array_key_exists('pekerjaan_anak_kelima', $data) ? $data['pekerjaan_anak_kelima'] : null,
-            'alamat_anak_kelima' => array_key_exists('alamat_anak_kelima', $data) ? $data['alamat_anak_kelima'] : null,
-            'motto_anak_kelima' => array_key_exists('motto_anak_kelima', $data) ? $data['motto_anak_kelima'] : null,
+            'nama' => \strtoupper($data['nama'] ?? '-'),
+            'panggilan' => $data['panggilan'] ?? '-',
+            'tempat_lahir' => $data['tempat_lahir'] ?? '-',
+            'tanggal_lahir' => $data['tanggal_lahir'] ?? '-',
+            'pangkat' => $pangkat ?? '-',
+            'nrp' => $data['nrp'] ?? '-',
+            'status_kedinasan' => $status_kedinasan ?? '-',
+            'status_pernikahan' => $status_pernikahan ?? '-',
+            'jumlah_anak' => $data['jumlah_anak'] ?? NULL,
+            'no_telepon' => $data['no_telepon'] ?? NULL,
+            'email' => $data['email'] ?? NULL,
+            'alamat' => $data['alamat'] ?? NULL,
+            'motto' => $data['motto'] ?? NULL,
+            'narasi_personal' => $data['narasi_personal'] ?? NULL,
+            'narasi_keluarga' => $data['narasi_keluarga'] ?? NULL,
+            'nama_bakti' => $data['nama_bakti'] ?? NULL,
+            'narasi_bakti' => $data['narasi_bakti_akpol'] ?? NULL,
+            'nama_karya' => $data['nama_karya'] ?? NULL,
+            'narasi_karya' => $data['narasi_berkarya_untuk_patriatama'] ?? NULL,
+            'nama_anak_pertama' => \strtoupper($data['nama_anak_pertama'] ?? NULL),
+            'tempat_lahir_anak_pertama' => $data['tempat_lahir_anak_pertama'] ?? NULL,
+            'tanggal_lahir_anak_pertama' => $data['tanggal_lahir_anak_pertama'] ?? NULL,
+            'jenis_kelamin_anak_pertama' => $data['jenis_kelamin_anak_pertama'] ?? NULL,
+            'pekerjaan_anak_pertama' => $data['pekerjaan_anak_pertama'] ?? NULL,
+            'alamat_anak_pertama' => $data['alamat_anak_pertama'] ?? NULL,
+            'motto_anak_pertama' => $data['motto_anak_pertama'] ?? NULL,
+            'nama_anak_kedua' => \strtoupper($data['nama_anak_kedua'] ?? NULL),
+            'tempat_lahir_anak_kedua' => $data['tempat_lahir_anak_kedua'] ?? NULL,
+            'tanggal_lahir_anak_kedua' => $data['tanggal_lahir_anak_kedua'] ?? NULL,
+            'jenis_kelamin_anak_kedua' => $data['jenis_kelamin_anak_kedua'] ?? NULL,
+            'pekerjaan_anak_kedua' => $data['pekerjaan_anak_kedua'] ?? NULL,
+            'alamat_anak_kedua' => $data['alamat_anak_kedua'] ?? NULL,
+            'motto_anak_kedua' => $data['motto_anak_kedua'] ?? NULL,
+            'nama_anak_ketiga' => \strtoupper($data['nama_anak_ketiga'] ?? NULL),
+            'tempat_lahir_anak_ketiga' => $data['tempat_lahir_anak_ketiga'] ?? NULL,
+            'tanggal_lahir_anak_ketiga' => $data['tanggal_lahir_anak_ketiga'] ?? NULL,
+            'jenis_kelamin_anak_ketiga' => $data['jenis_kelamin_anak_ketiga'] ?? NULL,
+            'pekerjaan_anak_ketiga' => $data['pekerjaan_anak_ketiga'] ?? NULL,
+            'alamat_anak_ketiga' => $data['alamat_anak_ketiga'] ?? NULL,
+            'motto_anak_ketiga' => $data['motto_anak_ketiga'] ?? NULL,
+            'nama_anak_keempat' => \strtoupper($data['nama_anak_keempat'] ?? NULL),
+            'tempat_lahir_anak_keempat' => $data['tempat_lahir_anak_keempat'] ?? NULL,
+            'tanggal_lahir_anak_keempat' => $data['tanggal_lahir_anak_keempat'] ?? NULL,
+            'jenis_kelamin_anak_keempat' => $data['jenis_kelamin_anak_keempat'] ?? NULL,
+            'pekerjaan_anak_keempat' => $data['pekerjaan_anak_keempat'] ?? NULL,
+            'alamat_anak_keempat' => $data['alamat_anak_keempat'] ?? NULL,
+            'motto_anak_keempat' => $data['motto_anak_keempat'] ?? NULL,
+            'nama_anak_kelima' => \strtoupper($data['nama_anak_kelima'] ?? NULL),
+            'tempat_lahir_anak_kelima' => $data['tempat_lahir_anak_kelima'] ?? NULL,
+            'tanggal_lahir_anak_kelima' => $data['tanggal_lahir_anak_kelima'] ?? NULL,
+            'jenis_kelamin_anak_kelima' => $data['jenis_kelamin_anak_kelima'] ?? NULL,
+            'pekerjaan_anak_kelima' => $data['pekerjaan_anak_kelima'] ?? NULL,
+            'alamat_anak_kelima' => $data['alamat_anak_kelima'] ?? NULL,
+            'motto_anak_kelima' => $data['motto_anak_kelima'] ?? NULL,
         ]);
+
         $this->survey_id = $survey->id;
     }
 
@@ -278,6 +405,94 @@ class IsiSurvey extends Component
         // return redirect()->route('download.pdf', ['id' => $this->survey_id]);
         $url = route('download.pdf', ['id' => $this->survey_id]);
         $this->dispatch('openTab', $url);
+    }
+
+    protected function generatePDF()
+    {
+        $this->dispatch('generating');
+        // Ambil data survey beserta relasinya dari database
+        $survey = Survey::with(['tarunaPhotos', 'baktiPhotos', 'berkaryaPhotos'])->find($this->survey_id);
+        $data = [
+            'title' => 'Alumni',
+            'survey' => $survey
+        ];
+
+        // Nama direktori storage/surveys/NAMA-SAYA/ ..
+        $namaDirektori = \strtoupper(Str::slug(Survey::find($this->survey_id)->nama));
+
+        // Nama file saat proses: storage/surveys/NAMA-SAYA/jendral-polisi-nama-saya.pdf
+        $simpleName = Str::slug("$survey->pangkat $survey->nama");
+
+        // Nama file terakhir: storage/surveys/NAMA-SAYA/JENDRAL POLISI - NAMA SAYA.pdf
+        $pdfName = \strtoupper("$survey->pangkat - $survey->nama.pdf");
+        // $pdfName = \strtoupper(Str::slug($survey->pangkat, '_') . '-' . Str::slug($survey->nama, '_')) . '.pdf';
+
+        // Menggabungkan PDF dengan COVER.pdf
+        $coverPath = public_path('assets/pdf/COVER.pdf');
+
+        // Cek direktori temp ada
+        $directoryPath = storage_path('app/public/temp');
+        if (!File::exists($directoryPath)) {
+            File::makeDirectory($directoryPath, 0755, true);
+        }
+
+        $pdfMerge = new PdfMerge();
+        $pdfMerge->add($coverPath);
+
+        // Eksekusi PDF
+        $pdf_profil = pdf_profil($data);
+        $pdfMerge->add($pdf_profil);
+
+        // $pdf_utama = pdf_utama($data);    
+        // $pdfMerge->add($pdf_utama);
+
+        // PDF Narasi Online
+        $pdf_narasi_online = pdf_narasi_online($data);
+        $pdfMerge->add($pdf_narasi_online);
+
+        // PDF Keluarga
+        $pdf_keluarga = pdf_keluarga($data);
+        $pdfMerge->add($pdf_keluarga);
+
+        // PDF Daftar Anak
+        $pdf_daftar_anak = pdf_daftar_anak($data);
+        $pdfMerge->add($pdf_daftar_anak);
+
+        // PDF Bakti Akpol
+        $pdf_bakti_akpol = pdf_bakti_akpol($data);
+        $pdfMerge->add($pdf_bakti_akpol);
+
+        // PDF Bakti Berkarya
+        $pdf_berkarya = pdf_berkarya($data);
+        $pdfMerge->add($pdf_berkarya);
+
+        $mergedPdfOutput = storage_path('app/public/temp/merged_' . $simpleName . '.pdf');
+        $pdfMerge->merge($mergedPdfOutput);
+
+        $compressedPdfOutputSimple = storage_path('app/public/temp/compressed_' . $simpleName . '.pdf');
+        $command = "gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile={$compressedPdfOutputSimple} {$mergedPdfOutput}";
+        shell_exec($command);
+
+        // Cek dan buat direktori tujuan jika belum ada
+        $targetDirectory = storage_path('app/public/surveys/' . $namaDirektori);
+        if (!File::exists($targetDirectory)) {
+            File::makeDirectory($targetDirectory, 0755, true);
+        }
+
+        // Ganti nama file setelah dikompresi
+        $compressedPdfOutput = $targetDirectory . '/' . $pdfName;
+        rename($compressedPdfOutputSimple, $compressedPdfOutput);
+
+        // Buat path relatif untuk disimpan ke database
+        $relativePath = 'storage/surveys/' . $namaDirektori . '/' . $pdfName;
+
+        $survey->update([
+            'file_path' => $relativePath
+        ]);
+
+        $this->dispatch('generated');
+        // Return path relatif
+        return false;
     }
 }
 

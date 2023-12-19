@@ -19,7 +19,7 @@
             <div class="modal-body">
                <div class="row justify-content-between mb-2">
                   <div class="col-3">
-                     <label for="title" class="form-label">Nama<sup class="text-danger">*</sup></label>
+                     <label for="title" class="form-label">Nama</label>
                   </div>
                   <div class="col-9">
                      <input type="text"
@@ -35,7 +35,55 @@
                </div>
                <div class="row justify-content-between mb-2">
                   <div class="col-3">
-                     <label for="title" class="form-label">Email <sup class="text-danger">*</sup></label>
+                     <label for="add_nrp" class="form-label required">NRP</label>
+                  </div>
+                  <div class="col-9">
+                     <input id="add_nrp" type="text"
+                        class="form-control @error('nrp')
+                        is-invalid
+                     @enderror" wire:model="nrp">
+                     @error('nrp')
+                        <div class="small ms-2 mt-1 text-danger">
+                           {{ $message }}
+                        </div>
+                     @enderror
+                  </div>
+               </div>
+               <div class="row justify-content-between mb-2">
+                  <div class="col-3">
+                     <label for="add_dob" class="form-label required">Tanggal Lahir</label>
+                  </div>
+                  <div class="col-9">
+                     <input id="add_dob" type="date"
+                        class="form-control @error('dob')
+                        is-invalid
+                     @enderror" wire:model="dob">
+                     @error('dob')
+                        <div class="small ms-2 mt-1 text-danger">
+                           {{ $message }}
+                        </div>
+                     @enderror
+                  </div>
+               </div>
+               {{-- <div class="row justify-content-between mb-2">
+                  <div class="col-3">
+                     <label for="title" class="form-label">Nama<sup class="text-danger">*</sup></label>
+                  </div>
+                  <div class="col-9">
+                     <input type="text"
+                        class="form-control @error('name')
+                        is-invalid
+                     @enderror" wire:model="name">
+                     @error('name')
+                        <div class="small ms-2 mt-1 text-danger">
+                           {{ $message }}
+                        </div>
+                     @enderror
+                  </div>
+               </div> --}}
+               {{-- <div class="row justify-content-between mb-2"> --}}
+                  {{-- <div class="col-3">
+                     <label for="title" class="form-label">Email</label>
                   </div>
                   <div class="col-9">
                      <input type="email"
@@ -100,7 +148,7 @@
                               @error('password')
                            is-invalid
                         @enderror wire:model.lazy="password" />
-                           <span class="input-group-text cursor-pointer"><i class="mdi mdi-eye-off-outline"></i></span>
+                           <span class="input-group-text cursor-pointer" id="passwordAddBTN"><i class="fa fa-eye"></i></span>
                         </div>
                         @error('password')
                            <div class="small ms-2 mt-1 text-danger">
@@ -110,7 +158,7 @@
                      </div>
                   </div>
                </div>
-               <span class="text-muted mt-1">Jika anda mengosongkan bagian ini, password akan otomatis diset ke <strong>password123</strong></span>
+               <span class="text-muted mt-1">Jika anda mengosongkan bagian ini, password akan otomatis diset ke <strong>password123</strong></span> --}}
                <div class="text-center pt-15">
                   <button type="reset" wire:click='closeModal()' class="btn btn-danger me-3" data-bs-dismiss="modal"><i class="fas fa-xmark me-2"></i>Batalkan</button>
                   <button type="submit" wire:click='store()' class="btn btn-primary"
@@ -151,6 +199,24 @@
             } else {
                // Tambahkan kembali atribut disabled
                usernameInput.attr('disabled', 'disabled');
+            }
+         });
+
+         $('#passwordAddBTN').click(function(e) {
+            e.preventDefault();
+            var passwordInput = $("#passwordAdd");
+            var icon = $("#passwordAddBTN i");
+
+            if (passwordInput.attr('type') === 'password') {
+               console.log('password ke text');
+               passwordInput.attr('type', 'text');
+               icon.removeClass('fa-eye');
+               icon.addClass('fa-eye-slash');
+            } else if (passwordInput.attr('type') === 'text') {
+               console.log('text ke password');
+               passwordInput.attr('type', 'password');
+               icon.removeClass('fa-eye-slash');
+               icon.addClass('fa-eye');
             }
          });
       });

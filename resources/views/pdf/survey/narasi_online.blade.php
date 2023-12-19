@@ -36,7 +36,7 @@
       .header-container .image-container .akpol95 {
          position: absolute;
          top: 0;
-         right: 5%;
+         right: 3%;
          width: 13rem;
       }
 
@@ -74,7 +74,7 @@
 
       main .nama h1 {
          font-family: 'Times New Roman', Times, serif;
-         font-size: 3rem;
+         font-size: 2rem;
       }
 
       main .narasi {
@@ -87,16 +87,22 @@
          color: #3b3b3b;
          font-size: 1rem;
       }
+
+      .imageTaruna {
+         width: 100%;
+         height: 448px;
+         object-fit: contain;
+         /* padding-left: 10px; */
+      }
    </style>
 </head>
 
 <body>
    <header class="header-container">
       <div class="image-container">
-         <img src="{{ asset('assets/images/AKPOL-95.png') }}" alt="" class="akpol95">
-         {{-- <img src="{{ asset($survey->foto_keluarga) }}" alt=""> --}}
-         <img src="{{ asset('assets/images/favicon-polos-segitiga.png') }}" class="logoSegitiga">
-
+         <img src="http://ikatama95.test/assets/images/AKPOL-95-TR.png" alt="" class="akpol95">
+         <img src="http://ikatama95.test/assets/images/favicon-polos-segitiga.png" class="logoSegitiga">
+         <img src="http://ikatama95.test/{{ $survey->foto_taruna }}" alt="" class="imageTaruna">
       </div>
    </header>
    <main style="margin-top: 220px">

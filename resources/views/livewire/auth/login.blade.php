@@ -6,10 +6,9 @@
         <h1 class="text-dark fw-bolder mb-3">Masuk ke Aplikasi</h1>
         <!--end::Title-->
         <!--begin::Subtitle-->
-        <div class="text-gray-500 fw-semibold fs-6">Masuk ke aplikasi Alumni AKPOL Angkatan 95 Patriatama atau <b>IKATAMA</b></div>
+        <div class="text-gray-500 fw-semibold fs-6">Masuk ke aplikasi Alumni AKPOL Angkatan 95 Patriatama atau <b>IKATAMA 95</b></div>
         <!--end::Subtitle=-->
      </div>
-     <!--begin::Heading-->
      <!--begin::Input group=-->
      <div class="fv-row mb-8">
         <!--begin::Email-->
@@ -19,7 +18,7 @@
            <span class="input-group-text" id="basic-addon1">
               <i class="fas fa-inbox fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
            </span>
-           <input type="text" class="form-control" placeholder="Email atau Username anda" wire:model='login' aria-label="Email anda" aria-describedby="basic-addon1" />
+           <input type="text" class="form-control" placeholder="Username atau NRP anda" wire:model='login' aria-label="Email anda" aria-describedby="basic-addon1" />
         </div>
      </div>
      <!--end::Input group=-->
@@ -29,9 +28,9 @@
         <!--end::Password-->
         <div class="input-group">
            <span class="input-group-text" id="basic-addon2">
-              <i class="fas fa-lock fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+              <i class="fas fa-calendar fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
            </span>
-           <input type="password" class="form-control" wire:model='password' placeholder="***********" aria-label="Password" aria-describedby="basic-addon2" />
+           <input type="text" class="form-control" wire:model='password' placeholder="Tanggal lahir anda - YYYY-MM-DD: 1973-07-01" aria-label="Password" aria-describedby="basic-addon2" />
         </div>
      </div>
      <!--end::Input group=-->
@@ -45,13 +44,13 @@
      <!--end::Wrapper-->
      <!--begin::Submit button-->
      <div class="d-grid mb-10">
-        <button type="submit" id="sign_in_btn" class="btn btn-primary">
+        <button type="submit" id="sign_in_btn" class="btn btn-primary d-flex justify-content-center align-items-center">
            <!--begin::Indicator label-->
            <div wire:loading wire:target='authenticate'>
               <span class="spinner-border" role="status" aria-hidden="true"></span>
               <span class="visually-hidden">Loading...</span>
            </div>
-           <i class="fas fa-sign-in-alt fs-4 me-2"></i>
+           <i class="fas fa-sign-in-alt me-2"></i>
            <!--begin::Indicator label-->
            <span class="indicator-label">Masuk</span>
            <!--end::Indicator label-->
@@ -60,12 +59,20 @@
               <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
            <!--end::Indicator progress-->
         </button>
+        <a href="{{ route('survey.isi') }}" id="survey_btn" class="btn btn-success mt-2 d-flex justify-content-center align-items-center">
+           <i class="fas fa-file-pen me-2"></i>
+           <!--begin::Indicator label-->
+           <span class="indicator-label">Isi Survey Disini</span>
+           <!--end::Indicator label-->
+        </a>
      </div>
      <!--end::Submit button-->
      <!--begin::Sign up-->
-     <div class="text-gray-500 text-center fw-semibold fs-6">Bingung untuk login? Unduh panduan loginnya
-        <a href="https://sipaba.uin-malang.ac.id/assets/other/2022-panduan-mahasantri.pdf" target="_blank" class="link-primary">disini</a>
+     <div class="text-gray-500 text-center fw-semibold fs-6">Tidak tau cara untuk masuk? Unduh panduan masuknya
+        <a href="{{ asset('panduan/Panduan Masuk ke aplikasi IKATAMA 95.pdf') }}" target="_blank" class="link-primary">disini</a>
      </div>
      <!--end::Sign up-->
   </form>
   <!--end::Form-->
+
+  

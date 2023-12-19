@@ -125,9 +125,10 @@
    }
 
    .wrapper .main_content .info {
-      margin: 20px 200px 20px 200px;
+      margin: 20px 200px 20px 150px;
       color: #717171;
       line-height: 25px;
+      z-index: 9;
    }
 
    .wrapper .main_content .info div {
@@ -148,7 +149,7 @@
    }
 
    .wrapper .main_content .box-motto {
-      margin: 20px 200px 20px 200px;
+      margin: 20px 200px 20px 150px;
       padding: 20px;
       color: #717171;
       line-height: 25px;
@@ -193,6 +194,7 @@
   width: 248px;
   max-width: 250px;
   border-radius: 25px;
+  object-fit: cover
             "
                alt="">
             <div class="card-body">
@@ -253,19 +255,19 @@
                         <td><span style="margin-left: 10px">{{ $survey->status_pernikahan }}</span></td>
                      </tr>
                      <tr class="">
-                        <td scope="row" class="text-contras">No. Telepon</td>
+                        <td scope="row" class="">No. Telepon</td>
                         <td class="text-end">:</td>
-                        <td><span style="margin-left: 10px" class="text-contras">{{ $survey->no_telepon }}</span></td>
+                        <td><span style="margin-left: 10px" class="">{{ $survey->no_telepon }}</span></td>
                      </tr>
                      <tr class="">
-                        <td scope="row" class="text-contras">Email</td>
+                        <td scope="row" class="">Email</td>
                         <td class="text-end">:</td>
-                        <td><span style="margin-left: 10px" class="text-contras">{{ $survey->email }}</span></td>
+                        <td><span style="margin-left: 10px" class="">{{ $survey->email }}</span></td>
                      </tr>
                      <tr class="">
-                        <td scope="row" class="text-contras">Alamat</td>
+                        <td scope="row" class="">Alamat</td>
                         <td class="text-end">:</td>
-                        <td><span style="margin-left: 10px" class="text-contras">{{ $survey->alamat }}</span></td>
+                        <td><span style="margin-left: 10px" class="">{{ $survey->alamat }}</span></td>
                      </tr>
                   </tbody>
                </table>

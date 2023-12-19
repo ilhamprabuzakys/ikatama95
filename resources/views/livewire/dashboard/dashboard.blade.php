@@ -10,7 +10,7 @@
         <!--end::Svg Icon-->
         <!--begin::Title-->
         <div class="flex-grow-1 me-2 text-center">
-           <a href="{{ route('pengaturan.user') }}" class="fw-bold text-gray-800 text-hover-primary fs-6">Total User</a>
+           <a wire:navigate href="{{ route('pengaturan.user') }}" class="fw-bold text-gray-800 text-hover-primary fs-6">Total User</a>
         </div>
         <!--end::Title-->
         <!--begin::Lable-->
@@ -31,7 +31,7 @@
          <!--end::Svg Icon-->
          <!--begin::Title-->
          <div class="flex-grow-1 me-2 text-center">
-            <a href="{{ route('formulir.index') }}" class="fw-bold text-gray-800 text-hover-primary fs-6">Total Pengisian Formulir Alumni</a>
+            <a wire:navigate href="{{ route('formulir.index') }}" class="fw-bold text-gray-800 text-hover-primary fs-6">Total Pengisian Formulir Alumni</a>
          </div>
          <!--end::Title-->
          <!--begin::Lable-->
@@ -52,7 +52,7 @@
          <!--end::Svg Icon-->
          <!--begin::Title-->
          <div class="flex-grow-1 me-2 text-center">
-            <a href="{{ route('survey.isi') }}" class="fw-bold text-gray-800 text-hover-primary fs-6 d-block">Klik disini Untuk Mengisi Survey</a>
+            <a wire:navigate href="{{ route('survey.isi') }}" class="fw-bold text-gray-800 text-hover-primary fs-6 d-block">Klik disini Untuk Mengisi Survey</a>
             <span class="text-gray-600 py-3">Anda masih belum mengisi survey IKATAMA 95 yang terbaru.</span>
          </div>
          <!--end::Title-->
@@ -73,7 +73,7 @@
             <!--end::Svg Icon-->
             <!--begin::Title-->
             <div class="flex-grow-1 me-2 text-center">
-               <a href="https://siparelnew.id/news-report?pencarian=Sudah%20Terbit" class="fw-bold text-gray-800 text-hover-primary fs-6">Total Laporan Sudah Terbit</a>
+               <a wire:navigate href="https://siparelnew.id/news-report?pencarian=Sudah%20Terbit" class="fw-bold text-gray-800 text-hover-primary fs-6">Total Laporan Sudah Terbit</a>
             </div>
             <!--end::Title-->
             <!--begin::Lable-->
@@ -91,7 +91,7 @@
          <!--end::Svg Icon-->
          <!--begin::Title-->
          <div class="flex-grow-1 me-2 text-center">
-            <a href="https://siparelnew.id/news-report?pencarian=Belum%20Terpublikasi" class="fw-bold text-gray-800 text-hover-primary fs-6">Laporan Belum Terpublikasi</a>
+            <a wire:navigate href="https://siparelnew.id/news-report?pencarian=Belum%20Terpublikasi" class="fw-bold text-gray-800 text-hover-primary fs-6">Laporan Belum Terpublikasi</a>
          </div>
          <!--end::Title-->
          <!--begin::Lable-->

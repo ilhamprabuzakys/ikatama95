@@ -11,9 +11,10 @@
             </th>
             <th class="min-w-125px">No</th>
             <th class="min-w-125px">Nama</th>
-            <th class="min-w-125px">Nama Pengguna</th>
             <th class="min-w-125px">Peranan</th>
-            <th class="min-w-125px">Status</th>
+            <th class="min-w-125px">NRP</th>
+            <th class="min-w-125px">Tanggal Lahir</th>
+            {{-- <th class="min-w-125px">Status</th> --}}
             <th class="min-w-125px">Bergabung Pada</th>
             <th class="text-center min-w-100px">Aksi</th>
          </tr>
@@ -29,27 +30,30 @@
                   </td>
                   <td scope="row">{{ $loop->iteration + $paginate * ($users->currentPage() - 1) }}</td>
                   <td>{{ $user->name }}</td>
-                  <td>{{ $user->username }}</td>
                   <td>
                      <span class="badge badge-{{ getUserRoleBG($user->role) }}">{{ getUserRoleDetail($user->role) }}</span>
                   </td>
-                  <td>
-                     <span class="badge badge-light-{{ getUserStatusBG($user->is_active) }}">{{ getUserStatus($user->is_active) }}</span>
+                  <td>{{ $user->nrp ?? 'Kosong' }}</td>
+                  <td>{{ $user->dob ?? 'Kosong' }}</td>
+                  {{-- <td>
+                     <span class="badge badge-light-{{ getUserStatusBG($user->is_active) }}">{{ getUserStatus($user->is_active) }}</span> --}}
                   </td>
                   <td>{{ $user->created_at->diffForHumans() }}</td>
-                  <td class="  text-center">
-                     <a href="javascript:void(0);" class="btn btn-sm btn-success btn-clean btn-icon btn-md"
-                        data-bs-toggle="modal"
-                        data-bs-target="#editUserModal" wire:click="editUser({{ $user->id }})">
-                        <i class="fas fa-edit"></i>
-                     </a>
-                    {{--  <a href="details/{{ $user->id }}" class="btn btn-sm btn-primary btn-clean btn-icon btn-icon-md">
-                        <i class="fa-solid fa-circle-info"></i>
-                     </a> --}}
-                     @if ($user->id != auth()->id())
-                        <a href="javascript:void(0);" wire:click="deleteConfirmation({{ $user->id }})" class="btn btn-sm btn-danger btn-clean btn-icon btn-icon-md">
-                           <i class="fas fa-trash-alt"></i>
+                  <td class="text-center">
+                     @if ($user->role != 'admin')
+                        <a href="javascript:void(0);" class="btn btn-sm btn-success btn-clean btn-icon btn-md"
+                           data-bs-toggle="modal"
+                           data-bs-target="#editUserModal" wire:click="editUser({{ $user->id }})">
+                           <i class="fas fa-edit"></i>
                         </a>
+                        {{--  <a href="details/{{ $user->id }}" class="btn btn-sm btn-primary btn-clean btn-icon btn-icon-md">
+                           <i class="fa-solid fa-circle-info"></i>
+                        </a> --}}
+                        @if ($user->id != auth()->id())
+                           <a href="javascript:void(0);" wire:click="deleteConfirmation({{ $user->id }})" class="btn btn-sm btn-danger btn-clean btn-icon btn-icon-md">
+                              <i class="fas fa-trash-alt"></i>
+                           </a>
+                        @endif
                      @endif
                   </td>
                </tr>

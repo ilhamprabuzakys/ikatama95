@@ -5,7 +5,7 @@
       <div class="d-flex align-items-center">
          <img src="{{ asset(auth()->user()->avatar) }}" alt="user" style="width: -webkit-fill-available;" class="rounded-circle avatar w-40px" />
          <div class="ms-4">
-            <span class="fw-bold d-block mb-0">{{ auth()->user()->name }}</span>
+            <span class="fw-bold d-block mb-0">{{ Str::limit(auth()->user()->name, 20) }}</span>
             <small class="text-muted">{{ getUserRoleDetail() }}</small>
          </div>
          <div class="ms-5">

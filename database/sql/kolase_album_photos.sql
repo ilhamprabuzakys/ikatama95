@@ -1,0 +1,1 @@
+INSERT INTO "public"."kolase_album_photos" ("id","survey_id","path","created_at","updated_at") VALUES (6,35,'storage/surveys/ALUMNI-HEBAT/foto-kolase-album/ALUMNI-HEBAT_2023-10-20_07-15-59_9182.jpg','2023-10-20 07:15:59','2023-10-20 07:15:59');
