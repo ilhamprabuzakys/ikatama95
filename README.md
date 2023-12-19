@@ -21,4 +21,4 @@ Project ini dibangun dan dibuat oleh PT. Inti Optima Teknologi, dengan beberapa 
 
 ## Lisensi
 
-Hak Cipta berada pada instansi ITAMA 95 dan PT. Inti Optima Teknologi[MIT license](https://iotekno.net).
+Hak Cipta berada pada instansi IKATAMA 95 dan PT. Inti Optima Teknologi [MIT license](https://iotekno.net).
